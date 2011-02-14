@@ -1,0 +1,159 @@
+h2. Customization Overview
+
+This guide explains the customization and extension techniques you can use to adapt a generic Spree store to meet your specific design and functional requirements, including:
+
+* The type of customizations supported 
+* Changing views using both hooks and template replacements
+* Adding and changing business logic
+
+For more detailed information and a step-by-step tutorial on creating extensions for Spree be sure to checkout the "Extensions":extensions.html guide.
+
+endprologue.
+h3. Types of Customizations
+
+Spree supports two methods for managing and organizing your customizations, while they both support exactly the same options for customization they differ in terms of re-usability. So before you get started you need to decide what sort of customizations you are going to make:
+
+h4. Site Specific 
+
+Site specfic customizations are the most common type of customization applied to Spree, it's used by developers and designers to provide a unique design for each individual store. Site specific customizations can also be used to tweak Spree's behaviour in small ways to match a particular business's operating procedures, or provide a unique feature.
+
+
+All site specific customizations are stored within the host application where Spree is installed (please see the Installation section of the "Getting Started with Spree":getting_started.html guide, for how to setup the host application).
+
+h4. Re-usable Extensions
+
+Extensions enable developers to enhance or add functionality to Spree, and are generally discrete pieces of functionality that are shared and intended to be installed in multiple Spree implementations. 
+
+Extensions are generally distributed as ruby gems and implemented as standard Rails 3 engines so they provide a natural way to bundle all the changes needed to implement larger features.
+
+Visit the "Extension Registry":http://spreecommerce.com/extensions to get an idea of the type and volume of extensions available.
+
+h4. Customization Options
+
+Once you've decided how you're going to manage your customizations, you then need to choose the correct option to achieve the desired changes:
+
+* **View Customizations** allow you to change and/or extend the look and feel of a Spree store (and it's administration system).
+* **Logic Customizations** enable you to change and/or extend the business logic of Spree to meet your specific business requirements.
+
+
+h3. View Customization
+
+View customization allows you to extend or replace any view (erb) within a store, Spree supports two different view customization options:
+
+h4. Hooks
+
+Hooks are a way of inserting your own content into pre-defined parts of Spree’s default templates, hooks are flexible to allow multiple extensions as well as the site specific changes to be applied cumulatively. Hooks provide a simple way to change an existing view without completley replacing it.
+
+h5. Available hooks
+
+Hooks are pre-defined in most templates within Spree and are available to let you add content after product lists, within sidebars and other useful places. There is a full list of "available hooks":hooks.html.
+
+h5. Where to define hooks
+
+Hook definitions can be located anywhere, but most sites and extensions use the following convention:
+
+INFO. **Site Specific** hooks are defined in lib/site_hooks.rb, and you need to require this file in lib/spree_site.rb.
+
+INFO. **Extensions** hooks are defined in lib/extension_name_hooks.rb, and are required within the lib/extension_name.rb (engine file).
+
+h5. Using hooks
+
+Most hooks are defined with blocks so they span a region of the template, allowing content to be replaced or removed as well as added to.
+
+Within the ***_hooks.rb file you can specify which content should be inserted into which hooks using the following 4 methods:
+
+* insert_before
+* insert_after
+* replace
+* remove
+
+h5. Inserting and replacing content
+
+Supply a hook name followed by any arguments you’d use with the standard Rails _render_ method.
+<ruby>
+insert_before :homepage_products, :text => "<h1>Welcome!</h1>"
+
+insert_after :homepage_products, 'shared/offers' 
+   
+replace :taxon_sidebar_navigation, 'shared/my_sidebar'
+</ruby>
+
+h5. Using a block
+
+The block should return an erb string to be evaluated. It has access to any methods or instance variables available in the view. Certain local variables are also available.
+<ruby>
+  # adding a link below product details:
+  insert_after :product_description do
+    '<p><%= link_to("Back to products", products_path) %></p>'
+  end
+
+  # adding a new tab to the admin navigation
+  insert_after :admin_tabs do
+    "<%= tab(:taxonomies) %>"
+  end
+</ruby>
+
+h5. Removing a hook’s content
+<ruby>
+  remove :homepage_products
+</ruby>
+
+
+h5. Sample hook definition file:
+<ruby>
+  class SiteHooks < Spree::ThemeSupport::HookListener
+    replace :taxon_sidebar_navigation, 'shared/my_sidebar'
+
+    insert_after :admin_tabs do
+      "<%= tab(:taxonomies) %>"
+    end
+  end
+</ruby>
+
+
+
+
+h4. Template Replacements
+
+To override any of Spree’s default views, including those for the admin interface, simply create a file with the same filename in your app/views directory.
+
+For example, to override the main layout, create the file YOUR_SITE_OR_EXTENSION/app/views/layouts/spree_application.html.erb
+
+
+
+h3. Logic Customization
+
+All of Spree's business logic (models, controllers, etc) can easily be extended / overridden to meet your exact requirements using standard Ruby idioms.
+
+Standard practice for including such changes in your site or extension is to create a file within the relevant *app/models* or *app/controllers* directory with the original class name with **_decorator** appended, for example:
+
+**Adding a custom method to the Product model:** app/models/product_decorator.rb
+
+<ruby>
+  Product.class_eval do
+    def some_method
+      ...
+    end
+  end
+</ruby>
+
+
+**Adding a custom action to the ProductsController:** app/controllers/products_controller_decorator.rb
+
+<ruby>
+  ProductsController.class_eval do
+    def some_action
+      ...
+    end
+  end
+</ruby>
+
+NOTE. The exact same format can be used to redefine and existing method.
+
+To activate your decorators you need to include the follow code in your *lib/spree_site.rb* or *lib/extension_name.rb* file.
+
+<ruby>
+  Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
+    Rails.configuration.cache_classes ? require(c) : load(c)
+  end
+</ruby>
