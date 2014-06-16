@@ -12,8 +12,12 @@ require 'paperclip'
 require 'paranoia'
 require 'premailer/rails'
 require 'ransack'
+<<<<<<< HEAD
 require 'responders'
 require 'state_machines-activerecord'
+=======
+require 'state_machine'
+>>>>>>> Fix email specs.
 
 module Spree
 
