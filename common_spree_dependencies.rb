@@ -3,47 +3,43 @@
 # the one component of Spree.
 source 'https://rubygems.org'
 
-gem 'coffee-rails', '~> 4.0.0'
-gem 'sass-rails', '~> 5.0.0'
-gem 'sqlite3', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+platforms :ruby do
+  gem 'mysql2'
+  gem 'pg'
+  gem 'sqlite3'
+end
 
 platforms :jruby do
   gem 'jruby-openssl'
   gem 'activerecord-jdbcsqlite3-adapter'
 end
 
-platforms :ruby do
-  gem 'mysql2'
-  gem 'pg'
-end
+gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 5.0.0.beta1'
 
 group :test do
-<<<<<<< HEAD
   gem 'capybara', '~> 2.4'
   gem 'database_cleaner', '~> 1.3'
   gem 'email_spec'
-  gem 'factory_girl_rails', '~> 4.5.0'
-=======
-  gem 'capybara', '~> 2.1'
-  gem 'database_cleaner', '~> 1.0.1'
-  gem 'email_spec'
-  gem 'factory_girl_rails', '~> 4.4'
->>>>>>> Fix email specs.
+  gem 'factory_girl_rails', '~> 4.5'
   gem 'launchy'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec-rails', '~> 3.3'
+  gem 'rspec-rails', '~> 3.1.0'
+  gem 'rspec-retry'
   gem 'simplecov'
   gem 'webmock', '1.8.11'
-  gem 'poltergeist', '1.6.0'
+  gem 'poltergeist', '1.5.0'
   gem 'timecop'
   gem 'with_model'
-  gem 'mutant-rspec', '~> 0.8.0'
 end
 
 group :test, :development do
-  gem 'rubocop', require: false
-  gem 'pry-byebug'
+  platforms :ruby_19 do
+    gem 'pry-debugger'
+  end
+  platforms :ruby_20, :ruby_21 do
+    gem 'pry-byebug'
+  end
 end
