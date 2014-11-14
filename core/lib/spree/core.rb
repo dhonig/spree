@@ -12,12 +12,7 @@ require 'paperclip'
 require 'paranoia'
 require 'premailer/rails'
 require 'ransack'
-<<<<<<< HEAD
-require 'responders'
-require 'state_machines-activerecord'
-=======
 require 'state_machine'
->>>>>>> Fix email specs.
 
 module Spree
 
@@ -58,7 +53,6 @@ require 'spree/core/version'
 require 'spree/core/environment_extension'
 require 'spree/core/environment/calculators'
 require 'spree/core/environment'
-require 'spree/core/number_generator'
 require 'spree/promo/environment'
 require 'spree/migrations'
 require 'spree/core/engine'
@@ -70,11 +64,22 @@ require 'spree/permitted_attributes'
 
 require 'spree/core/delegate_belongs_to'
 require 'spree/core/importer'
+require 'spree/core/permalinks'
 require 'spree/core/product_duplicator'
 require 'spree/core/controller_helpers/auth'
 require 'spree/core/controller_helpers/common'
 require 'spree/core/controller_helpers/order'
 require 'spree/core/controller_helpers/respond_with'
 require 'spree/core/controller_helpers/search'
+require 'spree/core/controller_helpers/ssl'
 require 'spree/core/controller_helpers/store'
 require 'spree/core/controller_helpers/strong_parameters'
+
+# Hack waiting on https://github.com/pluginaweek/state_machine/pull/275
+module StateMachine
+  module Integrations
+    module ActiveModel
+      public :around_validation
+    end
+  end
+end
