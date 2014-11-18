@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @product } %>
 
 <% content_for :page_title do %>
@@ -15,3 +16,22 @@
     </div>
   </fieldset>
 <% end %>
+=======
+<%= form_for [:admin, @product, @image], :html => { :multipart => true } do |f| %>
+  <div class="well">
+    <fieldset data-hook="new_image">
+      <legend><%= Spree.t(:new_image) %></legend>
+
+        <%= render :partial => 'form', :locals => { :f => f } %>
+
+        <div class="form-buttons" data-hook="buttons">
+          <%= button Spree.t('actions.update'), 'refresh' %>
+          <span class="or"><%= Spree.t(:or) %></span>
+          <%= button_link_to Spree.t('actions.cancel'), admin_product_images_url(@product), :icon => 'remove', :id => 'cancel_link' %>
+        </div>
+    </fieldset>
+  </div>
+<% end %>
+
+<%= javascript_include_tag 'spree/backend/images/new.js' %>
+>>>>>>> Backend on Bootstrap

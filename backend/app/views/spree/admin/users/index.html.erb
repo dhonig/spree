@@ -3,7 +3,13 @@
 <% end %>
 
 <% content_for :page_actions do %>
+<<<<<<< HEAD
   <%= button_link_to Spree.t(:new_user), new_admin_user_url, :class => "btn-success", :icon => 'add', :id => 'admin_new_user_link' %>
+=======
+  <li>
+    <%= button_link_to Spree.t(:new_user), new_admin_user_url, :class => "btn-success", :icon => 'plus-sign', :id => 'admin_new_user_link' %>
+  </li>
+>>>>>>> Backend on Bootstrap
 <% end %>
 
 <% content_for :table_filter_title do %>
@@ -12,6 +18,7 @@
 
 <% content_for :table_filter do %>
   <div data-hook="admin_users_index_search">
+<<<<<<< HEAD
     <%= search_form_for [:admin, @search], url: spree.admin_users_url do |f| %>
       <div class="form-group">
         <%= f.label Spree.t(:email) %>
@@ -36,13 +43,25 @@
         <%= f.text_field :bill_address_company_cont, :class => 'form-control' %>
       </div>
       <div data-hook="admin_users_index_search_buttons" class="form-actions">
+=======
+    <%= search_form_for [:admin, @search], url: admin_users_url do |f| %>
+      <div class="form-group">
+        <%= f.label Spree.t(:email) %>
+        <%= f.text_field :email_cont, class: "form-control" %>
+      </div>
+      <div data-hook="admin_users_index_search_buttons">
+>>>>>>> Backend on Bootstrap
         <%= button Spree.t(:search), 'search' %>
       </div>
     <% end %>
   </div>
 <% end %>
 
+<<<<<<< HEAD
 <table class="table" id="listing_users" data-hook>
+=======
+<table class="table table-hover table-condensed table-bordered" id="listing_users" data-hook>
+>>>>>>> Backend on Bootstrap
   <thead>
     <tr data-hook="admin_users_index_headers">
       <th>
@@ -55,7 +74,11 @@
     <% @users.each do |user|%>
       <tr id="<%= spree_dom_id user %>" data-hook="admin_users_index_rows">
         <td class='user_email'><%=link_to user.email, edit_admin_user_url(user) %></td>
+<<<<<<< HEAD
         <td data-hook="admin_users_index_row_actions" class="actions actions-2 text-right">
+=======
+        <td data-hook="admin_users_index_row_actions" class="actions actions-2">
+>>>>>>> Backend on Bootstrap
           <%= link_to_edit user, :no_text => true %>
           <%= link_to_delete user, :no_text => true %>
         </td>

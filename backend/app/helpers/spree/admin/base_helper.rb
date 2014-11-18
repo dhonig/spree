@@ -1,6 +1,7 @@
 module Spree
   module Admin
     module BaseHelper
+<<<<<<< HEAD
       def flash_alert flash
         if flash.present?
           message = flash[:error] || flash[:notice] || flash[:success]
@@ -10,6 +11,12 @@ module Spree
           flash_div = content_tag(:div, message, class: "alert alert-#{flash_class} alert-auto-dissapear")
           content_tag(:div, flash_div, class: 'col-md-12')          
         end
+=======
+      def main_div_class
+        return "col-md-9" if content_for?(:sidebar) or content_for?(:table_filter)
+        return "col-md-6" if content_for?(:sidebar) and content_for?(:table_filter)
+        "col-md-12"
+>>>>>>> Backend on Bootstrap
       end
 
       def field_container(model, method, options = {}, &block)
@@ -79,6 +86,7 @@ module Spree
       def preference_field_options(options)
         field_options = case options[:type]
         when :integer
+<<<<<<< HEAD
           {
             size: 10,
             class: 'input_integer form-control'
@@ -106,6 +114,25 @@ module Spree
             size: 10,
             class: 'input_string form-control'
           }
+=======
+          { :size => 10,
+            :class => 'input_integer form-control' }
+        when :boolean
+          {}
+        when :string
+          { :size => 10,
+            :class => 'input_string form-control' }
+        when :password
+          { :size => 10,
+            :class => 'password_string form-control' }
+        when :text
+          { :rows => 15,
+            :cols => 85,
+            :class => 'form-control' }
+        else
+          { :size => 10,
+            :class => 'input_string form-control' }
+>>>>>>> Backend on Bootstrap
         end
 
         field_options.merge!({

@@ -1,6 +1,7 @@
 <%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :adjustments } %>
 
 <% content_for :page_title do %>
+<<<<<<< HEAD
   / <%= Spree.t(:edit) %> <%= Spree.t(:adjustment) %>
 <% end %>
 
@@ -14,6 +15,24 @@
       <%= button Spree.t(:continue), 'save' %>
       <span class="or"><%= Spree.t(:or) %></span>
       <%= button_link_to Spree.t('actions.cancel'), spree.admin_order_adjustments_url(@order), icon: 'delete' %>
+=======
+  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:edit) %> <%= Spree.t(:adjustment) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:back_to_adjustments_list), spree.admin_order_adjustments_url(@order), :icon => 'arrow-left' %>
+<% end %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @adjustment } %>
+<%= form_for @adjustment, :url => admin_order_adjustment_path(@order, @adjustment), :method => :put do |f| %>
+  <fieldset>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <div class="form-buttons" data-hook="buttons">
+      <%= button Spree.t(:continue), 'arrow-right' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), admin_order_adjustments_url(@order), :icon => 'remove' %>
+>>>>>>> Backend on Bootstrap
     </div>
   </fieldset>
 <% end %>

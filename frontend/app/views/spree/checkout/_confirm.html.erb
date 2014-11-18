@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="panel panel-default" id="order_details" data-hook>
   <div class="panel-heading">
     <h3 class="panel-title"><%= Spree.t(:confirm) %></h3>
@@ -6,6 +7,15 @@
     <%= render :partial => 'spree/shared/order_details', :locals => { :order => @order } %>
   </div>
 </div>
+=======
+<fieldset id="order_details" data-hook>
+  
+  <legend align="center"><%= Spree.t(:confirm) %></legend>
+  <%= render :partial => 'spree/shared/order_details', :locals => { :order => @order } %>
+</fieldset>
+
+<br />
+>>>>>>> Backend on Bootstrap
 
 <div class="well text-right form-buttons" data-hook="buttons">
   <%= submit_tag Spree.t(:place_order), :class => 'btn btn-lg btn-success' %>

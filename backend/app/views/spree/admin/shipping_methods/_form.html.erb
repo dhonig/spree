@@ -11,7 +11,11 @@
     <div data-hook="admin_shipping_method_form_display_field" class="col-md-6">
       <%= f.field_container :display_on, :class => ['form-group'] do %>
         <%= f.label :display_on, Spree.t(:display) %>
+<<<<<<< HEAD
         <%= select(:shipping_method, :display_on, Spree::ShippingMethod::DISPLAY.collect { |display| [Spree.t(display), display == :both ? nil : display.to_s] }, {}, { :class => 'select2' }) %>
+=======
+        <%= select(:shipping_method, :display_on, Spree::ShippingMethod::DISPLAY.collect { |display| [Spree.t(display), display == :both ? nil : display.to_s] }, {}, {:class => 'select2'}) %>
+>>>>>>> Backend on Bootstrap
         <%= error_message_on :shipping_method, :display_on %>
       <% end %>
     </div>
@@ -21,7 +25,11 @@
     <div data-hook="admin_shipping_method_form_internal_name_field" class="col-md-4">
       <%= f.field_container :admin_name, :class => ['form-group'] do %>
         <%= f.label :admin_name, Spree.t(:internal_name) %>
+<<<<<<< HEAD
         <%= f.text_field :admin_name, :class => 'form-control', :label => false %>
+=======
+        <%= f.text_field :admin_name, :class => 'form-control', :label => false  %>
+>>>>>>> Backend on Bootstrap
         <%= error_message_on :shipping_method, :admin_name %>
       <% end %>
     </div>
@@ -29,7 +37,11 @@
     <div data-hook="admin_shipping_method_form_code" class="col-md-4">
       <%= f.field_container :code, :class => ['form-group'] do %>
         <%= f.label :code, Spree.t(:code) %>
+<<<<<<< HEAD
         <%= f.text_field :code, :class => 'form-control', :label => false %>
+=======
+        <%= f.text_field :code, :class => 'form-control', :label => false  %>
+>>>>>>> Backend on Bootstrap
         <%= error_message_on :shipping_method, :code %>
       <% end %>
     </div>
@@ -46,6 +58,7 @@
 
 <div class="row">
   <div data-hook="admin_shipping_method_form_availability_fields" class="col-md-6">
+<<<<<<< HEAD
     <div class="panel panel-default categories">
       <div class="panel-heading">
         <h1 class="panel-title">
@@ -62,6 +75,15 @@
                 <%= category.name %>
               <% end %>
             </div>
+=======
+    <fieldset class="categories no-border-bottom">
+      <legend><%= Spree.t(:shipping_categories) %></legend>
+          <%= f.field_container :categories, :class => ['form-group'] do %>
+        <% Spree::ShippingCategory.all.each do |category| %>
+          <%= label_tag do %>
+            <%= check_box_tag('shipping_method[shipping_categories][]', category.id, @shipping_method.shipping_categories.include?(category)) %>
+            <%= category.name %>
+>>>>>>> Backend on Bootstrap
           <% end %>
           <%= error_message_on :shipping_method, :shipping_category_id %>
         <% end %>
@@ -70,6 +92,7 @@
   </div>
 
   <div class="col-md-6">
+<<<<<<< HEAD
     <div class="panel panel-default">
       <div class="panel-heading">
         <h1 class="panel-title">
@@ -89,6 +112,17 @@
             </div>
           <% end %>
           <%= error_message_on :shipping_method, :zone_id %>
+=======
+    <fieldset>
+      <legend><%= Spree.t(:zones) %></legend>
+      <%= f.field_container :zones, :class => ['form-group'] do %>
+        <% shipping_method_zones = @shipping_method.zones.to_a %>
+        <% Spree::Zone.all.each do |zone| %>
+          <%= label_tag do %>
+            <%= check_box_tag('shipping_method[zones][]', zone.id, shipping_method_zones.include?(zone)) %>
+            <%= zone.name %>
+          <% end %>
+>>>>>>> Backend on Bootstrap
         <% end %>
       </div>
     </div>
@@ -99,6 +133,7 @@
   <div data-hook="admin_shipping_method_form_calculator_fields" class="col-md-6">
     <%= render :partial => 'spree/admin/shared/calculator_fields', :locals => { :f => f } %>
   </div>
+<<<<<<< HEAD
 
   <div class="col-md-6">
     <div class="panel panel-default tax_categories">
@@ -111,6 +146,14 @@
       <div class="panel-body">
         <%= f.field_container :categories, :class => ['form-group'] do %>
           <%= f.select :tax_category_id, @tax_categories.map { |tc| [tc.name, tc.id] }, { include_blank: true }, class: "select2" %>
+=======
+
+  <div class="col-md-6">
+    <fieldset class="tax_categories no-border-bottom">
+      <legend><%= Spree.t(:tax_category) %></legend>
+        <%= f.field_container :categories, :class => ['form-group'] do %>
+          <%= f.select :tax_category_id, @tax_categories.map { |tc| [tc.name, tc.id] }, {include_blank: true}, class: "select2" %>
+>>>>>>> Backend on Bootstrap
           <%= error_message_on :shipping_method, :tax_category_id %>
         <% end %>
       </div>

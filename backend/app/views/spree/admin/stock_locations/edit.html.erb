@@ -1,10 +1,18 @@
 <% content_for :page_title do %>
+<<<<<<< HEAD
   <%= Spree.t(:editing_resource, resource: Spree::StockLocation.model_name.human) %> /
+=======
+  <%= Spree.t(:editing_stock_location) %> <span class="glyphicon glyphicon-arrow-right"></span>
+>>>>>>> Backend on Bootstrap
   <%= @stock_location.name %>
 <% end %>
 
 <% content_for :page_actions do %>
+<<<<<<< HEAD
   <%= link_to_with_icon 'arrow-left', Spree.t(:back_to_resource_list, resource: Spree::StockLocation.model_name.human), admin_stock_locations_path, class: 'btn btn-default' %>
+=======
+  <li><%= link_to_with_icon 'arrow-left', Spree.t(:back_to_stock_locations_list), admin_stock_locations_path, :class => 'btn btn-default' %></li>
+>>>>>>> Backend on Bootstrap
 <% end %>
 
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @stock_location } %>

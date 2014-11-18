@@ -1,4 +1,5 @@
 <div id="state_members" data-hook="member">
+<<<<<<< HEAD
   <div class="panel panel-default">
     <div class="panel-heading">
       <h1 class="panel-title">
@@ -13,4 +14,14 @@
       <% end %>
     </div>
   </div>
+=======
+  <fieldset>
+    <legend><%= Spree.t(:states) %></legend>
+
+    <%= zone_form.field_container :state_ids, class: ['form-group'] do %>
+      <%= zone_form.label :state_ids, Spree.t(:states) %>
+      <%= zone_form.collection_select :state_ids, @states, :id, :name, {}, { :multiple => true, :class => "select2" } %>
+    <% end %>
+  </fieldset>
+>>>>>>> Backend on Bootstrap
 </div>

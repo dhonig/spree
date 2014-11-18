@@ -3,6 +3,7 @@
 <% end %>
 
 <%= form_for @promotion, :url => object_url, :method => :put do |f| %>
+<<<<<<< HEAD
   <div class="row">
     <div class="col-md-12">
       <%= render :partial => 'form', :locals => { :f => f } %>
@@ -15,12 +16,27 @@
 <div id="promotion-filters" class="row">
   <div id="rules_container" class="col-md-6">
     <div class="panel panel-default">
+=======
+  <fieldset>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+  </fieldset>
+<% end %>
+
+<div id="promotion-filters" class="row margint">
+  <div id="rules_container" class="col-md-6">
+    <div class="well">
+>>>>>>> Backend on Bootstrap
       <%= render :partial => 'rules' %>
     </div>
   </div>
 
   <div id="actions_container" class="col-md-6">
+<<<<<<< HEAD
     <div class="panel panel-default">
+=======
+    <div class="well">
+>>>>>>> Backend on Bootstrap
       <%= render :partial => 'actions' %>
     </div>
   </div>

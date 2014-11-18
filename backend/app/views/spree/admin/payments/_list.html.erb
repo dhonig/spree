@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <table class="table table-bordered" id='payments' data-order-id='<%= @order.number %>'>
+=======
+<table class="table table-hover table-condensed table-bordered" id='payments' data-order-id='<%= @order.number %>'>
+>>>>>>> Backend on Bootstrap
   <thead>
     <tr data-hook="payments_header">
       <th><%= Spree::Payment.human_attribute_name(:number) %></th>
@@ -13,6 +17,7 @@
   <tbody>
     <% payments.each do |payment| %>
       <tr id="<%= dom_id(payment) %>" data-hook="payments_row">
+<<<<<<< HEAD
         <td><%= link_to payment.number, spree.admin_order_payment_path(@order, payment) %></td>
         <td><%= pretty_time(payment.created_at) %></td>
         <td class="amount text-center"><%= payment.display_amount %></td>
@@ -24,6 +29,15 @@
           </span>
         </td>
         <td class="actions actions-2 text-center">
+=======
+        <td><%= link_to payment.identifier, spree.admin_order_payment_path(@order, payment) %></td>
+        <td><%= pretty_time(payment.created_at) %></td>
+        <td class="align-center amount"><%= payment.display_amount.to_html %></td>
+        <td class="align-center"><%= payment_method_name(payment) %></td>
+        <td class="align-center"><%= payment.transaction_id %></td>
+        <td class="align-center"> <span class="state <%= payment.state %>"><%= Spree.t(payment.state, :scope => :payment_states, :default => payment.state.capitalize) %></span></td>
+        <td class="actions actions-1">
+>>>>>>> Backend on Bootstrap
           <% payment.actions.each do |action| %>
             <% if action == 'credit' %>
               <%= link_to_with_icon('refund', Spree.t(:refund), new_admin_order_payment_refund_path(@order, payment), no_text: true, class: "btn btn-default btn-sm") if can?(:create, Spree::Refund) %>
@@ -36,3 +50,5 @@
     <% end %>
   </tbody>
 </table>
+
+# REIN

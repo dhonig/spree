@@ -1,16 +1,31 @@
 <% content_for :page_title do %>
+<<<<<<< HEAD
   <%= link_to "#{@user.email}", edit_admin_user_url(@user) %> / <%= Spree.t(:"admin.user.order_history") %>
 <% end %>
 
 <%= render partial: 'spree/admin/users/sidebar', locals: { current: :orders } %>
 <%= render partial: 'spree/admin/users/user_page_actions' %>
+=======
+  <%= Spree.t(:"admin.user.order_history") %> <%= link_to "#{@user.email}", edit_admin_user_url(@user) %>
+<% end %>
+
+<%= render :partial => 'spree/admin/users/sidebar', :locals => { :current => :orders } %>
+<%= render :partial => 'spree/admin/users/user_page_actions' %>
+
+<fieldset data-hook="admin_user_order_history">
+  <legend><%= Spree.t(:"admin.user.order_history") %></legend>
+>>>>>>> Backend on Bootstrap
 
 <fieldset data-hook="admin_user_order_history">
   <%= paginate @orders %>
 
   <% if @orders.any? %>
     <%# TODO add search interface %>
+<<<<<<< HEAD
     <table class="table table-condensed table-bordered" id="listing_orders" data-hook>
+=======
+    <table class="table table-hover table-condensed table-bordered" id="listing_orders" data-hook>
+>>>>>>> Backend on Bootstrap
       <thead>
         <tr data-hook="admin_orders_index_headers">
           <th><%= sort_link @search, :completed_at,   I18n.t(:completed_at, scope: 'activerecord.attributes.spree/order'), {}, {title: 'orders_completed_at_title'} %></th>
@@ -40,7 +55,11 @@
     </table>
   <% else %>
     <div class="alert alert-info no-objects-found">
+<<<<<<< HEAD
       <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::Order)) %>,
+=======
+      <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/order')) %>,
+>>>>>>> Backend on Bootstrap
       <%= link_to Spree.t(:add_one), spree.new_admin_order_path %>!
     </div>
   <% end %>

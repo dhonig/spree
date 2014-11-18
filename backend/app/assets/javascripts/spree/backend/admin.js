@@ -7,6 +7,7 @@
 //= require spree/backend/product_picker
 //= require spree/backend/option_value_picker
 //= require spree/backend/taxons
+//= require spree/backend/jquery.tree-menu
 
 /**
 This is a collection of javascript functions and whatnot
@@ -19,6 +20,7 @@ jQuery(function($) {
   // Add some tips
   $('.with-tip').tooltip();
 
+<<<<<<< HEAD:backend/app/assets/javascripts/spree/backend/admin.js
   $('.js-show-index-filters').click(function(){
     $(".filter-well").slideToggle();
     $(this).parents(".filter-wrap").toggleClass("collapsed");
@@ -64,6 +66,67 @@ jQuery(function($) {
         .addClass('col-sm-12 col-md-12 sidebar-collapsed');
       $.cookie('sidebar-minimized', 'true', { path: '/admin' });
     }
+=======
+  // Add some tips
+  $('.with-tip').powerTip({
+    smartPlacement: true,
+    fadeInTime: 50,
+    fadeOutTime: 50,
+  });
+
+  // Replace ▼ and ▲ in sort_link with nicer icons
+  $(".sort_link").each(function(){
+    var sort_link_text = $(this).text();
+    if(sort_link_text.indexOf("▼") >= 0){
+      $(this).text(sort_link_text.replace(" ▼",""));
+      $(this).append('<span class="glyphicon glyphicon-chevron-down"></span>');
+    } else if(sort_link_text.indexOf("▲") >= 0){
+      $(this).text(sort_link_text.replace(" ▲",""));
+      $(this).append('<span class="glyphicon glyphicon-chevron-up"></span>');
+    }
+  });
+
+  // Enable sidebar toggle
+  $("[data-toggle='offcanvas']").click(function(e) {
+    e.preventDefault();
+
+    // If window is small enough, enable sidebar push menu
+    if ($(window).width() <= 992) {
+      $('.row-offcanvas').toggleClass('active');
+      $('.left-side').removeClass("collapse-left");
+      $(".right-side").removeClass("strech");
+      $('.row-offcanvas').toggleClass("relative");
+    } else {
+      // Else, enable content streching
+      $('.left-side').toggleClass("collapse-left");
+      $(".right-side").toggleClass("strech");
+    }
+  });
+
+  $('body')
+    .on('powerTipPreRender', '.with-tip', function() {
+      $('#powerTip').addClass($(this).data('action'));
+      $('#powerTip').addClass($(this).data('tip-color'));
+    })
+    .on('powerTipClose', '.with-tip', function() {
+      $('#powerTip').removeClass($(this).data('action'));
+    })
+
+  // Make flash messages dissapear
+  setTimeout('$(".alert-auto-dissapear").slideUp()', 5000);
+
+  // Highlight hovered table column
+  $('table tbody tr td.actions').find('a, button').hover(function(){
+    var tr = $(this).closest('tr');
+    var klass = 'highlight action-' + $(this).data('action')
+    tr.addClass(klass)
+    tr.prev().addClass('before-' + klass);
+  }, function(){
+    var tr = $(this).closest('tr');
+    var klass = 'highlight action-' + $(this).data('action')
+    tr.removeClass(klass)
+    tr.prev().removeClass('before-' + klass);
+>>>>>>> Backend on Bootstrap:backend/app/assets/javascripts/spree/backend/admin.js.erb
   });
 
   $('.sidebar-menu-item').mouseover(function(){
@@ -178,7 +241,11 @@ show_flash = function(type, message) {
   var flash_div = $('.flash.' + type);
   if (flash_div.length == 0) {
     flash_div = $('<div class="alert alert-' + type + '" />');
+<<<<<<< HEAD:backend/app/assets/javascripts/spree/backend/admin.js
     $('#content').prepend(flash_div);
+=======
+    $('#main-container').prepend(flash_div);
+>>>>>>> Backend on Bootstrap:backend/app/assets/javascripts/spree/backend/admin.js.erb
   }
   flash_div.html(message).show().delay(5000).slideUp();
 }

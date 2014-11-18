@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Backend on Bootstrap
 <% content_for :page_title do %>
   <%= Spree.t(:new_tax_rate) %>
 <% end %>
@@ -6,8 +11,16 @@
 
 <%= form_for [:admin, @tax_rate] do |f| %>
   <fieldset>
+<<<<<<< HEAD
     <%= render :partial => 'form', :locals => { :f => f } %>
 
+=======
+    
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    
+
+>>>>>>> Backend on Bootstrap
     <%= render :partial => 'spree/admin/shared/new_resource_links' %>
   </fieldset>
 <% end %>

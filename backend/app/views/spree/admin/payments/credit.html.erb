@@ -1,7 +1,11 @@
 <%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :credit_cards } %>
 
 <% content_for :page_title do %>
+<<<<<<< HEAD
   / <%= Spree.t(:refund) %>
+=======
+  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:refund) %>
+>>>>>>> Backend on Bootstrap
 <% end %>
 
 <%= form_tag do %>

@@ -14,11 +14,16 @@
  *= require jquery.ui.autocomplete
  *= require jquery.powertip
  *= require select2
+<<<<<<< HEAD
 >>>>>>> Fix email specs.
 
  *= require jquery-ui/datepicker
  *= require jquery-ui/autocomplete
  *= require select2
  *= require animate
+=======
+ *= require bootstrap.min
+ *= require AdminLTE
+>>>>>>> Backend on Bootstrap
  *= require spree/backend/spree_admin
 */

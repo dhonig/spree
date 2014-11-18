@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :payments } %>
 
 <% content_for :page_actions do %>
@@ -10,6 +11,21 @@
 
 <% content_for :page_title do %>
   / <%= Spree.t(:payments) %>
+=======
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Payments' } %>
+
+<% content_for :page_actions do %>
+  <% if @order.outstanding_balance? %>
+    <span id="new_payment_section">
+      <%= button_link_to Spree.t(:new_payment), new_admin_order_payment_url(@order), :class => "btn-success", :icon => 'plus-sign' %>
+    </span>
+  <% end %>
+  <%= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, :icon => 'arrow-left' %>
+<% end %>
+
+<% content_for :page_title do %>
+  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:payments) %>
+>>>>>>> Backend on Bootstrap
 <% end %>
 
 <% if @order.outstanding_balance? %>
@@ -32,7 +48,11 @@
   <% end %>
 
 <% else %>
+<<<<<<< HEAD
   <div class="alert alert-info no-objects-found"><%= Spree.t(:order_has_no_payments) %></div>
+=======
+  <div class="alert alert-warning"><%= Spree.t(:order_has_no_payments) %></div>
+>>>>>>> Backend on Bootstrap
 <% end %>
 
 <%= render partial: 'spree/admin/shared/order_summary' %>

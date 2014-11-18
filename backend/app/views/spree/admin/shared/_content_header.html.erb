@@ -1,4 +1,5 @@
 <% if content_for?(:page_title) || content_for?(:page_actions) %>
+<<<<<<< HEAD
   <div class="content-header <%= "with-page-tabs" if content_for?(:page_tabs) %> page-header">
     <div class="row">
       <% if content_for?(:page_title) %>
@@ -23,4 +24,21 @@
       <% end %>
     </div>
   </div>
+=======
+  <section class="content-header">
+    <% if content_for?(:page_actions) %>
+      <div class="page-actions pull-right" data-hook="toolbar">
+        <%= yield :page_actions %>
+      </div>
+    <% end %>
+    <% if content_for?(:page_title) %>
+      <h1>
+        <%= yield :page_title %>
+        <% if content_for?(:page_title_small) %>
+          <small><%= yield :page_title_small %></small>
+        <% end %>
+      </h1>
+    <% end %>
+  </section>
+>>>>>>> Backend on Bootstrap
 <% end %>

@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 <div class="panel-heading">
   <h3 class="panel-title"><%= Spree.t(:order_adjustments) %></h3>
 </div>
 
 <table class="table table-bordered adjustments" data-hook="adjustments">
+=======
+<table class="table table-hover table-condensed table-bordered adjustments" data-hook="adjustments">
+>>>>>>> Backend on Bootstrap
   <thead data-hook="adjustmment_head">
     <tr>
       <th><%= Spree.t(:adjustable) %></th>
@@ -17,6 +21,7 @@
   </tbody>
 </table>
 
+<<<<<<< HEAD
 <% if can?(:edit, Spree::Adjustment) %>
   <div class="panel-footer">
     <div class="row text-center">
@@ -29,3 +34,9 @@
     </div>
   </div>
 <% end %>
+=======
+<div class="well">
+  <%= button_to Spree.t(:open_all_adjustments), open_adjustments_admin_order_path(@order), method: :get, class: "btn btn-sm btn-success pull-left marginr" %>
+  <%= button_to Spree.t(:close_all_adjustments), close_adjustments_admin_order_path(@order), method: :get, class: "btn btn-sm btn-danger" %>
+</div>
+>>>>>>> Backend on Bootstrap

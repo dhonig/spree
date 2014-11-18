@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Backend on Bootstrap
 <% content_for :page_title do %>
   <%= Spree.t(:new_zone) %>
 <% end %>
@@ -5,6 +10,13 @@
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @zone } %>
 
 <%= form_for [:admin, @zone] do |zone_form| %>
+<<<<<<< HEAD
   <%= render :partial => 'form', :locals => { :zone_form => zone_form } %>  
+=======
+  <%= render :partial => 'form', :locals => { :zone_form => zone_form } %>
+
+  
+  
+>>>>>>> Backend on Bootstrap
   <%= render :partial => 'spree/admin/shared/new_resource_links' %>
 <% end %>

@@ -1,4 +1,5 @@
 <% content_for :page_title do %>
+<<<<<<< HEAD
   <%= link_to Spree.t(:orders), admin_orders_path %> /
   <%= link_to @order.number, spree.edit_admin_order_path(@order) %>
 <% end %>
@@ -57,4 +58,12 @@
       </li>
     <% end %>
   </ul>
+=======
+  <%= link_to "#{Spree.t(:order)} ##{@order.number}", spree.edit_admin_order_path(@order) %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= render "spree/admin/shared/order_submenu", current: current, checkout_steps: @order.checkout_steps %>
+  <%= render "spree/admin/shared/order_summary", checkout_steps: @order.checkout_steps %>
+>>>>>>> Backend on Bootstrap
 <% end %>

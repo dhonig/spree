@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 <%= render partial: 'js_head' %>
+=======
+
+
+<%= render :partial => 'js_head' %>
+>>>>>>> Backend on Bootstrap
 
 <% content_for :page_title do %>
   <%= Spree.t(:taxonomy_edit) %>
@@ -8,7 +14,11 @@
 
 <%= form_for [:admin, @taxonomy] do |f| %>
   <fieldset>
+<<<<<<< HEAD
     <%= render partial: 'form', locals: { f: f } %>
+=======
+    <%= render :partial => 'form', :locals => { :f => f } %>
+>>>>>>> Backend on Bootstrap
     <div class="form-group">
       <%= label_tag nil, Spree.t(:tree) %>
       <script>
@@ -27,8 +37,13 @@
       <%= Spree.t(:taxonomy_tree_instruction) %>
     </div>
 
+<<<<<<< HEAD
     <div class="form-actions">
       <%= button Spree.t('actions.update'), 'ok', 'submit', { class: 'btn-success' } %>
+=======
+    <div class="form-buttons">
+      <%= button Spree.t('actions.update'), 'refresh' %>
+>>>>>>> Backend on Bootstrap
       <span class="or"><%= Spree.t(:or) %></span>
       <%= button_link_to Spree.t('actions.cancel'), admin_taxonomies_path, icon: 'delete' %>
     </div>

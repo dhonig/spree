@@ -5,8 +5,13 @@
 <%= form_for [:admin, @taxonomy] do |f| %>
   <fieldset>
     <%= render :partial => 'form', :locals => { :f => f } %>
+<<<<<<< HEAD
     <div class="form-actions" data-hook="buttons">
       <%= button Spree.t(:create), 'save' %>
+=======
+    <div class="form-buttons" data-hook="buttons">
+      <%= button Spree.t(:create), 'ok' %>
+>>>>>>> Backend on Bootstrap
     </div>
   </fieldset>
 <% end %>

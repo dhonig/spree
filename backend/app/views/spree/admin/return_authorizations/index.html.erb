@@ -1,17 +1,32 @@
 <%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :return_authorizations } %>
 
 <% content_for :page_actions do %>
+<<<<<<< HEAD
   <% if @order.shipments.any?(&:shipped?) && can?(:create, Spree::ReturnAuthorization) %>
     <%= button_link_to Spree.t(:new_return_authorization), new_admin_order_return_authorization_url(@order), class: "btn-success", icon: 'add' %>
+=======
+  <% if @order.shipments.any? &:shipped? %>
+    <li>
+      <%= button_link_to Spree.t(:new_return_authorization), new_admin_order_return_authorization_url(@order), :class => "btn-success", :icon => 'plus-sign' %>
+    </li>
+>>>>>>> Backend on Bootstrap
   <% end %>
 <% end %>
 
 <% content_for :page_title do %>
+<<<<<<< HEAD
   / <%= Spree.t(:return_authorizations) %>
 <% end %>
 
 <% if @order.shipments.any?(&:shipped?) && @order.return_authorizations.any? %>
   <table class="table">
+=======
+  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:return_authorizations) %>
+<% end %>
+
+<% if @order.shipments.any?(&:shipped?) || @order.return_authorizations.any? %>
+  <table class="table table-hover table-condensed table-bordered">
+>>>>>>> Backend on Bootstrap
     <thead data-hook="rma_header">
       <tr>
         <th><%= Spree.t(:rma_number) %></th>
@@ -43,7 +58,11 @@
     <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::ReturnAuthorization)) %>
   </div>
 <% else %>
+<<<<<<< HEAD
   <div data-hook="rma_cannont_create" class="alert alert-info no-objects-found">
+=======
+  <div data-hook="rma_cannont_create" class="alert alert-warning">
+>>>>>>> Backend on Bootstrap
     <%= Spree.t(:cannot_create_returns) %>
   </div>
 <% end %>

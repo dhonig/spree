@@ -8,16 +8,26 @@
 <%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :return_authorizations } %>
 
 <% content_for :page_title do %>
+<<<<<<< HEAD
   / <%= Spree.t(:return_authorization) %> <%= @return_authorization.number %> (<%= Spree.t(@return_authorization.state.downcase) %>)
+=======
+  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:return_authorization) %> <%= @return_authorization.number %> (<%= Spree.t(@return_authorization.state.downcase) %>)
+>>>>>>> Backend on Bootstrap
 <% end %>
 
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @return_authorization } %>
 
 <%= form_for [:admin, @order, @return_authorization] do |f| %>
   <fieldset>
+<<<<<<< HEAD
     <%= render partial: 'form', locals: { f: f } %>
 
     <div class="form-actions" data-hook="buttons">
+=======
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <div class="form-buttons" data-hook="buttons">
+>>>>>>> Backend on Bootstrap
       <%= button Spree.t('actions.update'), 'repeat' %>
       <span class="or"><%= Spree.t(:or) %></span>
       <%= button_link_to Spree.t('actions.cancel'), spree.admin_order_return_authorizations_url(@order), icon: 'delete' %>

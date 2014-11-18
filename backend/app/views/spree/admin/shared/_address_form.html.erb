@@ -3,45 +3,77 @@
 <div id="<%= type %>" data-hook="address_fields">
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :firstname, Spree.t(:first_name) %>
+<<<<<<< HEAD
     <%= f.text_field :firstname, class: 'form-control' %>
+=======
+    <%= f.text_field :firstname, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
   </div>
 
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :lastname, Spree.t(:last_name) %>
+<<<<<<< HEAD
     <%= f.text_field :lastname, class: 'form-control' %>
+=======
+    <%= f.text_field :lastname, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
   </div>
 
   <% if Spree::Config[:company] %>
     <div class="form-group <%= "#{type}-row" %>">
       <%= f.label :company, Spree.t(:company) %>
+<<<<<<< HEAD
       <%= f.text_field :company, class: 'form-control' %>
+=======
+      <%= f.text_field :company, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
     </div>
   <% end %>
 
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :address1, Spree.t(:street_address) %>
+<<<<<<< HEAD
     <%= f.text_field :address1, class: 'form-control' %>
+=======
+    <%= f.text_field :address1, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
   </div>
 
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :address2, Spree.t(:street_address_2) %>
+<<<<<<< HEAD
     <%= f.text_field :address2, class: 'form-control' %>
+=======
+    <%= f.text_field :address2, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
   </div>
 
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :city, Spree.t(:city) %>
+<<<<<<< HEAD
     <%= f.text_field :city, class: 'form-control' %>
+=======
+    <%= f.text_field :city, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
   </div>
 
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :zipcode, Spree.t(:zip) %>
+<<<<<<< HEAD
     <%= f.text_field :zipcode, class: 'form-control' %>
+=======
+    <%= f.text_field :zipcode, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
   </div>
 
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :country_id, Spree.t(:country) %>
     <span id="<%= s_or_b %>country">
+<<<<<<< HEAD
       <%= f.collection_select :country_id, available_countries, :id, :name, {}, { class: 'select2' } %>
+=======
+      <%= f.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'select2'} %>
+>>>>>>> Backend on Bootstrap
     </span>
   </div>
 
@@ -49,15 +81,25 @@
     <%= f.label :state_id, Spree.t(:state) %>
     <span id="<%= s_or_b %>state">
       <%= f.text_field :state_name,
+<<<<<<< HEAD
             style: "display: #{f.object.country.states.empty? ? 'block' : 'none' };",
             disabled: !f.object.country.states.empty?, class: 'form-control state_name' %>
       <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, { include_blank: true }, { class: 'select2', style: "display: #{f.object.country.states.empty? ? 'none' : 'block' };", disabled: f.object.country.states.empty? } %>
+=======
+            :style => "display: #{f.object.country.states.empty? ? 'block' : 'none' };",
+           :disabled => !f.object.country.states.empty?, :class => 'form-control state_name' %>
+      <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, {:include_blank => true}, {:class => 'select2', :style => "display: #{f.object.country.states.empty? ? 'none' : 'block' };", :disabled => f.object.country.states.empty?} %>
+>>>>>>> Backend on Bootstrap
     </span>
   </div>
 
   <div class="form-group <%= "#{type}-row" %>">
     <%= f.label :phone, Spree.t(:phone) %>
+<<<<<<< HEAD
     <%= f.phone_field :phone, class: 'form-control' %>
+=======
+    <%= f.phone_field :phone, :class => 'form-control' %>
+>>>>>>> Backend on Bootstrap
   </div>
 </div>
 

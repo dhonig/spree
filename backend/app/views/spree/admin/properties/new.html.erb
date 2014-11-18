@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @property } %>
 
 <% content_for :page_title do %>
@@ -11,4 +12,18 @@
       <%= render partial: 'spree/admin/shared/new_resource_links' %>
     </div>
   </fieldset>
+=======
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @property } %>
+
+<%= form_for [:admin, @property] do |f| %>
+<div class="well">
+  <fieldset data-hook="new_property">
+    <legend><%= Spree.t(:new_property) %></legend>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <div class="form-buttons">
+      <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+    </div>
+  </fieldset>
+</div>
+>>>>>>> Backend on Bootstrap
 <% end %>

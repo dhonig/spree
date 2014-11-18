@@ -1,4 +1,5 @@
 <tr id="<%= spree_dom_id(f.object) %>" data-hook="admin_order_form_line_item_row">
+<<<<<<< HEAD
   <td>
     <%=f.object.variant.product.name%> 
     <%= "(#{f.object.variant.options_text})" unless f.object.variant.option_values.empty? %>
@@ -12,6 +13,12 @@
   <td class="total">
     <%= f.object.display_amount %>
   </td>
+=======
+  <td><%=f.object.variant.product.name%> <%= "(#{f.object.variant.options_text})" unless f.object.variant.option_values.empty? %></td>
+  <td class="price "><%= f.object.single_money %></td>
+  <td class="qty"><%= f.number_field :quantity, :min => 0, :class => "qty" %></td>
+  <td class="total "><%= f.object.display_amount %></td>
+>>>>>>> Backend on Bootstrap
   <td data-hook="admin_order_form_line_item_actions" class="actions">
     <%= link_to_delete f.object, { 
       url: spree.admin_order_line_item_url(@order.number, f.object), 

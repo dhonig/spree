@@ -6,7 +6,11 @@
     </div>
     <div data-hook="variant" class="form-group">
       <%= f.label :viewable_id, Spree::Variant.model_name.human %>
+<<<<<<< HEAD
       <%= f.select :viewable_id, @variants, {}, {:class => 'select2'} %>
+=======
+      <%= f.select :viewable_id, @variants, {}, {:class => 'select2 form-control'} %>
+>>>>>>> Backend on Bootstrap
     </div>
   </div>
   <div data-hook="alt_text" class="col-md-6">

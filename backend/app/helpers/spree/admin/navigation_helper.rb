@@ -116,6 +116,7 @@ module Spree
       end
 
       def link_to_clone(resource, options={})
+<<<<<<< HEAD
         options[:data] = { action: 'clone' }
         options[:class] = "btn btn-primary btn-sm"
         link_to_with_icon('clone', Spree.t(:clone), clone_object_url(resource), options)
@@ -124,11 +125,22 @@ module Spree
       def link_to_new(resource)
         options[:data] = { action: 'new' }
         options[:class] = "btn btn-success btn-sm"
+=======
+        options[:data] = {:action => 'clone'}
+        options[:class] = "btn btn-default btn-sm"
+        link_to_with_icon('share', Spree.t(:clone), clone_object_url(resource), options)
+      end
+
+      def link_to_new(resource)
+        options[:data] = {:action => 'new'}
+        options[:class] = "btn btn-default btn-sm"
+>>>>>>> Backend on Bootstrap
         link_to_with_icon('plus', Spree.t(:new), edit_object_url(resource))
       end
 
       def link_to_edit(resource, options={})
         url = options[:url] || edit_object_url(resource)
+<<<<<<< HEAD
         options[:data] = { action: 'edit' }
         options[:class] = "btn btn-primary btn-sm"
         link_to_with_icon('edit', Spree.t(:edit), url, options)
@@ -138,11 +150,23 @@ module Spree
         options[:data] = { action: 'edit' }
         options[:class] = "btn btn-primary btn-sm"
         link_to_with_icon('edit', Spree.t(:edit), url, options)
+=======
+        options[:data] = {:action => 'edit'}
+        options[:class] = "btn btn-default btn-sm"
+        link_to_with_icon('pencil', Spree.t(:edit), url, options)
+      end
+
+      def link_to_edit_url(url, options={})
+        options[:data] = {:action => 'edit'}
+        options[:class] = "btn btn-default btn-sm"
+        link_to_with_icon('pencil', Spree.t(:edit), url, options)
+>>>>>>> Backend on Bootstrap
       end
 
       def link_to_delete(resource, options={})
         url = options[:url] || object_url(resource)
         name = options[:name] || Spree.t(:delete)
+<<<<<<< HEAD
         options[:class] = "btn btn-danger btn-sm delete-resource"
         options[:data] = { confirm: Spree.t(:are_you_sure), action: 'remove' }
         link_to_with_icon 'delete', name, url, options
@@ -150,12 +174,25 @@ module Spree
 
       def link_to_with_icon(icon_name, text, url, options = {})
         options[:class] = (options[:class].to_s + " icon-link with-tip action-#{icon_name}").strip
+=======
+        options[:class] = "btn btn-default btn-sm delete-resource"
+        options[:data] = { :confirm => Spree.t(:are_you_sure), :action => 'remove' }
+        link_to_with_icon 'remove', name, url, options
+      end
+
+      def link_to_with_icon(icon_name, text, url, options = {})
+        options[:class] = (options[:class].to_s + " icon_link with-tip").strip
+>>>>>>> Backend on Bootstrap
         options[:class] += ' no-text' if options[:no_text]
         options[:title] = text if options[:no_text]
         text = options[:no_text] ? '' : raw("<span class='text'>#{text}</span>")
         options.delete(:no_text)
         if icon_name
+<<<<<<< HEAD
           icon = content_tag(:span, '', class: "icon icon-#{icon_name}")
+=======
+          icon = content_tag(:span, '', class: "glyphicon glyphicon-#{icon_name}")
+>>>>>>> Backend on Bootstrap
           text.insert(0, icon + ' ')
         end
         link_to(text.html_safe, url, options)
@@ -167,10 +204,17 @@ module Spree
 
       def button(text, icon_name = nil, button_type = 'submit', options={})
         if icon_name
+<<<<<<< HEAD
           icon = content_tag(:span, '', class: "icon icon-#{icon_name}")
           text.insert(0, icon + ' ')
         end
         button_tag(text.html_safe, options.merge(type: button_type, class: "btn btn-primary #{options[:class]}"))
+=======
+          icon = content_tag(:span, '', class: "glyphicon glyphicon-#{icon_name}")
+          text.insert(0, icon + ' ')
+        end
+        button_tag(text.html_safe, options.merge(:type => button_type, :class => "btn btn-primary #{options[:class]}"))
+>>>>>>> Backend on Bootstrap
       end
 
       def button_link_to(text, url, html_options = {})
@@ -191,7 +235,11 @@ module Spree
           html_options[:class]  = html_options[:class] ? "btn #{html_options[:class]}" : "btn btn-default"
 
           if html_options[:icon]
+<<<<<<< HEAD
             icon = content_tag(:span, '', class: "icon icon-#{html_options[:icon]}")
+=======
+            icon = content_tag(:span, '', class: "glyphicon glyphicon-#{html_options[:icon]}")
+>>>>>>> Backend on Bootstrap
             text.insert(0, icon + ' ')
           end
 

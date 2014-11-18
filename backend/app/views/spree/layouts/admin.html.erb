@@ -4,6 +4,7 @@
     <%= render partial: 'spree/admin/shared/head' %>
   </head>
 
+<<<<<<< HEAD
   <body class="admin">
 
     <%#-------------------------------------------------%>
@@ -64,14 +65,88 @@
             <% if content_for?(:sidebar) %>
               <div class="col-md-3 col-sm-4">
                 <%= render partial: 'spree/admin/shared/sidebar' %>
+=======
+  <body class="admin skin-blue">
+
+    <div id="progress">
+      <div class="alert alert-info alert-progress">
+        <div class="spinner">Loading..</div>
+        <div class="progress-message"><%= Spree.t(:loading) %>...</div>
+      </div>
+    </div>
+
+    <%= render :partial => 'spree/admin/shared/header' %>
+
+    <div id="wrapper" class="wrapper row-offcanvas row-offcanvas-left">
+
+      <aside class="left-side sidebar-offcanvas">
+        <% if can? :admim, Spree::Order %>
+          <section class="sidebar">
+            <form action="#" method="get" class="sidebar-form">
+              <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                <span class="input-group-btn">
+                  <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                </span>
+              </div>
+            </form>
+            <ul class="sidebar-menu">
+              <%= render :partial => 'spree/admin/shared/main_menu' %>
+            </ul>
+          </section>
+        <% end %>
+      </aside>
+
+      <aside class="right-side" id="main-container">
+
+        <%= render :partial => 'spree/admin/shared/content_header' %>
+
+        <section class="content">
+
+          <% if flash[:error] %>
+            <div class="alert alert-danger alert-auto-dissapear"><%= flash[:error] %></div>
+          <% end %>
+          <% if notice %>
+            <div class="alert alert-info alert-auto-dissapear"><%= notice %></div>
+          <% end %>
+          <% if flash[:success] %>
+            <div class="alert alert-success alert-auto-dissapear"><%= flash[:success] %></div>
+          <% end %>
+
+          <%= render :partial => 'spree/admin/shared/alert', :collection => session[:alerts] %>
+
+          <div class="row">
+            <% if content_for?(:sidebar) %>
+              <div class="col-md-3">
+                <%= render :partial => 'spree/admin/shared/sidebar' %>
+              </div>
+            <% end %>
+
+            <div class="<%= main_div_class %> main">
+              <div class="<%= 'with-sidebar' if content_for?(:sidebar) %>" id="content" data-hook>
+                <div class="<%= if content_for?(:sidebar) then 'twelve' else 'sixteen' end %> columns">
+                  <%= yield %>
+                </div>
+              </div>
+            </div>
+
+            <% if content_for?(:table_filter) %>
+              <div class="col-md-3">
+                <%= render :partial => 'spree/admin/shared/table_filter' %>
+>>>>>>> Backend on Bootstrap
               </div>
             <% end %>
           </div>
 
+<<<<<<< HEAD
 
         </div>
       </div>
     </div>
+=======
+        </section>
+      </aside>
+>>>>>>> Backend on Bootstrap
 
     <%#-------------------------------------------------%>
     <%# Insert footer scripts here                      %>

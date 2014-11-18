@@ -3,14 +3,30 @@
 <% end %>
 
 <% content_for :page_actions do %>
+<<<<<<< HEAD
   <%= link_to_with_icon 'arrow-left', Spree.t(:back_to_resource_list, resource: Spree.t(:report)), spree.admin_reports_url, class: 'btn btn-default' %>
+=======
+  <li><%= link_to_with_icon 'arrow-left', Spree.t(:back_to_reports_list), spree.admin_reports_url, :class => 'btn btn-default' %></li>
+>>>>>>> Backend on Bootstrap
 <% end %>
 
 <div class="well">
   <%= render :partial => 'spree/admin/shared/report_order_criteria' %>
 </div>
 
+<<<<<<< HEAD
 <table class="table table-bordered admin-report" data-hook="sales_total">
+=======
+<% content_for :table_filter_title do %>
+  <%= Spree.t(:date_range) %>
+<% end %>
+
+<% content_for :table_filter do %>
+  <%= render :partial => 'spree/admin/shared/report_order_criteria', :locals => {} %>
+<% end %>
+
+<table class="table table-hover table-condensed table-bordered admin-report" data-hook="sales_total">
+>>>>>>> Backend on Bootstrap
   <thead>
     <tr>
       <th><%= Spree.t(:currency) %></th>

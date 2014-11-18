@@ -1,6 +1,10 @@
 <% if @payment.capture_events.exists? %>
   <h3><%= Spree.t(:capture_events) %></h3>
+<<<<<<< HEAD
   <table class="table table-condensed table-bordered" id="capture_events">
+=======
+  <table class="table table-hover table-condensed table-bordered" id="capture_events">
+>>>>>>> Backend on Bootstrap
     <thead>
       <tr data-hook="payments_header">
         <th><%= "#{Spree.t('date')}/#{Spree.t('time')}" %></th>

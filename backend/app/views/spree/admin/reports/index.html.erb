@@ -2,7 +2,11 @@
   <%= Spree.t(:reports) %>
 <% end %>
 
+<<<<<<< HEAD
 <table class="table">
+=======
+<table class="table table-hover table-condensed table-bordered">
+>>>>>>> Backend on Bootstrap
   <thead>
     <tr data-hook="reports_header">
       <th><%= Spree.t(:name) %></th>
@@ -13,7 +17,11 @@
     <% @reports.each do |key, value| %>
     <tr data-hook="reports_row">
       <td><%= link_to value[:name], send("#{key}_admin_reports_url".to_sym) %></td>
+<<<<<<< HEAD
       <td><%= value[:description] %></td>
+=======
+      <td style="padding-left:1em"><%= value[:description] %></td>
+>>>>>>> Backend on Bootstrap
     </tr>
     <% end %>
   </tbody>

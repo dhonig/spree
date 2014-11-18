@@ -15,9 +15,19 @@
           <% end %>
         <% end %>
       </div>
+<<<<<<< HEAD
       <div data-hook="display" class="form-group">
         <%= label_tag :payment_method_display_on, Spree.t(:display) %>
         <%= select(:payment_method, :display_on, Spree::PaymentMethod::DISPLAY.collect { |display| [Spree.t(display), display.to_s] }, {}, {:class => 'select2'}) %>
+=======
+      <div data-hook="environment" class="form-group">
+        <%= label_tag :payment_method_environment, Spree.t(:environment) %>
+        <%= collection_select(:payment_method, :environment, rails_environments, :to_s, :titleize, {}, {:id => 'gtwy-env', :class => 'select2'}) %>
+      </div>
+      <div data-hook="display" class="form-group">
+        <%= label_tag :payment_method_display_on, Spree.t(:display) %>
+        <%= select(:payment_method, :display_on, Spree::PaymentMethod::DISPLAY.collect { |display| [Spree.t(display), display == :both ? nil : display.to_s] }, {}, {:class => 'select2'}) %>
+>>>>>>> Backend on Bootstrap
       </div>
       <div data-hook="auto_capture" class="form-group">
         <%= label_tag :payment_method_auto_capture, Spree.t(:auto_capture) %>
@@ -25,8 +35,13 @@
       </div>
       <div data-hook="active" class="form-group">
         <strong><%= Spree.t(:active) %></strong>
+<<<<<<< HEAD
         <div class="radio">
           <%= label_tag :payment_method_active_true do %>
+=======
+        <ul>
+          <li>
+>>>>>>> Backend on Bootstrap
             <%= radio_button :payment_method, :active, true %>
             <%= Spree.t(:say_yes) %>
           <% end %>
@@ -53,3 +68,8 @@
     </div>
   </div>
 </div>
+<<<<<<< HEAD
+=======
+
+# REIN
+>>>>>>> Backend on Bootstrap
