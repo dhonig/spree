@@ -1,28 +1,18 @@
 <% content_for :page_title do %>
-  <%= plural_resource_name(Spree::Prototype) %>
+  <%= Spree.t(:prototypes) %>
 <% end %>
 
 <% content_for :page_actions do %>
-<<<<<<< HEAD
-  <%= button_link_to Spree.t(:new_prototype), new_object_url, { :class => "btn-success", :icon => 'add', 'data-update' => 'new_prototype', :id => 'new_prototype_link'} %>
+  <span id="new_prototype_link">
+    <%= button_link_to Spree.t(:new_prototype), new_admin_prototype_url, {:remote => true, :class => "btn-success", :icon => 'add', 'data-update' => 'new_prototype', :id => 'new_prototype_link'} %>
+  </span>
 <% end %>
-
-<% if @prototypes.any? %>
-  <table class="table" id='listing_prototypes' data-hook>
-=======
-  <li id="new_prototype_link">
-    <%= button_link_to Spree.t(:new_prototype), new_admin_prototype_url, {:remote => true, :class => "btn-success", :icon => 'plus-sign', 'data-update' => 'new_prototype', :id => 'new_prototype_link'} %>
-  </li>
-<% end %>
-
-
 
 <%# Placeholder for new prototype form %>
 <div id="new_prototype"></div>
 
 <% if @prototypes.any? %>
-  <table class="table table-hover table-condensed table-bordered" id='listing_prototypes' data-hook>
->>>>>>> Backend on Bootstrap
+  <table class="table table-hover table-condensed table-bordered index" id='listing_prototypes' data-hook>
     <thead>
       <tr data-hook="prototypes_header">
         <th><%= Spree.t(:name) %></th>
@@ -32,13 +22,8 @@
     <tbody>
       <% @prototypes.each do |prototype| %>
         <tr id="<%= spree_dom_id prototype %>" data-hook="prototypes_row">
-<<<<<<< HEAD
-          <td><%= prototype.name %></td>
-          <td class="actions actions-2 text-right">
-=======
           <td style="padding-left:1em"><%= prototype.name %></td>
           <td class="actions actions-2">
->>>>>>> Backend on Bootstrap
             <%= link_to_edit(prototype, :no_text => true, :class => 'admin_edit_prototype') %>
             <%= link_to_delete(prototype, :no_text => true) %>
           </td>
@@ -48,12 +33,7 @@
   </table>
 <% else %>
   <div class="alert alert-info no-objects-found">
-<<<<<<< HEAD
-    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::Prototype)) %>,
-    <%= link_to Spree.t(:add_one), new_object_url %>!
-=======
     <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/prototype')) %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_prototype_path %>!
->>>>>>> Backend on Bootstrap
   </div>
 <% end %>
