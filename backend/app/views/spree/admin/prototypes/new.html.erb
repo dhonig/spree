@@ -1,20 +1,8 @@
-<<<<<<< HEAD
+
+
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @prototype } %>
-=======
-
->>>>>>> Backend on Bootstrap
-
-<% content_for :page_title do %>
-  <%= Spree.t(:new_prototype) %>
-<% end %>
 
 <%= form_for [:admin, @prototype] do |f| %>
-<<<<<<< HEAD
-  <fieldset data-hook="new_prototype">
-    <%= render :partial => 'form', :locals => { :f => f } %>
-    <%= render :partial => 'spree/admin/shared/new_resource_links' %>
-  </fieldset>
-=======
   <div class="well">
     <fieldset data-hook="new_prototype">
       <legend><%= Spree.t(:new_prototype) %></legend>
@@ -22,5 +10,4 @@
       <%= render :partial => 'spree/admin/shared/new_resource_links' %>
     </fieldset>
   </div>
->>>>>>> Backend on Bootstrap
 <% end %>

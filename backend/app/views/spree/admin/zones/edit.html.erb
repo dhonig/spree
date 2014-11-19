@@ -1,20 +1,19 @@
-<<<<<<< HEAD
-=======
 
 
->>>>>>> Backend on Bootstrap
 <% content_for :page_title do %>
-  <%= Spree.t(:editing_resource, resource: Spree::Zone.model_name.human) %>
+  <%= Spree.t(:editing_zone) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_zones_list), admin_zones_path, :icon => 'arrow-left' %>
+  </li>
 <% end %>
 
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @zone } %>
 
 <%= form_for [:admin, @zone] do |zone_form| %>
   <%= render :partial => 'form', :locals => { :zone_form => zone_form } %>
-<<<<<<< HEAD
-
-=======
   
->>>>>>> Backend on Bootstrap
   <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
 <% end %>

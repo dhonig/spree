@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<%= render 'order_actions', order: @order, events: @order_events %>
-
-<%= render 'spree/admin/shared/order_tabs', current: :shipments %>
-=======
 <% content_for :page_actions do %>
   <% if can?(:fire, @order) %>
     <%= event_links %>
@@ -14,21 +9,18 @@
     <%= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, icon: 'arrow-left' %>
   <% end %>
 <% end %>
->>>>>>> Backend on Bootstrap
 
-<% content_for :page_title do %>
-  / <%= plural_resource_name(Spree::Shipment) %>
-<% end %>
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Shipments' } %>
 
 <div data-hook="admin_order_edit_header">
-  <%= render 'spree/admin/shared/error_messages', target: @order %>
+  <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @order } %>
 </div>
 
-<% if @order.payments.valid.any? && @order.considered_risky? %>
-  <%= render 'spree/admin/orders/risk_analysis', latest_payment: @order.payments.valid.last %>
+<% if @order.payments.exists? && @order.considered_risky? %>
+  <%= render 'spree/admin/orders/risk_analysis', latest_payment: @order.payments.last %>
 <% end %>
 
-<%= render 'add_product' if @order.shipment_state != 'shipped' && can?(:update, @order) %>
+<%= render partial: 'add_product' if @order.shipment_state != 'shipped' && can?(:update, @order) %>
 
 <% if @order.line_items.empty? %>
   <div class="alert alert-warning">
@@ -45,5 +37,3 @@
 <% content_for :head do %>
   <%= javascript_tag 'var expand_variants = true;' %>
 <% end %>
-
-<%= render 'spree/admin/shared/order_summary' %>

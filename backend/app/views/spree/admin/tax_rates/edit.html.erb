@@ -1,22 +1,20 @@
-<<<<<<< HEAD
-=======
 
 
->>>>>>> Backend on Bootstrap
 <% content_for :page_title do %>
-  <%= Spree.t(:editing_resource, resource: Spree::TaxRate.model_name.human) %>
+  <%= Spree.t(:editing_tax_rate) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_tax_rates_list), spree.admin_tax_rates_path, :icon => 'arrow-left' %>
+  </li>
 <% end %>
 
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @tax_rate } %>
 
 <%= form_for [:admin, @tax_rate] do |f| %>
-<<<<<<< HEAD
-  <%= render :partial => 'form', :locals => { :f => f } %>
-  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
-=======
   <fieldset>
     <%= render :partial => 'form', :locals => { :f => f } %>
     <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
   </fieldset>
->>>>>>> Backend on Bootstrap
 <% end %>

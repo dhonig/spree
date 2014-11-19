@@ -1,30 +1,13 @@
-<%= render 'spree/admin/shared/order_tabs', current: :customer_details %>
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Customer Details' } %>
 
 <% content_for :page_title do %>
-<<<<<<< HEAD
-  / <%= Spree.t(:customer_details) %>
-=======
   <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:customer_details) %>
->>>>>>> Backend on Bootstrap
 <% end %>
 
-<% if can? :edit, @order.user %>
-  <div id="select-customer" class="panel panel-default" data-hook>
-    <div class="panel-heading">
-      <h1 class="panel-title">
-        <%= Spree.t(:customer_search) %>
-      </h1>
-    </div>
-    <div class="panel-body">
-      <%= hidden_field_tag :customer_search,  nil, class: 'error-message' %>
-      <%= render partial: "spree/admin/orders/customer_details/autocomplete", formats: :js %>
-    </div>
-  </div>
+<% content_for :page_actions do %>
+  <li><%= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, :icon => 'arrow-left' %></li>
 <% end %>
 
-<<<<<<< HEAD
-<%= render 'spree/admin/shared/error_messages', target: @order %>
-=======
 <div id="select-customer" class="marginb" data-hook>
   <fieldset>
     <legend><%= Spree.t(:customer_search) %></legend>
@@ -32,12 +15,9 @@
     <%= render :partial => "spree/admin/orders/customer_details/autocomplete", :formats => :js %>
   </fieldset>
 </div>
->>>>>>> Backend on Bootstrap
 
-<%= form_for @order, url: spree.admin_order_customer_url(@order) do |f| %>
-  <%= render 'form', f: f %>
+<%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @order } %>
+
+<%= form_for @order, :url => admin_order_customer_url(@order) do |f| %>
+  <%= render 'form', :f => f %>
 <% end %>
-
-<br>
-
-<%= render 'spree/admin/shared/order_summary' %>

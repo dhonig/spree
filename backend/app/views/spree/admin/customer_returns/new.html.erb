@@ -1,12 +1,16 @@
-<%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :customer_returns } %>
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Customer Returns' } %>
 
 <% content_for :page_title do %>
-  / <%= Spree.t(:new_customer_return) %>
+  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:new_customer_return) %>
 <% end %>
 
-<% if @rma_return_items.any? %>
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:back_to_customer_return_list), spree.admin_order_customer_returns_url(@order), :icon => 'arrow-left' %>
+<% end %>
 
-  <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @customer_return } %>
+<% if @rma_return_items.any? || @new_return_items.any? %>
+
+  <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @customer_return } %>
 
   <%= form_for [:admin, @order, @customer_return] do |f| %>
     <fieldset class="no-border-top">
@@ -22,17 +26,29 @@
           <% end %>
         </fieldset>
 
+        <fieldset>
+          <legend><%= Spree.t(:other_items_in_other) %></legend>
+          <% if @new_return_items.any? %>
+            <%= render partial: 'return_item_selection', locals: {f: f, return_items: @new_return_items} %>
+          <% else %>
+            <div class="alert alert-info no-objects-found">
+              <%= Spree.t(:none) %>
+            </div>
+          <% end %>
+        </fieldset>
+
         <%= f.field_container :stock_location, class: ['form-group'] do %>
           <%= f.label :stock_location, Spree.t(:stock_location) %>
-          <%= f.select :stock_location_id, Spree::StockLocation.order_default.active.to_a.collect{|l|[l.name.humanize, l.id]}, {include_blank: true}, {class: 'select2', "data-placeholder" => Spree.t(:select_a_stock_location)} %>
+          <%= f.select :stock_location_id, Spree::StockLocation.order_default.active.to_a.collect{|l|[l.name.humanize, l.id]}, {include_blank: true}, {class: 'select2 fullwidth', "data-placeholder" => Spree.t(:select_a_stock_location)} %>
           <%= f.error_message_on :stock_location_id %>
         <% end %>
+
       </div>
 
-      <div class="form-actions" data-hook="buttons">
-        <%= button Spree.t(:create), 'save' %>
+      <div class="form-buttons" data-hook="buttons">
+        <%= button Spree.t(:create), 'ok' %>
         <span class="or"><%= Spree.t(:or) %></span>
-        <%= button_link_to Spree.t('actions.cancel'), spree.admin_order_customer_returns_url(@order), icon: 'delete' %>
+        <%= button_link_to Spree.t('actions.cancel'), admin_order_customer_returns_url(@order), :icon => 'remove' %>
       </div>
     </fieldset>
   <% end %>
@@ -41,7 +57,7 @@
 
   <div class="alert alert-info no-objects-found">
     <%= Spree.t(:all_items_have_been_returned) %>,
-    <%= link_to Spree.t(:back_to_resource_list, resource: Spree::CustomerReturn.model_name.human), spree.admin_order_customer_returns_path(@order) %>.
+    <%= link_to Spree.t(:back_to_customer_return_list), spree.admin_order_customer_returns_path(@order) %>.
   </div>
 
 <% end %>

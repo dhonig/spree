@@ -1,10 +1,11 @@
-<<<<<<< HEAD
-=======
 
 
->>>>>>> Backend on Bootstrap
 <% content_for :page_title do %>
-  <%= Spree.t(:editing_resource, resource: Spree::Property.model_name.human) %>
+  <%= Spree.t(:editing_property) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li><%= button_link_to Spree.t(:back_to_properties_list), admin_properties_url, :icon => 'arrow-left'%></li>
 <% end %>
 
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @property } %>

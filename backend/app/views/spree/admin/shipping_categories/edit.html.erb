@@ -1,22 +1,20 @@
-<<<<<<< HEAD
-=======
 
 
->>>>>>> Backend on Bootstrap
 <% content_for :page_title do %>
-  <%= Spree.t(:editing_resource, resource: Spree::ShippingCategory.model_name.human) %>
+  <%= Spree.t(:editing_shipping_category) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_shipping_categories), spree.admin_shipping_categories_path, :icon => 'arrow-left' %>
+  </li>
 <% end %>
 
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @shipping_category } %>
 
 <%= form_for [:admin, @shipping_category] do |f| %>
-<<<<<<< HEAD
-  <%= render :partial => 'form', :locals => { :f => f } %>
-  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
-=======
   <fieldset>
     <%= render :partial => 'form', :locals => { :f => f } %>
     <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
   </fieldset>
->>>>>>> Backend on Bootstrap
 <% end %>

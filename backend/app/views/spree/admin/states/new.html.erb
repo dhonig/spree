@@ -1,22 +1,12 @@
-<<<<<<< HEAD
+
+
 <%= render :partial => 'spree/admin/shared/error_messages', :locals => { :target => @state } %>
-=======
-
-
-<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @state } %>
->>>>>>> Backend on Bootstrap
 
 <% content_for :page_title do %>
   <%= Spree.t(:new_state) %>
 <% end %>
 
 <%= form_for [:admin, @country, @state] do |f| %>
-<<<<<<< HEAD
-  <fieldset>
-    <%= render :partial => 'form', :locals => { :f => f } %>
-    <%= render :partial => 'spree/admin/shared/new_resource_links' %>
-  </fieldset>
-=======
   <div class="well">
     <fieldset>
       <legend><%= Spree.t(:new_state) %></legend>
@@ -24,5 +14,4 @@
       <%= render :partial => 'spree/admin/shared/new_resource_links' %>
     </fieldset>
   </div>
->>>>>>> Backend on Bootstrap
 <% end %>
