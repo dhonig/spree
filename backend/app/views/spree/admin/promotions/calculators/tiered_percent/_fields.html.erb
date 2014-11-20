@@ -7,19 +7,9 @@
     type: calculator.preference_type(:base_percent)) %>
 </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 <div class="form-group no-marginb">
-  <%= label_tag nil, Spree.t(:tiers) %>
-  <%= content_tag :div, nil, class: "hidden js-original-tiers",
-=======
-<div class="form-group">
-=======
-<div class="form-group no-marginb">
->>>>>>> Cherry picked yesterdays work
   <%= label_tag nil, Spree.t(:tiers) %>
   <%= content_tag :div, nil, class: "is-hidden js-original-tiers",
->>>>>>> Backend on Bootstrap
     data: { :'original-tiers' => Hash[calculator.preferred_tiers.sort] } %>
 </div>
 
@@ -46,11 +36,7 @@
             name="{{valueField.name}}" type="text" value={{valueField.value}}>
         </div>
       </div>
-<<<<<<< HEAD
       <a class="js-remove-tier btn btn-default btn-sm"><span class="icon icon-delete"></span></a>
-=======
-      <a class="js-remove-tier btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
->>>>>>> Backend on Bootstrap
     </div>
   </div>
 </script>

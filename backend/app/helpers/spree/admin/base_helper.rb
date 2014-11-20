@@ -1,22 +1,10 @@
 module Spree
   module Admin
     module BaseHelper
-<<<<<<< HEAD
-      def flash_alert flash
-        if flash.present?
-          message = flash[:error] || flash[:notice] || flash[:success]
-          flash_class = "danger" if flash[:error]
-          flash_class = "info" if flash[:notice]
-          flash_class = "success" if flash[:success]
-          flash_div = content_tag(:div, message, class: "alert alert-#{flash_class} alert-auto-dissapear")
-          content_tag(:div, flash_div, class: 'col-md-12')          
-        end
-=======
       def main_div_class
         return "col-md-9" if content_for?(:sidebar) or content_for?(:table_filter)
         return "col-md-6" if content_for?(:sidebar) and content_for?(:table_filter)
         "col-md-12"
->>>>>>> Backend on Bootstrap
       end
 
       def field_container(model, method, options = {}, &block)
@@ -25,7 +13,7 @@ module Spree
         if error_message_on(model, method).present?
           css_classes << 'withError'
         end
-        content_tag(:div, capture(&block), class: css_classes.join(' '), id: "#{model}_#{method}_field")
+        content_tag(:div, capture(&block), :class => css_classes.join(' '), :id => "#{model}_#{method}_field")
       end
 
       def error_message_on(object, method, options = {})
@@ -34,7 +22,7 @@ module Spree
 
         if obj && obj.errors[method].present?
           errors = obj.errors[method].map { |err| h(err) }.join('<br />').html_safe
-          content_tag(:span, errors, class: 'formError')
+          content_tag(:span, errors, :class => 'formError')
         else
           ''
         end
@@ -42,10 +30,46 @@ module Spree
 
       def datepicker_field_value(date)
         unless date.blank?
-          l(date, format: Spree.t('date_picker.format', default: '%Y/%m/%d'))
+          l(date, :format => Spree.t('date_picker.format', default: '%Y/%m/%d'))
         else
           nil
         end
+      end
+
+      # This method demonstrates the use of the :child_index option to render a
+      # form partial for, for instance, client side addition of new nested
+      # records.
+      #
+      # This specific example creates a link which uses javascript to add a new
+      # form partial to the DOM.
+      #
+      #   <%= form_for @project do |project_form| %>
+      #     <div id="tasks">
+      #       <%= project_form.fields_for :tasks do |task_form| %>
+      #         <%= render :partial => 'task', :locals => { :f => task_form } %>
+      #       <% end %>
+      #     </div>
+      #   <% end %>
+      def generate_html(form_builder, method, options = {})
+        options[:object] ||= form_builder.object.class.reflect_on_association(method).klass.new
+        options[:partial] ||= method.to_s.singularize
+        options[:form_builder_local] ||= :f
+
+        form_builder.fields_for(method, options[:object], :child_index => 'NEW_RECORD') do |f|
+          render(:partial => options[:partial], :locals => { options[:form_builder_local] => f })
+        end
+
+      end
+
+      def generate_template(form_builder, method, options = {})
+        escape_javascript generate_html(form_builder, method, options)
+      end
+
+      def remove_nested(fields)
+        out = ''
+        out << fields.hidden_field(:_destroy) unless fields.object.new_record?
+        out << (link_to icon('delete'), "#", :class => 'remove')
+        out.html_safe
       end
 
       def preference_field_tag(name, value, options)
@@ -86,35 +110,6 @@ module Spree
       def preference_field_options(options)
         field_options = case options[:type]
         when :integer
-<<<<<<< HEAD
-          {
-            size: 10,
-            class: 'input_integer form-control'
-          }
-        when :boolean
-          {}
-        when :string
-          {
-            size: 10,
-            class: 'input_string form-control'
-          }
-        when :password
-          {
-            size: 10,
-            class: 'password_string form-control'
-          }
-        when :text
-          {
-            rows: 15,
-            cols: 85,
-            class: 'form-control'
-          }
-        else
-          {
-            size: 10,
-            class: 'input_string form-control'
-          }
-=======
           { :size => 10,
             :class => 'input_integer form-control' }
         when :boolean
@@ -132,39 +127,42 @@ module Spree
         else
           { :size => 10,
             :class => 'input_string form-control' }
->>>>>>> Backend on Bootstrap
         end
 
         field_options.merge!({
-          readonly: options[:readonly],
-          disabled: options[:disabled],
-          size:     options[:size]
+          :readonly => options[:readonly],
+          :disabled => options[:disabled],
+          :size     => options[:size]
         })
       end
 
       def preference_fields(object, form)
         return unless object.respond_to?(:preferences)
         object.preferences.keys.map{ |key|
-        if object.has_preference?(key)
+
           form.label("preferred_#{key}", Spree.t(key) + ": ") +
-            preference_field_for(form, "preferred_#{key}", type: object.preference_type(key))
-        end
+            preference_field_for(form, "preferred_#{key}", :type => object.preference_type(key))
+
         }.join("<br />").html_safe
       end
 
       # renders hidden field and link to remove record using nested_attributes
-      def link_to_icon_remove_fields(f)
+      def link_to_remove_fields(name, f, options = {})
+        name = '' if options[:no_text]
+        options[:class] = '' unless options[:class]
+        options[:class] += 'no-text with-tip' if options[:no_text]
         url = f.object.persisted? ? [:admin, f.object] : '#'
-        link_to_with_icon('delete', '', url, class: "spree_remove_fields btn btn-sm btn-danger", data: {action: 'remove'}, title: Spree.t(:remove)) + f.hidden_field(:_destroy)
+        link_to_with_icon('delete', name, url, :class => "spree_remove_fields #{options[:class]}", :data => {:action => 'remove'}, :title => Spree.t(:remove)) + f.hidden_field(:_destroy)
       end
 
       def spree_dom_id(record)
         dom_id(record, 'spree')
       end
 
-      I18N_PLURAL_MANY_COUNT = 2.1
-      def plural_resource_name(resource_class)
-        resource_class.model_name.human(count: I18N_PLURAL_MANY_COUNT)
+      def rails_environments
+        @@rails_environments ||= Dir.glob("#{Rails.root}/config/environments/*.rb")
+                                    .map { |f| File.basename(f, ".rb") }
+                                    .sort
       end
 
       private

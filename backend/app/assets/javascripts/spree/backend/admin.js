@@ -5,7 +5,6 @@
 //= require spree/backend/option_type_autocomplete
 //= require spree/backend/user_picker
 //= require spree/backend/product_picker
-//= require spree/backend/option_value_picker
 //= require spree/backend/taxons
 //= require spree/backend/jquery.tree-menu
 
@@ -17,56 +16,9 @@ Hopefully, this will evolve into a propper class.
 
 jQuery(function($) {
 
-  // Add some tips
-  $('.with-tip').tooltip();
+  // Vertical align of checkbox fields
+  $('.field.checkbox label').vAlign()
 
-<<<<<<< HEAD:backend/app/assets/javascripts/spree/backend/admin.js
-  $('.js-show-index-filters').click(function(){
-    $(".filter-well").slideToggle();
-    $(this).parents(".filter-wrap").toggleClass("collapsed");
-    $("span.icon", $(this)).toggleClass("icon-chevron-down");
-  });
-
-  $(".js-collapse-sidebar").click(function(){
-    $(".main-right-sidebar").toggleClass("collapsed");
-    $("section.content").toggleClass("sidebar-collapsed");
-    $("span.icon", $(this)).toggleClass("icon-chevron-right");
-    $("span.icon", $(this)).toggleClass("icon-chevron-left");
-  });
-
-  $('#main-sidebar').find('[data-toggle="collapse"]').on('click', function()
-    {
-      if($(this).find('.icon-chevron-left').length == 1){
-        $(this).find('.icon-chevron-left').removeClass('icon-chevron-left').addClass('icon-chevron-down');
-      }
-      else {
-        $(this).find('.icon-chevron-down').removeClass('icon-chevron-down').addClass('icon-chevron-left');
-      }
-    }
-  )
-
-  // Sidebar nav toggle functionality
-  var sidebar_toggle = $('#sidebar-toggle');
-
-  sidebar_toggle.on('click', function(){
-    var wrapper = $('#wrapper');
-    var main    = $('#main-part');
-
-    if(wrapper.hasClass('sidebar-minimized')){
-      wrapper.removeClass('sidebar-minimized');
-      main
-        .removeClass('col-sm-12 col-md-12 sidebar-collapsed')
-        .addClass('col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2');
-      $.cookie('sidebar-minimized', 'false', { path: '/admin' });
-    }
-    else {
-      wrapper.addClass('sidebar-minimized');
-      main
-        .removeClass('col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2')
-        .addClass('col-sm-12 col-md-12 sidebar-collapsed');
-      $.cookie('sidebar-minimized', 'true', { path: '/admin' });
-    }
-=======
   // Add some tips
   $('.with-tip').powerTip({
     smartPlacement: true,
@@ -76,13 +28,14 @@ jQuery(function($) {
 
   // Replace ▼ and ▲ in sort_link with nicer icons
   $(".sort_link").each(function(){
-    var sort_link_text = $(this).text();
+    // Remove the &nbsp; in the text
+    var sort_link_text = $(this).text().replace('\xA0', '');
     if(sort_link_text.indexOf("▼") >= 0){
-      $(this).text(sort_link_text.replace(" ▼",""));
-      $(this).append('<span class="glyphicon glyphicon-chevron-down"></span>');
+      $(this).text(sort_link_text.replace("▼",""));
+      $(this).append('<span class="icon icon-chevron-down"></span>');
     } else if(sort_link_text.indexOf("▲") >= 0){
-      $(this).text(sort_link_text.replace(" ▲",""));
-      $(this).append('<span class="glyphicon glyphicon-chevron-up"></span>');
+      $(this).text(sort_link_text.replace("▲",""));
+      $(this).append('<span class="icon icon-chevron-up"></span>');
     }
   });
 
@@ -126,111 +79,22 @@ jQuery(function($) {
     var klass = 'highlight action-' + $(this).data('action')
     tr.removeClass(klass)
     tr.prev().removeClass('before-' + klass);
->>>>>>> Backend on Bootstrap:backend/app/assets/javascripts/spree/backend/admin.js.erb
   });
 
-  $('.sidebar-menu-item').mouseover(function(){
-    if($('#wrapper').hasClass('sidebar-minimized')){
-      $(this).addClass('menu-active');
-      $(this).find('ul.nav').addClass('submenu-active');
-    }
-  });
-  $('.sidebar-menu-item').mouseout(function(){
-    if($('#wrapper').hasClass('sidebar-minimized')){
-      $(this).removeClass('menu-active');
-      $(this).find('ul.nav').removeClass('submenu-active');
-    }
-  });
+  // Trunkate text in page_title that didn't fit
+  var truncate_elements = $('.truncate');
 
-  // TODO: remove this js temp behaviour and fix this decent
-  // Temp quick search
-  // When there was a search term, copy it
-  $(".js-quick-search").val($(".js-quick-search-target").val());
-  // Catch the quick search form submit and submit the real form
-  $("#quick-search").submit(function(){
-    $(".js-quick-search-target").val($(".js-quick-search").val());
-    $("#table-filter form").submit();
-    return false;
+  truncate_elements.each(function(){
+    $(this).trunk8();
+  });
+  $(window).resize(function (event) {
+    truncate_elements.each(function(){
+      $(this).trunk8();
+    })
   });
 
-  // Main menu active item submenu show
-  var active_item = $('#sidebar').find('.selected');
-  active_item.parent().addClass('in');
-  active_item.parent().prev()
-    .find('.icon-chevron-left')
-    .removeClass('icon-chevron-left')
-    .addClass('icon-chevron-down');
-
-  // Replace ▼ and ▲ in sort_link with nicer icons
-  $(".sort_link").each(function(){
-    // Remove the &nbsp; in the text
-    var sort_link_text = $(this).text().replace('\xA0', '');
-
-    if(sort_link_text.indexOf("▼") >= 0){
-      $(this).text(sort_link_text.replace("▼",""));
-      $(this).append('<span class="icon icon-chevron-down"></span>');
-    } else if(sort_link_text.indexOf("▲") >= 0){
-      $(this).text(sort_link_text.replace("▲",""));
-      $(this).append('<span class="icon icon-chevron-up"></span>');
-    }
-  });
-
-  // Clickable ransack filters
-  $(".js-add-filter").click(function() {
-    var ransack_field = $(this).data("ransack-field");
-    var ransack_value = $(this).data("ransack-value");
-
-    $("#" + ransack_field).val(ransack_value);
-    $("#table-filter form").submit();
-  });
-
-  $(document).on("click", ".js-delete-filter", function() {
-    var ransack_field = $(this).parents(".js-filter").data("ransack-field");
-
-    $("#" + ransack_field).val('');
-    $("#table-filter form").submit();
-  });
-
-  $(".js-filterable").each(function() {
-    var $this = $(this);
-
-    if ($this.val()) {
-      var ransack_value, filter;
-      var ransack_field = $this.attr("id");
-      var label = $('label[for="' + ransack_field + '"]');
-
-      if ($this.is("select")) {
-        ransack_value = $this.find('option:selected').text();
-      } else {
-        ransack_value = $this.val();
-      }
-
-      label = label.text() + ': ' + ransack_value;
-      filter = '<span class="js-filter label label-default" data-ransack-field="' + ransack_field + '">' + label + '<span class="icon icon-delete js-delete-filter"></span></span>';
-
-      $(".js-filters").append(filter).show();
-    }
-  });
-
-  // Enable sidebar toggle
-  $("[data-toggle='offcanvas']").click(function(e) {
-    e.preventDefault();
-
-    // If window is small enough, enable sidebar push menu
-    if ($(window).width() <= 992) {
-      $('.row-offcanvas').toggleClass('active');
-      $('.left-side').removeClass("collapse-left");
-      $(".right-side").removeClass("strech");
-      $('.row-offcanvas').toggleClass("relative");
-    } else {
-      // Else, enable content streching
-      $('.left-side').toggleClass("collapse-left");
-      $(".right-side").toggleClass("strech");
-    }
-  });
-
-  // Make flash messages dissapear
-  setTimeout('$(".alert-auto-dissapear").slideUp()', 5000);
+  // Make height of dt/dd elements the same
+  $("dl").equalize('outerHeight');
 
 });
 
@@ -241,11 +105,7 @@ show_flash = function(type, message) {
   var flash_div = $('.flash.' + type);
   if (flash_div.length == 0) {
     flash_div = $('<div class="alert alert-' + type + '" />');
-<<<<<<< HEAD:backend/app/assets/javascripts/spree/backend/admin.js
-    $('#content').prepend(flash_div);
-=======
     $('#main-container').prepend(flash_div);
->>>>>>> Backend on Bootstrap:backend/app/assets/javascripts/spree/backend/admin.js.erb
   }
   flash_div.html(message).show().delay(5000).slideUp();
 }
@@ -299,7 +159,6 @@ $(document).ready(function(){
              }
     });
   });
-
   var uniqueId = 1;
   $('.spree_add_fields').click(function() {
     var target = $(this).data("target");
@@ -439,9 +298,6 @@ $(document).ready(function(){
       $.ajax({
           type: "PUT",
           async: false,
-          data: {
-            token: Spree.api_key
-          },
           url: Spree.url(Spree.routes.checkouts_api + "/" + order_number + "/advance")
       }).done(function() {
           window.location.reload();

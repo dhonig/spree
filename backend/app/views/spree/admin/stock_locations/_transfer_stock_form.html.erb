@@ -30,17 +30,10 @@
       </div>
     </div>
 
-<<<<<<< HEAD
-    <div class="form-actions" data-hook="buttons">
-      <%= button Spree.t(:transfer_stock), 'plus' %>
-      <span class="or"><%= Spree.t(:or) %></span>
-      <%= button_link_to Spree.t('actions.cancel'), collection_url, :icon => 'delete' %>
-=======
     <div class="form-buttons" data-hook="buttons">
       <%= button Spree.t(:transfer_stock), 'plus' %>
       <span class="or"><%= Spree.t(:or) %></span>
-      <%= button_link_to Spree.t('actions.cancel'), collection_url, :icon => 'remove' %>
->>>>>>> Backend on Bootstrap
+      <%= button_link_to Spree.t('actions.cancel'), collection_url, :icon => 'delete' %>
     </div>
   </fieldset>
 <% end %>

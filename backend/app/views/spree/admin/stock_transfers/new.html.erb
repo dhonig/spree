@@ -2,21 +2,20 @@
   <%= Spree.t(:new_stock_transfer) %>
 <% end %>
 
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_stock_transfers_list), admin_stock_transfers_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
 <script type='text/template' id='transfer_variant_template'>
   {{#each variants}}
     <tr>
       <td>{{name}}</td>
-<<<<<<< HEAD
-      <td class='text-center'>{{quantity}}</td>
-      <td class='actions actions-1 text-center'>
-        <button class='icon_link btn btn-danger btn-sm transfer_remove_variant' data-variant-id='{{id}}'>
-          <span class='icon icon-delete' data-variant-id='{{id}}'></span>
-=======
       <td class='align-center'>{{quantity}}</td>
       <td class='actions actions-1'>
         <button class='icon_link btn btn-default btn-sm transfer_remove_variant' data-variant-id='{{id}}'>
-          <span class='glyphicon glyphicon-remove' data-variant-id='{{id}}'></span>
->>>>>>> Backend on Bootstrap
+          <span class='icon icon-delete' data-variant-id='{{id}}'></span>
         </button>
         <input type='hidden' id='variant[]' name='variant[]' value='{{id}}'>
         <input type='hidden' id='quantity[]' name='quantity[]' value='{{quantity}}'>
@@ -26,37 +25,15 @@
 </script>
 
 <%= form_tag admin_stock_transfers_path, :method => :post do %>
-<<<<<<< HEAD
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h1 class="panel-title">
-        <%= Spree.t(:transfer_stock) %>
-      </h1>
-    </div>
-
-    <div class="panel-body">
-      <div data-hook="admin_stock_movements_form_fields">
-=======
   <fieldset>
     <legend><%= Spree.t(:transfer_stock) %></legend>
 
     <div class="row" data-hook="admin_stock_movements_form_fields">
       <div class="col-md-6">
->>>>>>> Backend on Bootstrap
         <div class="form-group" id="stock_movement_reference_field">
           <%= label_tag 'reference', raw("#{Spree.t(:reference)} (#{Spree.t(:optional)})") %>
           <%= text_field_tag :reference, '', class: 'form-control' %>
         </div>
-<<<<<<< HEAD
-        <div class="form-group" id="receive_stock_field">
-          <div class="checkbox">
-            <label for="receive_stock">
-              <%= check_box_tag :transfer_receive_stock %>
-              <%= Spree.t('receive_stock') %>
-            </label>
-          </div>
-        </div>
-=======
       </div>
       <div class="col-md-6">
         <div class="field checkbox" id="receive_stock_field">
@@ -67,60 +44,26 @@
         </div>
       </div>
       <div class="col-md-6">
->>>>>>> Backend on Bootstrap
         <div class="form-group" id="transfer_source_location_id_field">
           <%= label_tag :transfer_source_location_id, Spree.t(:source) %>
           <%= select_tag :transfer_source_location_id, {}, class: 'select2' %>
         </div>
-<<<<<<< HEAD
-=======
       </div>
       <div class="col-md-6">
->>>>>>> Backend on Bootstrap
         <div class="form-group" id="transfer_destination_location_id_field">
           <%= label_tag :transfer_destination_location_id, Spree.t(:destination) %>
           <%= select_tag :transfer_destination_location_id, {}, class: 'select2' %>
         </div>
-      </div>  
-    </div>
-  </div>
-
-<<<<<<< HEAD
-  <div class="panel panel-default" id="add-variant-to-transfer">
-    <div class="panel-heading">
-      <h1 class="panel-title">
-        <%= Spree.t(:add_variant) %>
-      </h1>
+      </div>
     </div>
 
-    <div class="panel-body">
-=======
     <fieldset id="add-variant-to-transfer">
       <legend><%= Spree.t(:add_variant) %></legend>
 
->>>>>>> Backend on Bootstrap
       <div class="row">
         <div class="col-md-8">
           <div class="form-group" id="stock_movement_variant_id_field">
             <%= label_tag 'variant_id', Spree.t(:variant) %>
-<<<<<<< HEAD
-            <%= hidden_field_tag 'transfer_variant', {}, {class: 'fullwidth-input'} %>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-group" id="stock_movement_quantity_field">
-            <%= label_tag :transfer_variant_quantity, Spree.t(:quantity) %>
-            <div class="input-group">
-              <%= number_field_tag :transfer_variant_quantity, 1, class: 'form-control', min: 0 %>
-              <span class="input-group-btn">
-                <%= button Spree.t(:add), 'plus', 'submit', class: "transfer_add_variant" %>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-=======
             <%= hidden_field_tag 'transfer_variant', {} %>
           </div>
         </div>
@@ -143,15 +86,8 @@
 
     <div class="alert alert-info no-objects-found">
       <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/variant')) %>.
->>>>>>> Backend on Bootstrap
     </div>
-  </div>
 
-<<<<<<< HEAD
-  <div class="alert alert-info no-objects-found">
-    <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/variant')) %>.
-  </div>
-=======
     <div id="transfer-variants-table" style="display:none">
       <table class="table table-hover table-condensed table-bordered sortable">
         <thead data-hook="transfer_variants_header">
@@ -160,29 +96,13 @@
           <th class="actions"></th>
         </thead>
         <tbody id="transfer_variants_tbody">
->>>>>>> Backend on Bootstrap
 
-  <div id="transfer-variants-table" style="display:none">
-    <table class="table table-bordered sortable">
-      <thead data-hook="transfer_variants_header">
-        <th><%= Spree.t(:name) %></th>
-        <th class="text-center"><%= Spree.t(:quantity) %></th>
-        <th class="actions"></th>
-      </thead>
-      <tbody id="transfer_variants_tbody">
+        </tbody>
+      </table>
+    </div>
 
-<<<<<<< HEAD
-      </tbody>
-    </table>
-  </div>
-
-  <div class="form-actions" data-hook="buttons">
-    <%= button Spree.t(:transfer_stock), 'plus transfer_transfer' %>
-  </div>
-=======
     <div class="form-buttons" data-hook="buttons">
       <%= button Spree.t(:transfer_stock), 'plus transfer_transfer' %>
     </div>
   </fieldset>
->>>>>>> Backend on Bootstrap
 <% end %>

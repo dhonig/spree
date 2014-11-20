@@ -3,21 +3,37 @@
 <% end %>
 
 <% if can? :admin, Spree::Product %>
-  <%= tab *Spree::BackendConfiguration::PRODUCT_TABS, icon: 'th-large' %>
+
+  <li class="treeview">
+    <a href="#">
+      <span class="icon icon-th-large"></span>
+      <span><%= Spree.t(:products) %></span>
+      <span class="icon icon-chevron-left pull-right"></span>
+    </a>
+    <%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+  </li>
+
 <% end %>
 
 <% if can? :admin, Spree::Admin::ReportsController %>
   <%= tab *Spree::BackendConfiguration::REPORT_TABS, icon: 'file'  %>
 <% end %>
 
-<%= tab *Spree::BackendConfiguration::CONFIGURATION_TABS, label: 'configuration', icon: 'wrench', url: spree.edit_admin_general_settings_path %>
+<li class="treeview">
+  <a href="#">
+    <span class="icon icon-wrench"></span>
+    <span><%= Spree.t(:configurations) %></span>
+    <span class="icon icon-chevron-left pull-right"></span>
+  </a>
+  <%= render :partial => 'spree/admin/shared/configuration_sub_menu' %>
+</li>
 
 <% if can? :admin, Spree::Promotion %>
   <li class="treeview">
     <a href="#">
-      <span class="glyphicon glyphicon-bullhorn"></span>
+      <span class="icon icon-bullhorn"></span>
       <span><%= Spree.t(:promotions) %></span>
-      <span class="glyphicon glyphicon-chevron-left pull-right"></span>
+      <span class="icon icon-chevron-left pull-right"></span>
     </a>
     <%= render :partial => 'spree/admin/shared/promotion_sub_menu' %>
   </li>
