@@ -8,6 +8,7 @@ root.taxon_tree_menu = (obj, context) ->
   edit_url.setPath(edit_url.path() + '/' + obj.attr("id") + "/edit");
 
   create:
+<<<<<<< HEAD
     label: "<span class='icon icon-plus'></span> " + Spree.translations.add,
     action: (obj) -> context.create(obj)
   rename:
@@ -19,4 +20,17 @@ root.taxon_tree_menu = (obj, context) ->
   edit:
     separator_before: true,
     label: "<span class='icon icon-cog'></span> " + Spree.translations.edit,
+=======
+    label: Spree.translations.add,
+    action: (obj) -> context.create(obj)
+  rename:
+    label: Spree.translations.rename,
+    action: (obj) -> context.rename(obj)
+  remove:
+    label: Spree.translations.remove,
+    action: (obj) -> context.remove(obj)
+  edit:
+    separator_before: true,
+    label: Spree.translations.edit,
+>>>>>>> Cherry picked yesterdays work
     action: (obj) -> window.location = edit_url.toString()

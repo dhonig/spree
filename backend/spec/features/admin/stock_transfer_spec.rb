@@ -17,7 +17,11 @@ describe 'Stock Transfers', type: :feature, js: true do
     click_button 'Add'
     click_button 'Transfer Stock'
 
+<<<<<<< HEAD
     expect(page).to have_content('Reference PO 666')
+=======
+    expect(page).to have_content('Stock Transfer Reference PO 666')
+>>>>>>> Cherry picked yesterdays work
     expect(page).to have_content('NY')
     expect(page).to have_content('SF')
     expect(page).to have_content(variant.name)
@@ -28,7 +32,11 @@ describe 'Stock Transfers', type: :feature, js: true do
 
   describe 'received stock transfer' do
     def it_is_received_stock_transfer(page)
+<<<<<<< HEAD
       expect(page).to have_content('Reference PO 666')
+=======
+      expect(page).to have_content('Stock Transfer Reference PO 666')
+>>>>>>> Cherry picked yesterdays work
       expect(page).not_to have_selector("#stock-location-source")
       expect(page).to have_selector("#stock-location-destination")
 

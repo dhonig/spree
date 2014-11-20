@@ -1,7 +1,11 @@
 <div data-hook="admin_named_type_form_fields">
   <%= f.field_container :name, class: ['form-group'] do %>
     <%= f.label :name, Spree.t(:name) %> <span class="required">*</span>
+<<<<<<< HEAD
     <%= f.text_field :name, class: 'form-control' %>
+=======
+    <%= f.text_field :name, :class => 'form-control' %>
+>>>>>>> Cherry picked yesterdays work
   <% end %>
   <div class="checkbox">
     <%= label_tag :active do %>

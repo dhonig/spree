@@ -18,6 +18,7 @@
       <strong class="stock-location-name" data-hook="stock-location-name">'<%= shipment.stock_location.name %>'</strong>
       <% if shipment.ready? and can? :update, shipment %>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <%= link_to Spree.t(:ship), 'javascript:;', class: 'ship pull-right btn btn-success', data: { 'shipment-number' => shipment.number } %>
         <div class='clearfix'></div>
       <% end %>
@@ -33,6 +34,9 @@
       <th class="orders-actions actions text-center" data-hook="admin_order_form_line_items_header_actions"></th>
 =======
           <%= link_to Spree.t(:ship), 'javascript:;', :class => 'ship pull-right btn btn-success', :data => {'shipment-number' => shipment.number} %>
+=======
+        <%= link_to Spree.t(:ship), 'javascript:;', :class => 'ship pull-right btn btn-success', :data => {'shipment-number' => shipment.number} %>
+>>>>>>> Cherry picked yesterdays work
       <% end %>
     </legend>
   </fieldset>

@@ -46,7 +46,11 @@ describe "Properties", type: :feature, js: true do
       click_link "Products"
       click_link "Properties"
       click_link "new_property_link"
+<<<<<<< HEAD
       within('.content-header') { expect(page).to have_content("New Property") }
+=======
+      within('#new_property') { expect(page).to have_content("New Property") }
+>>>>>>> Cherry picked yesterdays work
 
       fill_in "property_name", with: "color of band"
       fill_in "property_presentation", with: "color"

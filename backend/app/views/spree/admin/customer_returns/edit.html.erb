@@ -1,7 +1,18 @@
+<<<<<<< HEAD
 <%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :customer_returns } %>
 
 <% content_for :page_title do %>
   / <%= Spree.t(:customer_return) %> #<%= @customer_return.number %>
+=======
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Customer Returns' } %>
+
+<% content_for :page_title do %>
+  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:customer_return) %> #<%= @customer_return.number %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:back_to_customer_return_list), spree.admin_order_customer_returns_url(@order), :icon => 'arrow-left' %>
+>>>>>>> Cherry picked yesterdays work
 <% end %>
 
 <% if @manual_intervention_return_items.any? %>
@@ -32,6 +43,7 @@
   </fieldset>
 <% end %>
 
+<<<<<<< HEAD
 <fieldset data-hook="reimbursements">
   <legend><%= plural_resource_name(Spree::Reimbursement) %></legend>
   <% if @customer_return.reimbursements.any? %>
@@ -44,6 +56,9 @@
 </fieldset>
 
 <% if !@customer_return.fully_reimbursed? && @pending_reimbursements.empty? && can?(:create, Spree::Reimbursement) %>
+=======
+<% if !@customer_return.fully_reimbursed? && @pending_reimbursements.empty? %>
+>>>>>>> Cherry picked yesterdays work
   <fieldset data-hook="reimbursements" class="marginb">
     <% if @customer_return.completely_decided? %>
       <%= form_for [:admin, @order, Spree::Reimbursement.new] do |f| %>
@@ -59,3 +74,17 @@
     <% end %>
   </fieldset>
 <% end %>
+<<<<<<< HEAD
+=======
+
+<fieldset data-hook="reimbursements">
+  <legend><%= Spree.t(:reimbursements) %></legend>
+  <% if @customer_return.reimbursements.any? %>
+    <%= render partial: 'reimbursements_table', locals: {reimbursements: @customer_return.reimbursements} %>
+  <% else %>
+    <div class="alert alert-info no-objects-found">
+      <%= Spree.t(:no_reimbursements_found) %>
+    </div>
+  <% end %>
+</fieldset>
+>>>>>>> Cherry picked yesterdays work

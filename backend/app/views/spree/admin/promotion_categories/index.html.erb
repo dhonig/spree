@@ -1,4 +1,5 @@
 <% content_for :page_title do %>
+<<<<<<< HEAD
   <%= plural_resource_name(Spree::PromotionCategory) %>
 <% end %>
 
@@ -11,14 +12,31 @@
     <thead>
       <th><%= Spree::PromotionCategory.human_attribute_name :name %></th>
       <th><%= Spree::PromotionCategory.human_attribute_name :code %></th>
+=======
+  <%= Spree::PromotionCategory.model_name.human(count: :many) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_promotion_category), spree.new_admin_promotion_category_path, :icon => 'add', :class => 'btn-success' %>
+<% end %>
+
+<% if @promotion_categories.any? %>
+  <table class="table table-hover table-condensed table-bordered index">
+    <thead>
+      <th><%= Spree::PromotionCategory.human_attribute_name :name %></th>
+>>>>>>> Cherry picked yesterdays work
       <th></th>
     </thead>
     <tbody>
       <% @promotion_categories.each do |promotion_category| %>
         <tr>
           <td><%= promotion_category.name %></td>
+<<<<<<< HEAD
           <td><%= promotion_category.code %></td>
           <td class="actions actions-2 text-right">
+=======
+          <td class="actions actions-2">
+>>>>>>> Cherry picked yesterdays work
             <%= link_to_edit promotion_category, :no_text => true %>
             <%= link_to_delete promotion_category, :no_text => true %>
           </td>
@@ -28,7 +46,12 @@
   </table>
 <% else %>
   <div class="alert alert-info no-objects-found">
+<<<<<<< HEAD
     <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::PromotionCategory)) %>,
     <%= link_to Spree.t(:add_one), new_object_url %>!
+=======
+    <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/promotion_category')) %>,
+    <%= link_to Spree.t(:add_one), spree.new_admin_promotion_category_path %>!
+>>>>>>> Cherry picked yesterdays work
   </div>
 <% end %>

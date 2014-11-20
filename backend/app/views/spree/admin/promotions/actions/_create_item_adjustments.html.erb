@@ -6,10 +6,14 @@
       <%= select_tag field_name,
                     options_from_collection_for_select(Spree::Promotion::Actions::CreateItemAdjustments.calculators, :to_s, :description, promotion_action.calculator.type),
 <<<<<<< HEAD
+<<<<<<< HEAD
                     :class => 'type-select select2' %>
 =======
                     :class => 'type-select select2 fullwidth' %>
 >>>>>>> Backend on Bootstrap
+=======
+                    :class => 'type-select select2' %>
+>>>>>>> Cherry picked yesterdays work
     </div>
     <% unless promotion_action.new_record? %>
       <div class="form-group col-md-6 no-marginb settings">

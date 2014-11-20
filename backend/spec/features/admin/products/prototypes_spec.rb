@@ -44,11 +44,16 @@ describe "Prototypes", type: :feature, js: true do
   context "creating a prototype" do
     it "should allow an admin to create a new product prototype" do
       visit spree.admin_path
+
       click_link "Products"
       click_link "Prototypes"
 
       click_link "new_prototype_link"
+<<<<<<< HEAD
       within('.content-header') do
+=======
+      within('#new_prototype') do
+>>>>>>> Cherry picked yesterdays work
         expect(page).to have_content("New Prototype")
       end
       fill_in "prototype_name", with: "male shirts"

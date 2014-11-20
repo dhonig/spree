@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :payments } %>
 
 <% content_for :page_actions do %>
@@ -13,6 +14,9 @@
   / <%= Spree.t(:payments) %>
 =======
 <%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Payments' } %>
+=======
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => "Payments" } %>
+>>>>>>> Cherry picked yesterdays work
 
 <% content_for :page_actions do %>
   <% if @order.outstanding_balance? %>
@@ -36,9 +40,15 @@
 
 <% if @payments.any? %>
 
+<<<<<<< HEAD
   <div data-hook="payment_list" class="panel panel-default no-border-bottom">
     <%= render partial: 'list', locals: { payments: @payments } %>
   </div>
+=======
+  <fieldset data-hook="payment_list" class="no-border-bottom">
+    <%= render :partial => 'list', :locals => { :payments => @payments } %>
+  </fieldset>
+>>>>>>> Cherry picked yesterdays work
 
   <% if @refunds.any? %>
     <fieldset data-hook="payment_list" class="no-border-bottom">
@@ -49,10 +59,14 @@
 
 <% else %>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <div class="alert alert-info no-objects-found"><%= Spree.t(:order_has_no_payments) %></div>
 =======
   <div class="alert alert-warning"><%= Spree.t(:order_has_no_payments) %></div>
 >>>>>>> Backend on Bootstrap
+=======
+  <div class="alert alert-info no-objects-found"><%= Spree.t(:order_has_no_payments) %></div>
+>>>>>>> Cherry picked yesterdays work
 <% end %>
 
 <%= render partial: 'spree/admin/shared/order_summary' %>

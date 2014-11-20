@@ -17,8 +17,13 @@ feature "Tiered Calculator Promotions" do
     within('#actions_container') { click_button "Update" }
 
     within("#actions_container .settings") do
+<<<<<<< HEAD
       expect(page.body).to have_content("Base Percent")
       expect(page.body).to have_content("Tiers")
+=======
+      expect(page).to have_content("Base Percent")
+      expect(page).to have_content("Tiers")
+>>>>>>> Cherry picked yesterdays work
 
       click_button "Add"
     end

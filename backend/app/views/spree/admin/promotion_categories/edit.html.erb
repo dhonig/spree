@@ -1,5 +1,9 @@
 <% content_for :page_title do %>
+<<<<<<< HEAD
   <%= Spree.t(:editing_resource, resource: Spree::PromotionCategory.model_name.human) %>
+=======
+  <%= Spree.t(:editing_promotion_category) %>
+>>>>>>> Cherry picked yesterdays work
 <% end %>
 
 <%= form_for @promotion_category, :url => object_url, :method => :put do |f| %>

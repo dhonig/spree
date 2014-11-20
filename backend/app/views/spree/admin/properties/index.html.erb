@@ -4,14 +4,16 @@
 
 <% content_for :page_actions do %>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <%= button_link_to Spree.t(:new_property), new_object_url, { :class => "btn-success", :icon => 'add', 'data-update' => 'new_property', :id => 'new_property_link' } %>
 =======
   <li id="new_property_link">
+=======
+  <span id="new_property_link">
+>>>>>>> Cherry picked yesterdays work
     <%= button_link_to Spree.t(:new_property), new_admin_property_url, { :remote => true, :class => "btn-success", :icon => 'add', 'data-update' => 'new_property', :id => 'new_property_link' } %>
-  </li>
+  </span>
 <% end %>
-
-
 
 <% content_for :table_filter_title do %>
   <%= Spree.t(:search) %>
@@ -59,12 +61,17 @@
 
 <% if @properties.any? %>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <table class="table" id='listing_properties' data-hook>
+=======
+  <table class="table table-hover table-condensed table-bordered index" id='listing_properties' data-hook>
+>>>>>>> Cherry picked yesterdays work
     <thead>
       <tr data-hook="listing_properties_header">
         <th><%= Spree.t(:name) %></th>
         <th><%= Spree.t(:presentation) %></th>
         <th class="actions"></th>
+<<<<<<< HEAD
 =======
 <table class="table table-hover table-condensed table-bordered" id='listing_properties' data-hook>
   <thead>
@@ -84,14 +91,22 @@
           <%= link_to_delete(property, :no_text => true) %>
         </td>
 >>>>>>> Backend on Bootstrap
+=======
+>>>>>>> Cherry picked yesterdays work
       </tr>
     </thead>
     <tbody>
       <% @properties.each do |property| %>
         <tr id="<%= spree_dom_id property %>" data-hook="listing_properties_row">
+<<<<<<< HEAD
           <td><%= property.name %></td>
           <td><%= property.presentation %></td>
           <td class="actions actions-2 text-right">
+=======
+          <td style="padding-left:1em"><%= property.name %></td>
+          <td style="padding-left:1em"><%= property.presentation %></td>
+          <td class="actions actions-2">
+>>>>>>> Cherry picked yesterdays work
             <%= link_to_edit(property, :no_text => true) %>
             <%= link_to_delete(property, :no_text => true) %>
           </td>

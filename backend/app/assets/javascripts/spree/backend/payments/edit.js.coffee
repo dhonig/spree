@@ -50,7 +50,11 @@ jQuery ($) ->
     $new_button: (action) ->
       $("<a><span class='icon icon-#{action}'></span></a>")
         .attr
+<<<<<<< HEAD
           class: "payment-action-#{action} btn btn-default btn-sm icon-link no-text with-tip"
+=======
+          class: "payment-action-#{action} icon_link no-text with-tip"
+>>>>>>> Cherry picked yesterdays work
           title: Spree.translations[action]
         .data
           action: action

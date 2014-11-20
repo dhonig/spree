@@ -12,10 +12,13 @@
   <%= hidden_field_tag "#{param_prefix}[id]", promotion_action.id %>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   <%= render partial: "spree/admin/promotions/actions/#{type_name}",
              locals: { promotion_action: promotion_action, param_prefix: param_prefix } rescue nil %>
 =======
   <%= render :partial => "spree/shared/error_messages", :locals => { :target => promotion_action } %>
+=======
+>>>>>>> Cherry picked yesterdays work
   <%= render :partial => "spree/admin/promotions/actions/#{type_name}",
              :locals => { :promotion_action => promotion_action, :param_prefix => param_prefix } %>
 >>>>>>> Backend on Bootstrap
