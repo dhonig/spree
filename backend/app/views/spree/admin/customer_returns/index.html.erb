@@ -4,17 +4,16 @@
   <% if @order.shipments.any?(&:shipped?) %>
     <%= button_link_to Spree.t(:new_customer_return), spree.new_admin_order_customer_return_path(@order), icon: 'add', class: 'btn-success' %>
   <% end %>
-  <%= button_link_to Spree.t(:back_to_orders_list), spree.admin_orders_path, :icon => 'arrow-left' %>
 <% end %>
 
 <% content_for :page_title do %>
-  <span class="glyphicon glyphicon-arrow-right"></span> <%= Spree.t(:customer_returns) %>
+  / <%= Spree.t(:customer_returns) %>
 <% end %>
 
 <% if @order.shipments.any?(&:shipped?) %>
 
   <% if @customer_returns.any? %>
-    <table class="table table-hover table-condensed table-bordered index">
+    <table class="table index">
       <thead data-hook="customer_return_header">
         <tr>
           <th><%= Spree.t(:return_number) %></th>
@@ -50,9 +49,8 @@
       <%= link_to Spree.t(:add_one), spree.new_admin_order_customer_return_path(@order) %>!
     </div>
   <% end %>
-
 <% else %>
-  <div data-hook="customer_return_cannot_create" class="no-objects-found">
+  <div data-hook="customer_return_cannot_create" class="alert alert-info no-objects-found">
     <%= Spree.t(:cannot_create_customer_returns) %>
   </div>
 <% end %>

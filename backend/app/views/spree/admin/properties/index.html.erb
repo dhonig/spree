@@ -1,23 +1,9 @@
 <% content_for :page_title do %>
-  <%= plural_resource_name(Spree::Property) %>
+  <%= Spree.t(:properties) %>
 <% end %>
 
 <% content_for :page_actions do %>
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <%= button_link_to Spree.t(:new_property), new_object_url, { :class => "btn-success", :icon => 'add', 'data-update' => 'new_property', :id => 'new_property_link' } %>
-=======
-  <li id="new_property_link">
-=======
-  <span id="new_property_link">
->>>>>>> Cherry picked yesterdays work
-    <%= button_link_to Spree.t(:new_property), new_admin_property_url, { :remote => true, :class => "btn-success", :icon => 'add', 'data-update' => 'new_property', :id => 'new_property_link' } %>
-  </span>
-<% end %>
-
-<% content_for :table_filter_title do %>
-  <%= Spree.t(:search) %>
->>>>>>> Backend on Bootstrap
+  <%= button_link_to Spree.t(:new_property), new_admin_property_url, { :class => "btn-success", :icon => 'add', 'data-update' => 'new_property', :id => 'new_property_link' } %>
 <% end %>
 
 <% content_for :table_filter do %>
@@ -25,33 +11,17 @@
     <%= search_form_for [:admin, @search] do |f| %>
 
       <%- locals = {:f => f} %>
-<<<<<<< HEAD
+      <div data-hook="admin_property_index_search" class="form-group">
+        <%= f.label :name_cont, Spree.t(:name) %>
+        <%= f.text_field :name_cont, :class => "form-control" %>
+      </div>
 
-      <div class="row">
-        <div class="col col-md-6">
-          <div data-hook="admin_property_index_search" class="form-group">
-            <%= f.label :name_cont, Spree.t(:name) %>
-            <%= f.text_field :name_cont, :class => "form-control js-quick-search-target" %>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <%= f.label :presentation_cont, Spree.t(:presentation) %>
-            <%= f.text_field :presentation_cont, :class => "form-control" %>
-          </div>
-        </div>
+      <div class="form-group">
+        <%= f.label :presentation_cont, Spree.t(:presentation) %>
+        <%= f.text_field :presentation_cont, :class => "form-control" %>
       </div>
 
       <div class="form-actions" data-hook="admin_pproperties_index_search_buttons">
-=======
-      <div data-hook="admin_property_index_search" class="form-group">
-        <%= f.label :name_cont, Spree.t(:name) %>
-        <%= f.text_field :name_cont, :size => 15, :class => "form-control" %>
-      </div>
-
-      <div class="form-buttons" data-hook="admin_pproperties_index_search_buttons">
->>>>>>> Backend on Bootstrap
         <%= button Spree.t(:search), 'search' %>
       </div>
 
@@ -60,53 +30,20 @@
 <% end %>
 
 <% if @properties.any? %>
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <table class="table" id='listing_properties' data-hook>
-=======
-  <table class="table table-hover table-condensed table-bordered index" id='listing_properties' data-hook>
->>>>>>> Cherry picked yesterdays work
+  <table class="table index" id='listing_properties' data-hook>
     <thead>
       <tr data-hook="listing_properties_header">
         <th><%= Spree.t(:name) %></th>
         <th><%= Spree.t(:presentation) %></th>
         <th class="actions"></th>
-<<<<<<< HEAD
-=======
-<table class="table table-hover table-condensed table-bordered" id='listing_properties' data-hook>
-  <thead>
-    <tr data-hook="listing_properties_header">
-      <th><%= Spree.t(:name) %></th>
-      <th><%= Spree.t(:presentation) %></th>
-      <th class="actions"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @properties.each do |property| %>
-      <tr id="<%= spree_dom_id property %>" data-hook="listing_properties_row">
-        <td style="padding-left:1em"><%= property.name %></td>
-        <td style="padding-left:1em"><%= property.presentation %></td>
-        <td class="actions actions-2">
-          <%= link_to_edit(property, :no_text => true) %>
-          <%= link_to_delete(property, :no_text => true) %>
-        </td>
->>>>>>> Backend on Bootstrap
-=======
->>>>>>> Cherry picked yesterdays work
       </tr>
     </thead>
     <tbody>
       <% @properties.each do |property| %>
         <tr id="<%= spree_dom_id property %>" data-hook="listing_properties_row">
-<<<<<<< HEAD
-          <td><%= property.name %></td>
-          <td><%= property.presentation %></td>
-          <td class="actions actions-2 text-right">
-=======
           <td style="padding-left:1em"><%= property.name %></td>
           <td style="padding-left:1em"><%= property.presentation %></td>
           <td class="actions actions-2">
->>>>>>> Cherry picked yesterdays work
             <%= link_to_edit(property, :no_text => true) %>
             <%= link_to_delete(property, :no_text => true) %>
           </td>
@@ -116,13 +53,8 @@
   </table>
 <% else %>
   <div class="alert alert-info no-objects-found">
-<<<<<<< HEAD
-    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::Property)) %>,
-    <%= link_to Spree.t(:add_one), new_object_url %>!
-=======
     <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/property')) %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_property_path %>!
->>>>>>> Backend on Bootstrap
   </div>
 <% end %>
 

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <table class="show return-items-table table table-condensed table-bordered index">
-=======
-<table class="show return-items-table table table-hover table-condensed table-bordered index">
->>>>>>> Cherry picked yesterdays work
   <thead>
     <tr>
       <th><%= Spree.t(:product) %></th>
@@ -33,32 +29,19 @@
           <%= reimbursement_type_name(return_item.preferred_reimbursement_type) %>
         </td>
         <td>
-<<<<<<< HEAD
-          <%= return_item.exchange_variant.try(:exchange_name) %>
-=======
           <%= return_item.exchange_variant.try(:options_text) %>
->>>>>>> Cherry picked yesterdays work
         </td>
         <td>
           <%= return_item.acceptance_status_errors %>
         </td>
         <% if show_decision %>
           <td class='actions actions-2'>
-<<<<<<< HEAD
-            <%= button_to [:admin, return_item], { class: 'with-tip display-inline btn btn-success btn-sm', params: { "return_item[acceptance_status]" => 'accepted' }, "data-action" => 'save', title: Spree.t(:accept), method: 'put' } do %>
-              <%= Spree.t(:accept) %>
-            <% end if can?(:accept, return_item) %>
-            <%= button_to [:admin, return_item], { class: 'with-tip display-inline btn btn-danger btn-sm', params: { "return_item[acceptance_status]" => 'rejected' }, "data-action" => 'remove', title: Spree.t(:reject), method: 'put' } do %>
-              <%= Spree.t(:reject) %>
-            <% end if can?(:reject, return_item) %>
-=======
             <%= button_to [:admin, return_item], { class: 'icon icon-thumbs-up icon_link no-text with-tip display-inline', params: { "return_item[acceptance_status]" => 'accepted' }, "data-action" => 'save', title: Spree.t(:accept), method: 'put' } do %>
               Spree.t(:accept)
             <% end %>
             <%= button_to [:admin, return_item], { class: 'icon icon-thumbs-down icon_link no-text with-tip display-inline', params: { "return_item[acceptance_status]" => 'rejected' }, "data-action" => 'remove', title: Spree.t(:reject), method: 'put' } do %>
               Spree.t(:reject)
             <% end %>
->>>>>>> Cherry picked yesterdays work
           </td>
         <% end %>
       </tr>

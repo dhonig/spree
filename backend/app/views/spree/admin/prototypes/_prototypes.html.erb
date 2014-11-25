@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <table class="table table-condensed table-bordered">
-=======
-<table class="table table-hover table-condensed table-bordered">
->>>>>>> Backend on Bootstrap
   <thead>
     <tr data-hook="available_header">
       <th><%= Spree.t(:name) %></th>
@@ -14,11 +10,7 @@
       <tr id="row_<%= prototype.id %>" data-hook="available_row">
         <td><%= prototype.name %></td>
         <td class="actions actions-1">
-<<<<<<< HEAD
           <%= link_to_with_icon 'save', Spree.t(:select), select_admin_prototype_url(prototype), :class => ' btn btn-default btn-sm ajax select_properties_from_prototype', :no_text => true %>
-=======
-          <%= link_to_with_icon 'ok', Spree.t(:select), select_admin_prototype_url(prototype), :class => ' btn btn-default btn-sm ajax select_properties_from_prototype', :no_text => true %>
->>>>>>> Backend on Bootstrap
         </td>
       </tr>
     <% end %>

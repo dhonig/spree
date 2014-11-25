@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<table class="table table-condensed table-bordered">
-=======
-<table class="table table-hover table-condensed table-bordered index">
->>>>>>> Cherry picked yesterdays work
+<table class="table table-condensed table-bordered index">
   <thead data-hook="customer_return_header">
     <tr>
       <th><%= Spree.t(:number) %></th>
@@ -31,11 +27,7 @@
         <td><%= pretty_time(reimbursement.created_at) %></td>
         <td class="actions actions-1">
           <% if !reimbursement.reimbursed? %>
-<<<<<<< HEAD
-            <%= link_to_edit_url(url_for([:edit, :admin, @order, reimbursement]), title: "admin_edit_#{dom_id(reimbursement)}", no_text: true) if can?(:edit, reimbursement) %>
-=======
             <%= link_to_edit_url url_for([:edit, :admin, @order, reimbursement]), title: "admin_edit_#{dom_id(reimbursement)}", no_text: true %>
->>>>>>> Cherry picked yesterdays work
           <% end %>
         </td>
       </tr>
