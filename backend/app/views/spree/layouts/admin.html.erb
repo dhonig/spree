@@ -1,71 +1,13 @@
-<!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
   <head data-hook="admin_inside_head">
-    <%= render partial: 'spree/admin/shared/head' %>
+    <%= render :partial => 'spree/admin/shared/head' %>
   </head>
 
-<<<<<<< HEAD
-  <body class="admin">
-
-    <%#-------------------------------------------------%>
-    <%# Loading progress bars                           %>
-    <%#-------------------------------------------------%>
-    <div id="progress">
-      <div class="alert alert-info alert-progress">
-        <div class="spinner"><%= Spree.t(:loading) %>...</div>
-        <div class="progress-message"><%= Spree.t(:loading) %>...</div>
-      </div>
-    </div>
-
-    <%#-------------------------------------------------%>
-    <%# Header navbar                                   %>
-    <%#-------------------------------------------------%>
-    <%= render partial: 'spree/admin/shared/header' %>
-
-    <%#-------------------------------------------------%>
-    <%# Main content                                    %>
-    <%#-------------------------------------------------%>
-    <div id="wrapper" class="container-fluid <%= wrapper_classes %>">
-      <div class="row">
-
-        <%#-------------------------------------------------%>
-        <%# Sidebar                                         %>
-        <%#-------------------------------------------------%>
-        <div class="col-sm-3 col-md-2 hidden-xs sidebar" id="main-sidebar" data-hook="admin_tabs">
-          <%= render partial: 'spree/admin/shared/main_menu' %>
-        </div>
-
-        <%#-------------------------------------------------%>
-        <%# Content                                         %>
-        <%#-------------------------------------------------%>
-        <div class="<%= main_part_classes %> main" id="main-part">
-
-          <%#-------------------------------------------------%>
-          <%# Content header (page title/actions)             %>
-          <%#-------------------------------------------------%>
-          <%= render partial: 'spree/admin/shared/content_header' %>
-
-          <div class="row">
-            <%#-------------------------------------------------%>
-            <%# Alerts                                          %>
-            <%#-------------------------------------------------%>
-            <%= flash_alert(flash) %>
-
-            <%#-------------------------------------------------%>
-            <%# Main content                                    %>
-            <%#-------------------------------------------------%>
-            <div class="<%= content_for?(:sidebar) ? 'with-sidebar col-md-9 col-sm-8' : 'col-sm-12'  %>" id="content" data-hook>
-              <%= render partial: 'spree/admin/shared/table_filter' if content_for?(:table_filter)%>
-              <%= yield %>
-            </div>
-
-            <%#-------------------------------------------------%>
-            <%# Inner aside                                     %>
-            <%#-------------------------------------------------%>
-            <% if content_for?(:sidebar) %>
-              <div class="col-md-3 col-sm-4">
-                <%= render partial: 'spree/admin/shared/sidebar' %>
-=======
   <body class="admin skin-blue">
 
     <div id="progress">
@@ -80,7 +22,7 @@
     <div id="wrapper" class="wrapper row-offcanvas row-offcanvas-left">
 
       <aside class="left-side sidebar-offcanvas">
-        <% if can? :admim, Spree::Order %>
+        <% if can? :admin, Spree::Order %>
           <section class="sidebar">
             <ul class="sidebar-menu">
               <%= render :partial => 'spree/admin/shared/main_menu' %>
@@ -93,56 +35,41 @@
 
         <%= render :partial => 'spree/admin/shared/content_header' %>
 
-        <section class="content">
-
-          <% if flash[:error] %>
-            <div class="alert alert-danger alert-auto-dissapear"><%= flash[:error] %></div>
-          <% end %>
-          <% if notice %>
-            <div class="alert alert-info alert-auto-dissapear"><%= notice %></div>
-          <% end %>
-          <% if flash[:success] %>
-            <div class="alert alert-success alert-auto-dissapear"><%= flash[:success] %></div>
-          <% end %>
-
-          <%= render :partial => 'spree/admin/shared/alert', :collection => session[:alerts] %>
+        <section class="content <%= "with-sidebar" if content_for?(:sidebar) %>">
 
           <div class="row">
-            <% if content_for?(:sidebar) %>
-              <div class="col-md-3">
-                <%= render :partial => 'spree/admin/shared/sidebar' %>
-              </div>
-            <% end %>
+            <div class="<%= main_div_class %> main-content">
 
-            <div class="<%= main_div_class %> main">
+              <% if flash[:error] %>
+                <div class="alert alert-danger alert-auto-dissapear"><%= flash[:error] %></div>
+              <% end %>
+              <% if notice %>
+                <div class="alert alert-info alert-auto-dissapear"><%= notice %></div>
+              <% end %>
+              <% if flash[:success] %>
+                <div class="alert alert-success alert-auto-dissapear"><%= flash[:success] %></div>
+              <% end %>
+
+              <%= render :partial => 'spree/admin/shared/alert', :collection => session[:alerts] %>
+
               <div class="<%= 'with-sidebar' if content_for?(:sidebar) %>" id="content" data-hook>
-                <div class="<%= if content_for?(:sidebar) then 'twelve' else 'sixteen' end %> columns">
-                  <%= yield %>
-                </div>
+                <% if content_for?(:table_filter) %>
+                  <%= render :partial => 'spree/admin/shared/table_filter' %>
+                <% end %>
+
+                <%= yield %>
               </div>
             </div>
-
-            <% if content_for?(:table_filter) %>
-              <div class="col-md-3">
-                <%= render :partial => 'spree/admin/shared/table_filter' %>
->>>>>>> Backend on Bootstrap
+            <% if content_for?(:sidebar) %>
+              <div class="main-right-sidebar">
+                <%= render :partial => 'spree/admin/shared/sidebar' %>
               </div>
             <% end %>
           </div>
 
-<<<<<<< HEAD
-
-        </div>
-      </div>
-    </div>
-=======
         </section>
       </aside>
->>>>>>> Backend on Bootstrap
 
-    <%#-------------------------------------------------%>
-    <%# Insert footer scripts here                      %>
-    <%#-------------------------------------------------%>
     <div data-hook="admin_footer_scripts"></div>
   </body>
 </html>

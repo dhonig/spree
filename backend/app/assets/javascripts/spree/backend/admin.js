@@ -6,7 +6,6 @@
 //= require spree/backend/user_picker
 //= require spree/backend/product_picker
 //= require spree/backend/taxons
-//= require spree/backend/jquery.tree-menu
 
 /**
 This is a collection of javascript functions and whatnot
@@ -16,16 +15,55 @@ Hopefully, this will evolve into a propper class.
 
 jQuery(function($) {
 
-  // Vertical align of checkbox fields
-  $('.field.checkbox label').vAlign()
-
   // Add some tips
   $('.with-tip').tooltip();
+
+  $('.js-show-index-filters').click(function(){
+    $(".filter-well").slideToggle();
+    $(this).parents(".filter-wrap").toggleClass("collapsed");
+    $("span.icon", $(this)).toggleClass("icon-chevron-down");
+  });
+
+  $('.js-index-checkbox-main').click(function(){
+    if($(this).prop('checked')){
+      $(".js-index-checkbox").attr("checked", "checked");
+    } else {
+      $(".js-index-checkbox").attr("checked", false);
+    }
+    showHideBatchActions();
+  });
+
+  $('.row-checkbox input').change(function(){
+    showHideBatchActions();
+  });
+
+  $(".js-collapse-sidebar").click(function(){
+    $(".main-right-sidebar").toggleClass("collapsed");
+    $("section.content").toggleClass("sidebar-collapsed");
+    $("span.icon", $(this)).toggleClass("icon-chevron-right");
+    $("span.icon", $(this)).toggleClass("icon-chevron-left");
+  });
+
+  function showHideBatchActions(){
+    var checkedCount = 0;
+    $(".js-index-checkbox").each(function(){
+      if($(this).prop('checked')){
+        checkedCount++;
+      }
+    });
+
+    if(checkedCount > 0){
+      $(".batch-actions").show();
+    } else {
+      $(".batch-actions").hide();
+    }
+  }
 
   // Replace ▼ and ▲ in sort_link with nicer icons
   $(".sort_link").each(function(){
     // Remove the &nbsp; in the text
     var sort_link_text = $(this).text().replace('\xA0', '');
+
     if(sort_link_text.indexOf("▼") >= 0){
       $(this).text(sort_link_text.replace("▼",""));
       $(this).append('<span class="icon icon-chevron-down"></span>');
@@ -54,34 +92,6 @@ jQuery(function($) {
 
   // Make flash messages dissapear
   setTimeout('$(".alert-auto-dissapear").slideUp()', 5000);
-
-  // Highlight hovered table column
-  $('table tbody tr td.actions').find('a, button').hover(function(){
-    var tr = $(this).closest('tr');
-    var klass = 'highlight action-' + $(this).data('action')
-    tr.addClass(klass)
-    tr.prev().addClass('before-' + klass);
-  }, function(){
-    var tr = $(this).closest('tr');
-    var klass = 'highlight action-' + $(this).data('action')
-    tr.removeClass(klass)
-    tr.prev().removeClass('before-' + klass);
-  });
-
-  // Trunkate text in page_title that didn't fit
-  var truncate_elements = $('.truncate');
-
-  truncate_elements.each(function(){
-    $(this).trunk8();
-  });
-  $(window).resize(function (event) {
-    truncate_elements.each(function(){
-      $(this).trunk8();
-    })
-  });
-
-  // Make height of dt/dd elements the same
-  $("dl").equalize('outerHeight');
 
 });
 
@@ -146,6 +156,7 @@ $(document).ready(function(){
              }
     });
   });
+
   var uniqueId = 1;
   $('.spree_add_fields').click(function() {
     var target = $(this).data("target");
