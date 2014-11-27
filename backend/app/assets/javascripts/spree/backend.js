@@ -6,6 +6,7 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/sortable
 //= require jquery-ui/autocomplete
+//= require jquery.tree-menu
 //= require modernizr
 <<<<<<< HEAD
 //= require underscore-min.js

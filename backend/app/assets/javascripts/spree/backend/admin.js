@@ -20,11 +20,7 @@ jQuery(function($) {
   $('.field.checkbox label').vAlign()
 
   // Add some tips
-  $('.with-tip').powerTip({
-    smartPlacement: true,
-    fadeInTime: 50,
-    fadeOutTime: 50,
-  });
+  $('.with-tip').tooltip();
 
   // Replace ▼ and ▲ in sort_link with nicer icons
   $(".sort_link").each(function(){
@@ -55,15 +51,6 @@ jQuery(function($) {
       $(".right-side").toggleClass("strech");
     }
   });
-
-  $('body')
-    .on('powerTipPreRender', '.with-tip', function() {
-      $('#powerTip').addClass($(this).data('action'));
-      $('#powerTip').addClass($(this).data('tip-color'));
-    })
-    .on('powerTipClose', '.with-tip', function() {
-      $('#powerTip').removeClass($(this).data('action'));
-    })
 
   // Make flash messages dissapear
   setTimeout('$(".alert-auto-dissapear").slideUp()', 5000);
