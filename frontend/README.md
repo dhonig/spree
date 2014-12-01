@@ -1,3 +1,26 @@
+<<<<<<< HEAD
+Core
+====
+
+Core e-commerce functionality for the Spree project
+
+
+Testing
+-------
+
+Create the test site
+
+    bundle exec rake test_app
+
+Run the tests
+
+    bundle exec rake spec
+
+Run the coverage. After the rake task open coverage/index.html
+
+    bundle exec rake rcov
+
+=======
 # Spree Bootstrap Frontend
 
 ### Bootstrap 3 powered frontend.
@@ -6,7 +29,7 @@ This has several large advantages:
 
 - Fully responsive - Mobile, tablet and desktop. With custom grids for each, collapsing elements, and full HDPI support. Current spree only goes half way.
 - Just 44 lines of custom SCSS, replacing 1328 lines of undocumented spree CSS. Plus most of these lines only add some visual style to the header and footer and can be removed.
-- The entire frontend can be easily customized: colours, grid, spacing, etc, by just overriding [variables from bootstrap](https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss) - giving a custom store design in minutes.
+- The entire frontend can be easily customized: colours, grid, spacing, etc, by just overriding [variables from bootstrap](https://github.com/twbs/bootstrap-sass/blob/master/vendor/assets/stylesheets/bootstrap/_variables.scss) - giving a custom store design in minutes.
 - Bootstrap has some of the most [robust documentation](http://getbootstrap.com/css) of any framework, and a hugely active community. As this port uses only default bootstrap it means that entire spree frontend layout is documented by default.
 - Sites like [bootswatch](http://bootswatch.com) allow for one-file bootstrap drop-in spree themes.
 - Lots of [spree community will for bootstrap](https://groups.google.com/forum/#!searchin/spree-user/bootstrap/spree-user/B17492QdnGA/AF9vEzRzf4cJ).
@@ -26,12 +49,38 @@ This stays as closely to the original spree frontend markup as possible. Helper 
 [![home page](http://i.imgur.com/bkYVBfh.png)](http://i.imgur.com/U06g9Jn.png)
 [![home page](http://i.imgur.com/uHwYVPA.png)](http://i.imgur.com/Ozh5vQr.png)
 
+
+Installation
+-------
+
+**NOTE: The master branch is developed against edge. Use a stable branch for production.**
+
+Add the following to your gemfile. The currently supported and updated branches are `master` (edge), `2-2-stable`, and `2-3-stable`.
+
+```ruby
+gem 'spree_frontend', github: 'spree/spree_frontend', branch: 'master'
+```
+
+And run
+
+```bash
+bundle install
+```
+
+Then copy the default stylesheets into your project
+
+```bash
+rails generate spree_frontend:install
+```
+
+You'll want to select to overwrite `all.css`. Done.
+
 Customizing
 -------
 
-Override the stylesheet to `vendor/assets/stylesheets/spree/frontend/frontend_bootstrap.css.scss`. Use this as your base stylesheet and edit as required.
+Running the above `spree_frontend:install` command copies the stylesheet to `app/assets/stylesheets/spree/frontend/spree_frontend.css.scss`. Use this as your base stylesheet and edit as required.
 
-To style your spree store just override the bootstrap 3 variables. The full list of bootstrap variables can be found [here](https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss). You can override these by simply redefining the variable before the `@import` directive.
+To style your spree store just override the bootstrap 3 variables. The full list of bootstrap variables can be found [here](https://github.com/twbs/bootstrap-sass/blob/master/vendor/assets/stylesheets/bootstrap/_variables.scss). You can override these by simply redefining the variable before the `@import` directive.
 For example:
 
 ```scss
@@ -48,3 +97,15 @@ It’s quite powerful, here are some examples created in ~10 minutes with a few 
 
 [![layout](http://i.imgur.com/kppJiFS.png)](http://i.imgur.com/m3zKV0s.png)
 [![layout](http://i.imgur.com/x92TXYh.png)](http://i.imgur.com/eNyNFSg.png)
+
+Running tests
+-------
+
+Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
+
+```bash
+bundle
+bundle exec rake test_app
+bundle exec rspec spec
+```
+>>>>>>> Some cleanup and spec fixes.

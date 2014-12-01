@@ -66,6 +66,7 @@ describe Spree::BaseHelper, type: :helper do
     it "should raise NoMethodError when style is not exists" do
       expect { another_strange_image(product) }.to raise_error(NoMethodError)
     end
+
   end
 
   context "link_to_tracking" do
@@ -103,7 +104,7 @@ describe Spree::BaseHelper, type: :helper do
       # Because the controller_name method returns "test"
       # controller_name is used by this method to infer what it is supposed
       # to be generating meta_data_tags for
-      text = FFaker::Lorem.paragraphs(2).join(" ")
+      text = Faker::Lorem.paragraphs(2).join(" ")
       @test = Spree::Product.new(:description => text)
       tags = Nokogiri::HTML.parse(meta_data_tags)
       content = tags.css("meta[name=description]").first["content"]
@@ -127,74 +128,12 @@ describe Spree::BaseHelper, type: :helper do
     it "should raise NoMethodError when statement with name equal to style name called" do
       expect { foobar(product) }.to raise_error(NoMethodError)
     end
+
   end
 
   context "pretty_time" do
     it "prints in a format" do
       expect(pretty_time(DateTime.new(2012, 5, 6, 13, 33))).to eq "May 06, 2012  1:33 PM"
-    end
-  end
-
-  describe "#display_price" do
-    let!(:product) { create(:product) }
-    let(:current_currency) { "USD" }
-    let(:current_price_options) { { tax_zone: current_tax_zone } }
-
-    context "when there is no current order" do
-      let (:current_tax_zone) { nil }
-
-      it "returns the price including default vat" do
-        expect(display_price(product)).to eq("$19.99")
-      end
-
-      context "with a default VAT" do
-        let(:current_tax_zone) { create(:zone_with_country, default_tax: true) }
-        let!(:tax_rate) do
-          create :tax_rate,
-                 included_in_price: true,
-                 zone: current_tax_zone,
-                 tax_category: product.tax_category,
-                 amount: 0.2
-        end
-
-        it "returns the price adding the VAT" do
-          expect(display_price(product)).to eq("$19.99")
-        end
-      end
-    end
-
-    context "with an order that has a tax zone" do
-      let(:current_tax_zone) { create(:zone_with_country) }
-      let(:current_order) { Spree::Order.new }
-      let(:default_zone) { create(:zone_with_country, default_tax: true) }
-
-      let!(:default_vat) do
-        create :tax_rate,
-               included_in_price: true,
-               zone: default_zone,
-               tax_category: product.tax_category,
-               amount: 0.2
-      end
-
-      context "that matches no VAT" do
-        it "returns the price excluding VAT" do
-          expect(display_price(product)).to eq("$16.66")
-        end
-      end
-
-      context "that matches a VAT" do
-        let!(:other_vat) do
-          create :tax_rate,
-                 included_in_price: true,
-                 zone: current_tax_zone,
-                 tax_category: product.tax_category,
-                 amount: 0.4
-        end
-
-        it "returns the price adding the VAT" do
-          expect(display_price(product)).to eq("$23.32")
-        end
-      end
     end
   end
 end
