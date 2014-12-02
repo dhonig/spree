@@ -1,6 +1,5 @@
-<% variant = line_item.variant %>
-
-<%= order_form.fields_for :line_items, line_item do |item_form| %>
+<% variant = line_item.variant -%>
+<%= order_form.fields_for :line_items, line_item do |item_form| -%>
   <tr class="line-item">
     <td class="cart-item-image" data-hook="cart_item_image">
       <% if variant.images.length == 0 %>
@@ -24,7 +23,7 @@
     <td class="lead text-primary cart-item-price" data-hook="cart_item_price">
       <%= line_item.single_money.to_html %>
     </td>
-    <td class="cart-item-quantity" data-hook="cart_item_quantity" valign="center">
+    <td class="cart-item-quantity" data-hook="cart_item_quantity">
       <%= item_form.number_field :quantity, min: 0, class: "form-control line_item_quantity", size: 5 %>
     </td>
     <td class="lead text-primary cart-item-total" data-hook="cart_item_total">
@@ -34,4 +33,4 @@
       <%= link_to content_tag(:span, '', class: 'glyphicon glyphicon-minus-sign'), '#', class: 'delete', id: "delete_#{dom_id(line_item)}" %>
     </td>
   </tr>
-<% end %>
+<% end -%>
