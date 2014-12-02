@@ -6,24 +6,27 @@ Gem::Specification.new do |s|
   s.name        = 'spree_frontend'
   s.version     = version
   s.summary     = 'Frontend e-commerce functionality for the Spree project.'
-  s.description = 'Required dependency for Spree'
+  s.description = s.summary
 
-  s.required_ruby_version = '>= 1.9.3'
   s.author      = 'Sean Schofield'
   s.email       = 'sean@spreecommerce.com'
   s.homepage    = 'http://spreecommerce.com'
-  s.rubyforge_project = 'spree_frontend'
 
-  s.files        = Dir['LICENSE', 'README.md', 'app/**/*', 'config/**/*', 'lib/**/*', 'db/**/*', 'vendor/**/*']
+  s.files        = `git ls-files`.split("\n")
+  s.test_files   = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
   s.add_dependency 'spree_api', version
   s.add_dependency 'spree_core', version
 
+  s.add_dependency 'bootstrap-sass',  '~> 3.2.0'
   s.add_dependency 'canonical-rails', '~> 0.0.4'
-  s.add_dependency 'jquery-rails', '3.1.0' # Locked down because 3.1.1 breaks data-confirm https://github.com/spree/spree/pull/4892
-  s.add_dependency 'stringex', '~> 1.5.1'
+<<<<<<< HEAD
+  s.add_dependency 'jquery-rails', '~> 3.1.2'
+=======
+  s.add_dependency 'jquery-rails',    '~> 3.1.2'
+>>>>>>> Bring in kaminari templates.
 
   s.add_development_dependency 'capybara-accessible'
 end
