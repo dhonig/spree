@@ -20,13 +20,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'spree_api', version
   s.add_dependency 'spree_core', version
 
-  s.add_dependency 'bootstrap-sass',  '~> 3.2.0'
+  s.add_dependency 'bootstrap-sass',  '~> 3.3.1'
   s.add_dependency 'canonical-rails', '~> 0.0.4'
-<<<<<<< HEAD
-  s.add_dependency 'jquery-rails', '~> 3.1.2'
-=======
   s.add_dependency 'jquery-rails',    '~> 3.1.2'
->>>>>>> Bring in kaminari templates.
+  s.add_dependency 'sprockets-rails', '~> 2.2.1'
 
   s.add_development_dependency 'capybara-accessible'
 end
