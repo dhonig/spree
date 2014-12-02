@@ -1,6 +1,10 @@
 /*
 * This is a manifest file that includes stylesheets for spree_frontend
+<<<<<<< HEAD
  *= require spree/frontend/frontend_bootstrap
+=======
+ *= require spree/frontend/bootstrap
+>>>>>>> Cleanup frontend assets.
  *= require_self
  *= require_tree .
 */
