@@ -1,10 +1,21 @@
 module Spree
   module Admin
     module BaseHelper
+<<<<<<< HEAD
       def main_div_class
         return "col-md-9" if content_for?(:sidebar) or content_for?(:table_filter)
         return "col-md-6" if content_for?(:sidebar) and content_for?(:table_filter)
         "col-md-12"
+=======
+      def flash_alert flash
+        if flash.present?
+          message = flash[:error] || flash[:notice] || flash[:success]
+          flash_class = "danger" if flash[:error]
+          flash_class = "info" if flash[:notice]
+          flash_class = "success" if flash[:success]
+          content_tag(:div, message, class: "alert alert-#{flash_class} alert-auto-dissapear")
+        end
+>>>>>>> Bootstrap initial refactor
       end
 
       def field_container(model, method, options = {}, &block)

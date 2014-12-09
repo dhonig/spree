@@ -55,15 +55,25 @@ module Spree
       # Single main menu item
       def main_menu_item text, url: nil, icon: nil
         link_to url, :'data-toggle' => "collapse", :'data-parent' => '#sidebar' do
+<<<<<<< HEAD
           content_tag(:span, nil, class: "icon icon-#{icon}") +
           content_tag(:span, " #{text}", class: 'text') +
           content_tag(:span, nil, class: "icon icon-chevron-left pull-right")
+=======
+          content_tag(:span, nil, class: "glyphicon glyphicon-#{icon}") +
+          content_tag(:span, " #{text}") +
+          content_tag(:span, nil, class: "glyphicon glyphicon-chevron-left pull-right")
+>>>>>>> Bootstrap initial refactor
         end
       end
 
       # Main menu tree menu
       def main_menu_tree text, icon: nil, sub_menu: nil, url: '#'
+<<<<<<< HEAD
         content_tag :li, class: 'sidebar-menu-item' do
+=======
+        content_tag :li do
+>>>>>>> Bootstrap initial refactor
           main_menu_item(text, url: url, icon: icon) +
           render(partial: "spree/admin/shared/sub_menu/#{sub_menu}")
         end
@@ -74,7 +84,7 @@ module Spree
       def collapse_sidebar_link
         content_tag :div, class: "collapse-sidebar" do
           link_to "javascript:;", class: "js-collapse-sidebar" do
-            content_tag(:span, nil, class: "icon icon-chevron-right") +
+            content_tag(:span, nil, class: "glyphicon glyphicon-chevron-right") +
             content_tag(:span, "Collapse sidebar", class: "text")
           end
         end
@@ -118,8 +128,13 @@ module Spree
       def link_to_clone(resource, options={})
 <<<<<<< HEAD
         options[:data] = { action: 'clone' }
+<<<<<<< HEAD
         options[:class] = "btn btn-primary btn-sm"
         link_to_with_icon('clone', Spree.t(:clone), clone_object_url(resource), options)
+=======
+        options[:class] = "btn btn-default btn-sm"
+        link_to_with_icon('export', Spree.t(:clone), clone_object_url(resource), options)
+>>>>>>> Bootstrap initial refactor
       end
 
       def link_to_new(resource)
@@ -169,7 +184,7 @@ module Spree
 <<<<<<< HEAD
         options[:class] = "btn btn-danger btn-sm delete-resource"
         options[:data] = { confirm: Spree.t(:are_you_sure), action: 'remove' }
-        link_to_with_icon 'delete', name, url, options
+        link_to_with_icon 'trash', name, url, options
       end
 
       def link_to_with_icon(icon_name, text, url, options = {})
@@ -189,10 +204,14 @@ module Spree
         options.delete(:no_text)
         if icon_name
 <<<<<<< HEAD
+<<<<<<< HEAD
           icon = content_tag(:span, '', class: "icon icon-#{icon_name}")
 =======
           icon = content_tag(:span, '', class: "glyphicon glyphicon-#{icon_name}")
 >>>>>>> Backend on Bootstrap
+=======
+          icon = content_tag(:span, '', class: "glyphicon glyphicon-#{icon_name}")
+>>>>>>> Bootstrap initial refactor
           text.insert(0, icon + ' ')
         end
         link_to(text.html_safe, url, options)
@@ -205,7 +224,11 @@ module Spree
       def button(text, icon_name = nil, button_type = 'submit', options={})
         if icon_name
 <<<<<<< HEAD
+<<<<<<< HEAD
           icon = content_tag(:span, '', class: "icon icon-#{icon_name}")
+=======
+          icon = content_tag(:span, '', class: "glyphicon glyphicon-#{icon_name}")
+>>>>>>> Bootstrap initial refactor
           text.insert(0, icon + ' ')
         end
         button_tag(text.html_safe, options.merge(type: button_type, class: "btn btn-primary #{options[:class]}"))
@@ -236,10 +259,14 @@ module Spree
 
           if html_options[:icon]
 <<<<<<< HEAD
+<<<<<<< HEAD
             icon = content_tag(:span, '', class: "icon icon-#{html_options[:icon]}")
 =======
             icon = content_tag(:span, '', class: "glyphicon glyphicon-#{html_options[:icon]}")
 >>>>>>> Backend on Bootstrap
+=======
+            icon = content_tag(:span, '', class: "glyphicon glyphicon-#{html_options[:icon]}")
+>>>>>>> Bootstrap initial refactor
             text.insert(0, icon + ' ')
           end
 

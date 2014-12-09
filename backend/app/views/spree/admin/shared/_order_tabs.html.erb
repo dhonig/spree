@@ -19,7 +19,11 @@
     <% end %>
 
     <% if can? :update, @order %>
+<<<<<<< HEAD
       <li<%== ' class="active"' if current == :shipments %> data-hook='admin_order_tabs_shipment_details'>
+=======
+      <li<%== ' class="active"' if current == 'Shipments' %> data-hook='admin_order_tabs_order_details'>
+>>>>>>> Bootstrap initial refactor
         <%= link_to_with_icon 'road', Spree.t(:shipments), edit_admin_order_url(@order) %>
       </li>
     <% end %>
@@ -38,16 +42,26 @@
 
     <% if can? :index, Spree::ReturnAuthorization %>
       <% if @order.completed? %>
+<<<<<<< HEAD
         <li<%== ' class="active"' if current == :return_authorizations %> data-hook='admin_order_tabs_return_authorizations'>
           <%= link_to_with_icon 'transfer', Spree.t(:return_authorizations), spree.admin_order_return_authorizations_url(@order) %>
+=======
+        <li<%== ' class="active"' if current == 'Return Authorizations' %> data-hook='admin_order_tabs_return_authorizations'>
+          <%= link_to_with_icon 'arrow-left', Spree.t(:returns), admin_order_return_authorizations_url(@order) %>
+>>>>>>> Bootstrap initial refactor
         </li>
       <% end %>
     <% end %>
 
     <% if can? :index, Spree::CustomerReturn %>
       <% if @order.completed? %>
+<<<<<<< HEAD
         <li<%== ' class="active"' if current == :customer_returns %>>
           <%= link_to_with_icon 'transfer', Spree.t(:customer_returns), spree.admin_order_customer_returns_url(@order) %>
+=======
+        <li<%== ' class="active"' if current == 'Customer Returns' %>>
+          <%= link_to_with_icon 'arrow-left', Spree.t(:customer_returns), admin_order_customer_returns_url(@order) %>
+>>>>>>> Bootstrap initial refactor
         </li>
       <% end %>
     <% end %>

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #main-sidebar {
+=======
+.sidebar {
+>>>>>>> Bootstrap initial refactor
   position: fixed;
   top: $navbar-height + 2px;
   bottom: 0;
@@ -9,6 +13,7 @@
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   background-color: lighten($gray-lighter, 5);
+<<<<<<< HEAD
   border-right: 1px solid darken($gray-lighter, 5);
 
   a {
@@ -18,12 +23,16 @@
     -webkit-font-feature-settings: "kern" 1;
     -moz-font-feature-settings: "kern" 1;
   }
+=======
+  border-right: 1px solid $gray-lighter;
+>>>>>>> Bootstrap initial refactor
 
   ul.nav-sidebar {
     > li {
       border-bottom: 1px solid $gray-lighter;
 
       > a {
+<<<<<<< HEAD
         text-transform: uppercase;
         letter-spacing: 1px;
         font-size: 12px;
@@ -45,23 +54,36 @@
           right: 5px;
           top: 50%;
           margin-top: -8px;
+=======
+        .glyphicon.pull-right {
+          font-size: 10px;
+          line-height: 2;
+          color: $gray-light;
+>>>>>>> Bootstrap initial refactor
         }
       }
     }
   }
 
   ul.nav.nav-pills {
+<<<<<<< HEAD
+=======
+    padding-left: 18px;
+>>>>>>> Bootstrap initial refactor
     background-color: white;
     border-top: 1px solid $gray-lighter;
 
     li {
       a {
         padding: 5px 15px;
+<<<<<<< HEAD
         font-size: 12px;
 
         &:hover {
           border-radius: 0;
         }
+=======
+>>>>>>> Bootstrap initial refactor
       }
 
       &.selected {
@@ -72,6 +94,7 @@
     }
   }
 }
+<<<<<<< HEAD
 
 #wrapper.sidebar-minimized #main-sidebar {
   width: 50px;
@@ -120,3 +143,5 @@
     padding-top: 5px;
   }
 }
+=======
+>>>>>>> Bootstrap initial refactor

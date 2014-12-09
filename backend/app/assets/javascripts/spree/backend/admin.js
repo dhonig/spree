@@ -21,7 +21,7 @@ jQuery(function($) {
   $('.js-show-index-filters').click(function(){
     $(".filter-well").slideToggle();
     $(this).parents(".filter-wrap").toggleClass("collapsed");
-    $("span.icon", $(this)).toggleClass("icon-chevron-down");
+    $("span.glyphicon", $(this)).toggleClass("glyphicon-chevron-down");
   });
 
   $('.js-index-checkbox-main').click(function(){
@@ -40,8 +40,8 @@ jQuery(function($) {
   $(".js-collapse-sidebar").click(function(){
     $(".main-right-sidebar").toggleClass("collapsed");
     $("section.content").toggleClass("sidebar-collapsed");
-    $("span.icon", $(this)).toggleClass("icon-chevron-right");
-    $("span.icon", $(this)).toggleClass("icon-chevron-left");
+    $("span.glyphicon", $(this)).toggleClass("glyphicon-chevron-right");
+    $("span.glyphicon", $(this)).toggleClass("glyphicon-chevron-left");
   });
 
   function showHideBatchActions(){
@@ -58,6 +58,14 @@ jQuery(function($) {
       $(".batch-actions").hide();
     }
   }
+
+  // Main menu active item submenu show
+  var active_item = $('#sidebar').find('.selected');
+  active_item.parent().addClass('in');
+  active_item.parent().prev()
+    .find('.glyphicon-chevron-left')
+    .removeClass('glyphicon-chevron-left')
+    .addClass('glyphicon-chevron-down');
 
   // Replace ▼ and ▲ in sort_link with nicer icons
   $(".sort_link").each(function(){

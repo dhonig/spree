@@ -1,8 +1,11 @@
 <% if can? :admin, Spree::Order %>
-  <%= tab *Spree::BackendConfiguration::ORDER_TABS, icon: 'shopping-cart' %>
+  <ul class="nav nav-sidebar">
+    <%= tab *Spree::BackendConfiguration::ORDER_TABS, icon: 'shopping-cart' %>
+  </ul>
 <% end %>
 
 <% if can? :admin, Spree::Product %>
+<<<<<<< HEAD
 
   <li class="treeview">
     <a href="#">
@@ -13,10 +16,17 @@
     <%= render :partial => 'spree/admin/shared/product_sub_menu' %>
   </li>
 
+=======
+  <ul class="nav nav-sidebar">
+    <%= main_menu_tree Spree.t(:products), icon: "th-large", sub_menu: "product", url: "#sidebar-product" %>
+  </ul>
+>>>>>>> Bootstrap initial refactor
 <% end %>
 
 <% if can? :admin, Spree::Admin::ReportsController %>
-  <%= tab *Spree::BackendConfiguration::REPORT_TABS, icon: 'file'  %>
+  <ul class="nav nav-sidebar">
+    <%= tab *Spree::BackendConfiguration::REPORT_TABS, icon: 'file'  %>
+  </ul>
 <% end %>
 
 <li class="treeview">
@@ -29,6 +39,7 @@
 </li>
 
 <% if can? :admin, Spree::Promotion %>
+<<<<<<< HEAD
   <li class="treeview">
     <a href="#">
       <span class="icon icon-bullhorn"></span>
@@ -37,8 +48,24 @@
     </a>
     <%= render :partial => 'spree/admin/shared/promotion_sub_menu' %>
   </li>
+=======
+  <ul class="nav nav-sidebar">
+    <%= main_menu_tree Spree.t(:promotions), icon: "gift", sub_menu: "promotion", url: "#sidebar-promotions" %>
+  </ul>
+>>>>>>> Bootstrap initial refactor
 <% end %>
 
 <% if Spree.user_class && can?(:admin, Spree.user_class) %>
-  <%= tab *Spree::BackendConfiguration::USER_TABS, url: spree.admin_users_path, icon: 'user' %>
+  <ul class="nav nav-sidebar">
+    <%= tab *Spree::BackendConfiguration::USER_TABS, url: spree.admin_users_path, icon: 'user' %>
+  </ul>
 <% end %>
+<<<<<<< HEAD
+=======
+
+<% if can? :admin, current_store %>
+  <ul class="nav nav-sidebar">
+    <%= main_menu_tree Spree.t(:configurations), icon: "wrench", sub_menu: "configuration", url: "#sidebar-configuration" %>
+  </ul>
+<% end %>
+>>>>>>> Bootstrap initial refactor

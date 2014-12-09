@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+@import 'components/variables';
+>>>>>>> Bootstrap initial refactor
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'AdminLTE';
@@ -299,3 +304,13 @@ ul {
     }
   }
 }
+=======
+@import 'global/variables';
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+@import 'components/sidebar';
+
+@import 'shared/base';
+>>>>>>> Bootstrap initial refactor
