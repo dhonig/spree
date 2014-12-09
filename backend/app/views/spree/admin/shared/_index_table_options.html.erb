@@ -4,11 +4,7 @@
   </div>
   <div class="col-sm-6">
     <div class="pagination-wrap">
-<<<<<<< HEAD
       <%= form_tag({ :action => "index"}, { :method => "get", :id => "js-per-page-form", :class => 'form-inline' }) do %>
-=======
-      <%= form_tag({ :action => "index"}, { :method => "get", :id => "js-per-page-form" }) do %>
->>>>>>> Bootstrap initial refactor
         <%= per_page_dropdown %>
       <% end %>
       <div class="clearfix"></div>
@@ -17,11 +13,11 @@
 </div>
 
 <% content_for :head do %>
-  <%= javascript_tag do %>
+  <%= javascript_tag do -%>
     $(document).ready(function() {
       $("#js-per-page-select").change(function() {
         $("#js-per-page-form").submit();
       });
     });
-  <% end %>
+  <% end -%>
 <% end %>
