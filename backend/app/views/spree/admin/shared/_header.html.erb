@@ -1,92 +1,16 @@
-<<<<<<< HEAD
 <% admin = try_spree_current_user.try(:has_spree_role?, "admin") %>
 
 <header class="header <%= admin ? "logged-in" : "logged-out" %>">
-
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="navbar-header col-sm-3 col-md-2">
-          <%= link_to(
-            image_tag(Spree::Config[:admin_interface_logo], id: 'logo'),
-            spree.admin_path,
-            class: "logo navbar-brand"
-          ) %>
-          <% if admin %>
-            <span class="navbar-toggle" id="sidebar-toggle">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </span>
-          <% end %>
-        </div>
-
-        <% if admin %>
-          <div class="col-sm-9 col-md-10">
-            <div class="navbar-right" data-hook="admin_login_navigation_bar"></div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </nav>
-
-=======
-<header class="header">
-<<<<<<< HEAD
-  <%= link_to image_tag(Spree::Config[:admin_interface_logo], :id => 'logo'), spree.admin_path, class: "logo" %>
-  <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top" role="navigation">
-    <% if can? :admim, Spree::Order %>
-      <!-- Sidebar toggle button-->
+  <%= link_to image_tag(Spree::Config[:admin_interface_logo], id: 'logo'), spree.admin_path, class: "logo" %>
+  <% if admin %>
+    <nav class="navbar navbar-static-top" role="navigation">
       <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <div class="navbar-right">
-        <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="glyphicon glyphicon-user"></i>
-              <span><%= spree_current_user.email %> <i class="caret"></i></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="user-header bg-light-blue">
-                <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(spree_current_user.email.downcase) %>" class="img-circle" />
-                <p>
-                  <%= spree_current_user.email %>
-                  <small>Member since <%= spree_current_user.created_at.strftime("%B %Y") %></small>
-                </p>
-              </li>
-              <%= render :partial => 'spree_auth_devise/admin/login_nav' %>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    <% end %>
-  </nav>
->>>>>>> Backend on Bootstrap
-=======
-
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <%= link_to image_tag(Spree::Config[:admin_interface_logo], id: 'logo', height: '100%'), spree.admin_path, class: "logo navbar-brand" %>
-      </div>
-
-      <% if can? :admin, Spree::Order %>
-        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <div class="navbar-right" data-hook="admin_login_navigation_bar"></div>
-      <% end %>
-    </div>
-  </nav>
-
->>>>>>> Bootstrap initial refactor
+      <div class="navbar-right" data-hook="admin_login_navigation_bar"></div>
+    </nav>
+  <% end %>
 </header>
