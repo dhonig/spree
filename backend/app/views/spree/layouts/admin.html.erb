@@ -70,8 +70,11 @@
             <%#-------------------------------------------------%>
             <%# Alerts                                          %>
             <%#-------------------------------------------------%>
-            <%= flash_alert(flash) %>
-            <%= render partial: 'spree/admin/shared/alert', collection: session[:alerts] %>
+            <div class="col-md-12">
+              <%= flash_alert(flash) %>
+              <%= render partial: 'spree/admin/shared/alert', collection: session[:alerts] %>  
+            </div>
+            
 
 <<<<<<< HEAD
               <% if flash[:error] %>
