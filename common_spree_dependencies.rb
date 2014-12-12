@@ -6,8 +6,9 @@ source 'https://rubygems.org'
 platforms :ruby do
   gem 'mysql2'
   gem 'pg'
-  gem 'sqlite3'
 end
+
+gem 'sqlite3', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
 
 platforms :jruby do
   gem 'jruby-openssl'
@@ -17,11 +18,14 @@ end
 gem 'coffee-rails', '~> 4.0.0'
 gem 'sass-rails', '~> 5.0.0.beta1'
 
+gem 'paranoia', github: 'huoxito/paranoia', branch: 'rails-4.2'
+gem 'state_machine', github: 'huoxito/state_machine', branch: 'spree-rails4.2-upgrade'
+
 group :test do
   gem 'capybara', '~> 2.4'
   gem 'database_cleaner', '~> 1.3'
   gem 'email_spec'
-  gem 'factory_girl_rails', '~> 4.5'
+  gem 'factory_girl_rails', '~> 4.5.0'
   gem 'launchy'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
@@ -35,6 +39,8 @@ group :test do
 end
 
 group :test, :development do
+  gem 'rubocop', require: false
+
   platforms :ruby_19 do
     gem 'pry-debugger'
   end
@@ -42,3 +48,5 @@ group :test, :development do
     gem 'pry-byebug'
   end
 end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
