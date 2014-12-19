@@ -9,6 +9,7 @@
 //= require jquery.tree-menu
 //= require modernizr
 //= require underscore-min.js
+//= require velocity
 //= require spree
 //= require spree/backend/spree-select2
 //= require_tree .

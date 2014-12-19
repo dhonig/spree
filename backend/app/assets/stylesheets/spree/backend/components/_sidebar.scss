@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#main-sidebar {
-=======
 .sidebar {
->>>>>>> Bootstrap initial refactor
   position: fixed;
   top: $navbar-height + 2px;
   bottom: 0;
@@ -13,7 +9,6 @@
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   background-color: lighten($gray-lighter, 5);
-<<<<<<< HEAD
   border-right: 1px solid darken($gray-lighter, 5);
 
   a {
@@ -23,16 +18,12 @@
     -webkit-font-feature-settings: "kern" 1;
     -moz-font-feature-settings: "kern" 1;
   }
-=======
-  border-right: 1px solid $gray-lighter;
->>>>>>> Bootstrap initial refactor
 
   ul.nav-sidebar {
     > li {
       border-bottom: 1px solid $gray-lighter;
 
       > a {
-<<<<<<< HEAD
         text-transform: uppercase;
         letter-spacing: 1px;
         font-size: 12px;
@@ -41,49 +32,32 @@
         color: $gray;
 
         .glyphicon {
-          font-size: 18px;
+          font-size: 20px;
           vertical-align: bottom;
           padding-right: 5px;
         }
 
         .glyphicon.pull-right {
-          font-size: 8px;
-          line-height: 2;
-          color: $gray-light;
-          position: absolute;
-          right: 5px;
-          top: 50%;
-          margin-top: -8px;
-=======
-        .glyphicon.pull-right {
           font-size: 10px;
           line-height: 2;
           color: $gray-light;
->>>>>>> Bootstrap initial refactor
         }
       }
     }
   }
 
   ul.nav.nav-pills {
-<<<<<<< HEAD
-=======
-    padding-left: 18px;
->>>>>>> Bootstrap initial refactor
     background-color: white;
     border-top: 1px solid $gray-lighter;
 
     li {
       a {
-        padding: 5px 15px;
-<<<<<<< HEAD
+        padding: 5px 15px 5px 33px;
         font-size: 12px;
 
         &:hover {
           border-radius: 0;
         }
-=======
->>>>>>> Bootstrap initial refactor
       }
 
       &.selected {
@@ -94,54 +68,3 @@
     }
   }
 }
-<<<<<<< HEAD
-
-#wrapper.sidebar-minimized #main-sidebar {
-  width: 50px;
-  overflow: visible;
-
-  li {
-    &:hover, &.menu-active {
-      background-color: $gray-lighter;
-    }
-  }
-
-  .icon-link, [data-toggle="collapse"] {
-    text-align: center;
-
-    .icon {
-      padding: 0;
-    }
-
-    .text, .icon-chevron-left, .icon-chevron-down {
-      display: none;
-    }
-  }
-
-  ul.collapse.in {
-    display: none;
-  }
-
-  .submenu-active {
-    display: block !important;
-    height: auto !important;
-    position: fixed;
-    top: $navbar-height + 2px;
-    bottom: 0;
-    left: 0;
-    padding: 0;
-    z-index: 1000;
-    display: block;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    left: 50px;
-    min-width: 180px;
-    visibility: visible;
-    background-color: lighten($gray-lighter, 5);
-    border-top: none;
-    border-right: 1px solid darken($gray-lighter, 5);
-    padding-top: 5px;
-  }
-}
-=======
->>>>>>> Bootstrap initial refactor

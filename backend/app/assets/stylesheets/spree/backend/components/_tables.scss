@@ -1,24 +1,25 @@
-<<<<<<< HEAD
 table.table {
-  tbody {
-    tr {
-      td {
-        vertical-align: middle;
+  thead {
+    th {
+      text-transform: uppercase;
+      font-size: $font-size-base - 3px;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      vertical-align: middle;
+      letter-spacing: 1px;
 
-        &.actions {
-          text-align: right;
+      a {
+        .glyphicon {
+          padding-left: 5px;
         }
       }
     }
   }
+  tbody {
+    tr {
+      td {
+        vertical-align: middle;
+      }
+    }
+  }
 }
-
-#table-filter {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  margin-top: -3px;
-  display: table;
-  width: 100%;
-}
-=======
->>>>>>> Fixing errors in merge
