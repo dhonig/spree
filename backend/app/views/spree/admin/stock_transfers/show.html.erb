@@ -1,30 +1,14 @@
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Backend on Bootstrap
 <% content_for :page_title do %>
-  <%= plural_resource_name(Spree::StockTransfer) %> (<%= @stock_transfer.number %>)
+  <%= Spree::StockTransfer.model_name.human(count: :many) %> (<%= @stock_transfer.number %>)
 <% end %>
 
 <% content_for :page_actions do %>
-<<<<<<< HEAD
   <%= button_link_to Spree.t(:new_stock_transfer), new_admin_stock_transfer_path, { :icon => 'add', :class => 'btn-success' } %>
-<% end if can? :create, Spree::StockTransfer %>
-=======
-  <li>
-    <%= button_link_to Spree.t(:back_to_stock_transfers_list), admin_stock_transfers_path, :icon => 'arrow-left' %>
-  </li>
-  <li>
-    <%= button_link_to Spree.t(:new_stock_transfer), new_admin_stock_transfer_path, { :icon => 'add', :class => 'btn-success' } %>
-  </li>
 <% end %>
->>>>>>> Backend on Bootstrap
 
 <fieldset>
   <legend><%= Spree.t(:stock_transfer) %></legend>
 
-<<<<<<< HEAD
   <table class="table table-bordered">
     <tr>
       <td width="30%"><strong><%= Spree.t(:created_at) %></strong></td>
@@ -37,32 +21,11 @@
       </tr>
     <% end %>
   </table>
-=======
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label><%= Spree.t(:reference) %></label>
-        <div class="value"><%= @stock_transfer.reference %></div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <div class="form-group">
-        <label><%= Spree.t(:created_at) %></label>
-        <div class="value"><%= @stock_transfer.created_at %></div>
-      </div>
-    </div>
-  </div>
->>>>>>> Backend on Bootstrap
 
   <% if @stock_transfer.source_movements.present? %>
     <fieldset>
       <legend id="stock-location-source">
-<<<<<<< HEAD
         <%= Spree.t(:source) %> / <%= @stock_transfer.source_location.name %>
-=======
-        <%= Spree.t(:source) %> <span class="glyphicon glyphicon-arrow-right"></span> <%= @stock_transfer.source_location.name %>
->>>>>>> Backend on Bootstrap
       </legend>
       <%= render :partial => 'stock_movements', :object => @stock_transfer.source_movements %>
     </fieldset>
@@ -71,11 +34,7 @@
   <% if @stock_transfer.destination_movements.present? %>
     <fieldset>
       <legend id="stock-location-destination">
-<<<<<<< HEAD
         <%= Spree.t(:destination) %> / <%= @stock_transfer.destination_location.name %>
-=======
-        <%= Spree.t(:destination) %> <span class="glyphicon glyphicon-arrow-right"></span> <%= @stock_transfer.destination_location.name %>
->>>>>>> Backend on Bootstrap
       </legend>
       <%= render :partial => 'stock_movements', :object => @stock_transfer.destination_movements %>
     </fieldset>

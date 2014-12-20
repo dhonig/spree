@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-  <%= Spree.t(:promotions) %>
+  <%= Spree::Promotion.model_name.human(count: :many) %>
 <% end %>
 
 <% content_for :page_actions do %>
@@ -11,7 +11,7 @@
     <%= search_form_for [:admin, @search] do |f| %>
       <div class="form-group">
         <%= label_tag :q_name_cont, Spree.t(:name) %>
-        <%= f.text_field :name_cont, tabindex: 1, class: "form-control" %>
+        <%= f.text_field :name_cont, tabindex: 1, class: "form-control js-quick-search-target" %>
       </div>
 
       <div class="form-group">
@@ -39,7 +39,7 @@
 <%= paginate @promotions %>
 
 <% if @promotions.any? %>
-  <table class="table index">
+  <table class="table">
     <thead>
       <tr>
         <th><%= Spree.t(:name) %></th>
@@ -69,12 +69,8 @@
     </tbody>
   </table>
 <% else %>
-<<<<<<< HEAD
-  <div class="alpha omega sixteen columns no-objects-found">
-=======
   <div class="alert alert-info no-objects-found">
->>>>>>> Backend on Bootstrap
-    <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/promotion')) %>,
+    <%= Spree.t(:no_resource_found, resource: Spree::Promotion.model_name.human(count: :many)) %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_promotion_path %>!
   </div>
 <% end %>

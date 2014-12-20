@@ -5,19 +5,20 @@
   <% if can?(:resend, @order) %>
     <%= button_link_to Spree.t(:resend), resend_admin_order_url(@order), method: :post, icon: 'envelope' %>
   <% end %>
-  <% if can?(:admin, Spree::Order) %>
-    <%= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, icon: 'arrow-left' %>
-  <% end %>
 <% end %>
 
-<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Shipments' } %>
+<%= render partial: 'spree/admin/shared/order_tabs', locals: { current: 'Shipments' } %>
+
+<% content_for :page_title do %>
+  / <%= Spree::Shipment.model_name.human(count: :many) %>
+<% end %>
 
 <div data-hook="admin_order_edit_header">
   <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @order } %>
 </div>
 
 <% if @order.payments.exists? && @order.considered_risky? %>
-  <%= render 'spree/admin/orders/risk_analysis', latest_payment: @order.payments.last %>
+  <%= render 'spree/admin/orders/risk_analysis', latest_payment: @order.payments.valid.last %>
 <% end %>
 
 <%= render partial: 'add_product' if @order.shipment_state != 'shipped' && can?(:update, @order) %>
@@ -37,3 +38,5 @@
 <% content_for :head do %>
   <%= javascript_tag 'var expand_variants = true;' %>
 <% end %>
+
+<%= render partial: 'spree/admin/shared/order_summary' %>

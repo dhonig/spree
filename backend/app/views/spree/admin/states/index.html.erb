@@ -1,41 +1,14 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Backend on Bootstrap
-=======
->>>>>>> Cherry picked yesterdays work
 <% content_for :page_title do %>
-  <%= plural_resource_name(Spree::State) %>
+  <%= Spree::State.model_name.human(count: :many) %>
 <% end %>
 
 <% content_for :page_actions do %>
-<<<<<<< HEAD
-<<<<<<< HEAD
   <%= button_link_to Spree.t(:new_state), new_admin_country_state_url(@country), { :class => "btn-success", :icon => 'add', :id => 'new_state_link' } %>
-<% end if can? :create, Spree::State %>
-
-<div data-hook="country" class="form-group">
-  <%= label_tag :country, Spree.t(:country) %>
-  <select id="country" class='observe_field select2' data-base-url="<%=admin_states_path(:format => :js) %>?country_id=" data-update="#state-list">
-=======
-  <li id="new_state_link">
-=======
-  <span id="new_state_link">
->>>>>>> Cherry picked yesterdays work
-    <%= button_link_to Spree.t(:new_state), new_admin_country_state_url(@country), { :remote => true, :class => "btn-success", :icon => 'add', :id => 'new_state_link' } %>
-  </span>
 <% end %>
 
 <div data-hook="country" class="form-group">
   <%= label_tag :country, Spree.t(:country) %>
-<<<<<<< HEAD
-  <select id="country" class='observe_field select2 fullwidth' data-base-url="<%=admin_states_path(:format => :js) %>?country_id=" data-update="#state-list">
->>>>>>> Backend on Bootstrap
-=======
   <select id="country" class='observe_field select2' data-base-url="<%=admin_states_path(:format => :js) %>?country_id=" data-update="#state-list">
->>>>>>> Cherry picked yesterdays work
     <%= options_from_collection_for_select(@countries, :id, :name, @country.id) %>
   </select>
 </div>

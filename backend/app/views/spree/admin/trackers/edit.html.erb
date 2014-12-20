@@ -1,7 +1,7 @@
 
 
 <% content_for :page_title do %>
-  <%= Spree.t(:editing_tracker) %>
+  <%= Spree.t(:editing_resource, resource: Spree::Tracker.model_name.human) %>
 <% end %>
 
 <% content_for :page_actions do %>
