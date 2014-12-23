@@ -80,7 +80,7 @@ describe "Visiting Products", type: :feature, inaccessible: true do
         visit spree.root_path
         within("#product_#{product.id}") do
           within(".price") do
-            expect(page).to have_content("руб19.99")
+            expect(page).to have_content("₽19.99")
           end
         end
       end
@@ -88,16 +88,16 @@ describe "Visiting Products", type: :feature, inaccessible: true do
       it "on product page" do
         visit spree.product_path(product)
         within(".price") do
-          expect(page).to have_content("руб19.99")
+          expect(page).to have_content("₽19.99")
         end
       end
 
-      it "when adding a product to the cart", :js => true do
+      it "when adding a product to the cart", js: true do
         visit spree.product_path(product)
         click_button "Add To Cart"
         click_link "Home"
         within(".cart-info") do
-          expect(page).to have_content("РУБ19.99")
+          expect(page).to have_content("₽19.99")
         end
       end
 
@@ -111,7 +111,7 @@ describe "Visiting Products", type: :feature, inaccessible: true do
         click_button 'Continue'
 >>>>>>> Bring in kaminari templates.
         within("tr[data-hook=item_total]") do
-          expect(page).to have_content("руб19.99")
+          expect(page).to have_content("₽19.99")
         end
       end
     end

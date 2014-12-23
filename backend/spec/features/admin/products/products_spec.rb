@@ -59,14 +59,14 @@ describe "Products", type: :feature do
           context "uses руб as the currency symbol" do
             it "on the products listing page" do
               visit spree.admin_products_path
-              within_row(1) { expect(page).to have_content("19.99 ₽") }
+              within_row(1) { expect(page).to have_content("₽19.99") }
             end
           end
         end
       end
     end
 
-    context "searching products" do
+    context "searching products", js: true do
       it "should be able to search deleted products" do
         create(:product, name: 'apache baseball cap', deleted_at: "2011-01-06 18:21:13")
         create(:product, name: 'zomg shirt')
@@ -75,12 +75,14 @@ describe "Products", type: :feature do
         expect(page).to have_content("zomg shirt")
         expect(page).not_to have_content("apache baseball cap")
 
+        click_on 'Filter'
         check "Show Deleted"
         click_on 'Search'
 
         expect(page).to have_content("zomg shirt")
         expect(page).to have_content("apache baseball cap")
 
+        click_on 'Filter'
         uncheck "Show Deleted"
         click_on 'Search'
 
@@ -94,6 +96,7 @@ describe "Products", type: :feature do
         create(:product, name: 'zomg shirt')
 
         visit spree.admin_products_path
+        click_on 'Filter'
         fill_in "q_name_cont", with: "ap"
         click_on 'Search'
 
@@ -101,6 +104,7 @@ describe "Products", type: :feature do
         expect(page).to have_content("apache baseball cap2")
         expect(page).not_to have_content("zomg shirt")
 
+        click_on 'Filter'
         fill_in "q_variants_including_master_sku_cont", with: "A1"
         click_on 'Search'
 
@@ -315,7 +319,7 @@ describe "Products", type: :feature do
         fill_in "product_available_on", with: "2012/12/25"
         click_button "Update"
         expect(page).to have_content("successfully updated!")
-        expect(Spree::Product.last.available_on.to_s).to eq("2012-12-25 00:00:00 UTC")
+        expect(Spree::Product.last.available_on).to eq('Tue, 25 Dec 2012 00:00:00 UTC +00:00')
       end
 
       it 'should add option_types when selecting a prototype', js: true do
