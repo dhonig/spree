@@ -3,8 +3,6 @@ title: "Developer Tips and Tricks"
 section: advanced
 ---
 
-## Overview
-
 This guide presents accumulated wisdom from person-years of Spree use.
 
 ## Upgrade Considerations
@@ -40,7 +38,7 @@ You might need to patch your local copies, or ensure that such copies
 interact correctly with changed code (e.g. using appropriate ids in HTML to allow the JavaScript to
 work).
 
-If you can help us generalize the core code so that your preferred
+If you can help us generalise the core code so that your preferred
 effect is achieved by altering a few parameters, this will be more useful than duplicating several
 files. Ideas and suggestions are always welcome.
 
@@ -60,12 +58,12 @@ more information.
 Use `rake spec` and `rake test` to test basic functioning after you've
 made changes.
 
-### Analyzing crashes on a non-local machine
+### Analysing crashes on a non-local machine
 
 If you're testing on a server, whether in production or development
 mode, the following code in one
 of your `FOO_extension.rb` files might save some time. It triggers
-local behavior for users who have
+local behaviour for users who have
 an admin role. One useful consequence is that uncaught exceptions will
 show the detailed error page
 instead of `404.html`, so you don't have to hunt through the server
