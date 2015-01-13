@@ -5,7 +5,7 @@ describe Spree::Payment, :type => :model do
   let(:refund_reason) { create(:refund_reason) }
 
   let(:gateway) do
-    gateway = Spree::Gateway::Bogus.new(:active => true)
+    gateway = Spree::Gateway::Bogus.new(:environment => 'test', :active => true)
     allow(gateway).to receive_messages :source_required => true
     gateway
   end
@@ -53,21 +53,7 @@ describe Spree::Payment, :type => :model do
     it 'should not return successful responses' do
       expect(subject.class.risky.to_a).to match_array([payment_3, payment_4])
     end
-  end
 
-  context "#captured_amount" do
-    context "calculates based on capture events" do
-      it "with 0 capture events" do
-        expect(payment.captured_amount).to eq(0)
-      end
-
-      it "with some capture events" do
-        payment.save
-        payment.capture_events.create!(amount: 2.0)
-        payment.capture_events.create!(amount: 3.0)
-        expect(payment.captured_amount).to eq(5)
-      end
-    end
   end
 
   context '#uncaptured_amount' do
@@ -110,6 +96,7 @@ describe Spree::Payment, :type => :model do
       payment.failure
       expect(payment.state).to eql('failed')
     end
+
   end
 
   context 'invalidate' do
@@ -184,6 +171,13 @@ describe Spree::Payment, :type => :model do
         payment.authorize!
       end
 
+      context "when gateway does not match the environment" do
+        it "should raise an exception" do
+          allow(gateway).to receive_messages :environment => "foo"
+          expect { payment.authorize! }.to raise_error(Spree::Core::GatewayError)
+        end
+      end
+
       context "if successful" do
         before do
           expect(payment.payment_method).to receive(:authorize).with(amount_in_cents,
@@ -227,6 +221,13 @@ describe Spree::Payment, :type => :model do
         payment.save!
         expect(payment.log_entries).to receive(:create!).with(details: anything)
         payment.purchase!
+      end
+
+      context "when gateway does not match the environment" do
+        it "should raise an exception" do
+          allow(gateway).to receive_messages :environment => "foo"
+          expect { payment.purchase!  }.to raise_error(Spree::Core::GatewayError)
+        end
       end
 
       context "if successful" do
@@ -286,49 +287,32 @@ describe Spree::Payment, :type => :model do
         end
 
         context "if successful" do
-          context 'for entire amount' do
-            before do
-              expect(payment.payment_method).to receive(:capture).with(payment.display_amount.money.cents, payment.response_code, anything).and_return(success_response)
-            end
-
-            it "should make payment complete" do
-              expect(payment).to receive(:complete!)
-              payment.capture!
-            end
-
-            it "logs capture events" do
-              payment.capture!
-              expect(payment.capture_events.count).to eq(1)
-              expect(payment.capture_events.first.amount).to eq(payment.amount)
-            end
+          before do
+            expect(payment.payment_method).to receive(:capture).with(payment.money.money.cents, payment.response_code, anything).and_return(success_response)
           end
 
-          context 'for partial amount' do
-            let(:original_amount) { payment.money.money.cents }
-            let(:capture_amount) { original_amount - 100 }
+          it "should make payment complete" do
+            expect(payment).to receive(:complete!)
+            payment.capture!
+          end
 
-            before do
-              expect(payment.payment_method).to receive(:capture).with(capture_amount, payment.response_code, anything).and_return(success_response)
-            end
+          it "logs capture events" do
+            payment.capture!
+            expect(payment.capture_events.count).to eq(1)
+            expect(payment.capture_events.first.amount).to eq(payment.amount)
+          end
+        end
 
-            it "should make payment complete & create pending payment for remaining amount" do
-              expect(payment).to receive(:complete!)
-              payment.capture!(capture_amount)
-              order = payment.order
-              payments = order.payments
+        context "capturing a partial amount" do
+          it "logs capture events" do
+            payment.capture!(5000)
+            expect(payment.capture_events.count).to eq(1)
+            expect(payment.capture_events.first.amount).to eq(50)
+          end
 
-              expect(payments.size).to eq 2
-              expect(payments.pending.first.amount).to eq 1
-              # Payment stays processing for spec because of receive(:complete!) stub.
-              expect(payments.processing.first.amount).to eq(capture_amount / 100)
-              expect(payments.processing.first.source).to eq(payments.pending.first.source)
-            end
-
-            it "logs capture events" do
-              payment.capture!(capture_amount)
-              expect(payment.capture_events.count).to eq(1)
-              expect(payment.capture_events.first.amount).to eq(capture_amount / 100)
-            end
+          it "stores the uncaptured amount on the payment" do
+            payment.capture!(6000)
+            expect(payment.uncaptured_amount).to eq(40) # 100 - 60 = 40
           end
         end
 
@@ -382,6 +366,13 @@ describe Spree::Payment, :type => :model do
       it "should log the response" do
         expect(payment.log_entries).to receive(:create!).with(:details => anything)
         payment.void_transaction!
+      end
+
+      context "when gateway does not match the environment" do
+        it "should raise an exception" do
+          allow(gateway).to receive_messages :environment => "foo"
+          expect { payment.void_transaction! }.to raise_error(Spree::Core::GatewayError)
+        end
       end
 
       context "if successful" do
@@ -473,9 +464,9 @@ describe Spree::Payment, :type => :model do
   end
 
   describe "#save" do
-    context "captured payments" do
-      it "update order payment total" do
-        payment = create(:payment, order: order, state: 'completed')
+    context "completed payments" do
+      it "updates order payment total" do
+        payment = Spree::Payment.create(:amount => 100, :order => order, state: "completed")
         expect(order.payment_total).to eq payment.amount
       end
     end
@@ -485,10 +476,6 @@ describe Spree::Payment, :type => :model do
         expect {
           Spree::Payment.create(:amount => 100, :order => order)
         }.not_to change { order.payment_total }
-      end
-
-      it "requires a payment method" do
-        expect(Spree::Payment.create(amount: 100, order: order)).to have(1).error_on(:payment_method)
       end
     end
 
@@ -513,7 +500,7 @@ describe Spree::Payment, :type => :model do
       it "updates payment_state and shipments" do
         expect(order.updater).to receive(:update_payment_state)
         expect(order.updater).to receive(:update_shipment_state)
-        Spree::Payment.create(amount: 100, order: order, payment_method: gateway)
+        Spree::Payment.create(:amount => 100, :order => order)
       end
     end
 
@@ -525,9 +512,7 @@ describe Spree::Payment, :type => :model do
 
       context "when there is an error connecting to the gateway" do
         it "should call gateway_error " do
-          message = double("gateway_error")
-          connection_error = ActiveMerchant::ConnectionError.new(message, nil)
-          expect(gateway).to receive(:create_profile).and_raise(connection_error)
+          expect(gateway).to receive(:create_profile).and_raise(ActiveMerchant::ConnectionError)
           expect do
             Spree::Payment.create(
               :amount => 100,
@@ -585,6 +570,22 @@ describe Spree::Payment, :type => :model do
           :payment_method => gateway
         )
       end
+    end
+  end
+
+  describe '#invalidate_old_payments' do
+      before {
+        Spree::Payment.skip_callback(:rollback, :after, :persist_invalid)
+      }
+      after {
+        Spree::Payment.set_callback(:rollback, :after, :persist_invalid)
+      }
+
+    it 'should not invalidate other payments if not valid' do
+      payment.save
+      invalid_payment = Spree::Payment.new(:amount => 100, :order => order, :state => 'invalid', :payment_method => gateway)
+      invalid_payment.save
+      expect(payment.reload.state).to eq('checkout')
     end
   end
 
@@ -661,6 +662,48 @@ describe Spree::Payment, :type => :model do
       email = 'foo@example.com'
       order.update_attributes(:email => email)
       expect(payment.gateway_options[:email]).to eq(email)
+    end
+  end
+
+  describe "#set_unique_number" do
+    # Regression test for #1998
+    it "sets a unique number on create" do
+      payment.generate_number
+      payment.save
+
+      expect(payment.number).to_not be_blank
+      expect(payment.number.length).to eq 8
+      expect(payment.number).to be_a(String)
+    end
+
+    # Regression test for #3733
+    it "does not regenerate the number on re-save" do
+      payment.run_callbacks(:create)
+      payment.save
+      old_number = payment.number
+      payment.save
+      expect(payment.number).to eq old_number
+    end
+
+    context "other payment exists" do
+      let(:other_payment) {
+        payment = Spree::Payment.new
+        payment.source = card
+        payment.order = order
+        payment.payment_method = gateway
+        payment
+      }
+
+      it "doesn't set duplicate number" do
+        other_payment.run_callbacks(:create)
+        other_payment.save!
+
+        payment.run_callbacks(:create)
+        payment.save!
+
+        expect(payment.number).to_not be_blank
+        expect(payment.number).to_not eq other_payment.number
+      end
     end
   end
 
@@ -835,34 +878,6 @@ describe Spree::Payment, :type => :model do
       (%w{N P S U} << "").each do |char|
         payment.update_attribute(:cvv_response_code, char)
         expect(payment.is_cvv_risky?).to eq(true)
-      end
-    end
-  end
-
-  describe "#editable?" do
-    subject { payment }
-
-    before do
-      subject.state = state
-    end
-
-    context "when the state is 'checkout'" do
-      let(:state) { 'checkout' }
-
-      its(:editable?) { should be(true) }
-    end
-
-    context "when the state is 'pending'" do
-      let(:state) { 'pending' }
-
-      its(:editable?) { should be(true) }
-    end
-
-    %w[processing completed failed void invalid].each do |state|
-      context "when the state is '#{state}'" do
-        let(:state) { state }
-
-        its(:editable?) { should be(false) }
       end
     end
   end
