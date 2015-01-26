@@ -1,21 +1,26 @@
 // Green
 .label-completed,
 .label-complete,
+.label-considered_safe,
 .label-paid,
 .label-shipped,
 .label-ready,
 .label-active,
 .label-success,
-.label-sold,
-.label-open {
-  @extend .label-success;
+.label-sold
+{
+  background-color: $brand-success;
+
+  a {
+    color: white !important;
+  }
 }
 
 // Red
 .label-failed,
 .label-considered_risky,
 .label-error {
-  @extend .label-danger;
+  background-color: $brand-danger;
 }
 
 // Orange
@@ -34,16 +39,11 @@
 .label-canceled,
 .label-void,
 .label-inactive,
-.label-notice {
-  @extend .label-warning;
-}
+.label-notice,
+.label-partial {
+  background-color: $brand-warning;
 
-// Grey
-.label-considered_safe {
-  @extend .label-default;
-}
-
-.label a { 
-  color: white;
-  text-decoration: underline;
+  a {
+    color: white !important;
+  }
 }

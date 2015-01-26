@@ -2,6 +2,33 @@ require 'spec_helper'
 
 describe Spree::Reimbursement, type: :model do
 
+  describe ".before_create" do
+    describe "#generate_number" do
+      context "number is assigned" do
+        let(:number)        { '123' }
+        let(:reimbursement) { Spree::Reimbursement.new(number: number) }
+
+        it "should return the assigned number" do
+          reimbursement.save
+          expect(reimbursement.number).to eq number
+        end
+      end
+
+      context "number is not assigned" do
+        let(:reimbursement) { Spree::Reimbursement.new(number: nil) }
+
+        before do
+          allow(reimbursement).to receive_messages(valid?: true)
+        end
+
+        it "should assign number with random RI number" do
+          reimbursement.save
+          expect(reimbursement.number).to be =~ /RI\d{9}/
+        end
+      end
+    end
+  end
+
   describe "#display_total" do
     let(:total)         { 100.50 }
     let(:currency)      { "USD" }
@@ -23,7 +50,7 @@ describe Spree::Reimbursement, type: :model do
     let!(:adjustments)            { [] } # placeholder to ensure it gets run prior the "before" at this level
 
     let!(:tax_rate)               { nil }
-    let!(:tax_zone) { create(:zone_with_country, default_tax: true) }
+    let!(:tax_zone)               { create(:zone, default_tax: true) }
 
     let(:order)                   { create(:order_with_line_items, state: 'payment', line_items_count: 1, line_items_price: line_items_price, shipment_cost: 0) }
     let(:line_items_price)        { BigDecimal.new(10) }
@@ -86,15 +113,15 @@ describe Spree::Reimbursement, type: :model do
     context 'with included tax' do
       let!(:tax_rate) { create(:tax_rate, name: "VAT Tax", amount: 0.1, included_in_price: true, zone: tax_zone) }
 
-      it 'saves the included tax and refunds the total' do
+      it 'saves the additional tax and refunds the total' do
         expect {
           subject
         }.to change { Spree::Refund.count }.by(1)
         return_item.reload
-        expect(return_item.included_tax_total).to be > 0
+        expect(return_item.included_tax_total).to be < 0
         expect(return_item.included_tax_total).to eq line_item.included_tax_total
-        expect(reimbursement.total).to eq (line_item.pre_tax_amount + line_item.included_tax_total).round(2)
-        expect(Spree::Refund.last.amount).to eq (line_item.pre_tax_amount + line_item.included_tax_total).round(2)
+        expect(reimbursement.total).to eq line_item.pre_tax_amount.round(2, :down)
+        expect(Spree::Refund.last.amount).to eq line_item.pre_tax_amount.round(2, :down)
       end
     end
 
@@ -130,7 +157,7 @@ describe Spree::Reimbursement, type: :model do
   end
 
   describe "#calculated_total" do
-    context 'with return item amounts that would round up if added' do
+    context 'with return item amounts that would round up' do
       let(:reimbursement) { Spree::Reimbursement.new }
 
       subject { reimbursement.calculated_total }
@@ -141,20 +168,6 @@ describe Spree::Reimbursement, type: :model do
       end
 
       it 'rounds down' do
-        expect(subject).to eq 20
-      end
-    end
-
-    context 'with a return item amount that should round up' do
-      let(:reimbursement) { Spree::Reimbursement.new }
-
-      subject { reimbursement.calculated_total }
-
-      before do
-        reimbursement.return_items << Spree::ReturnItem.new(pre_tax_amount: 19.998)
-      end
-
-      it 'rounds up' do
         expect(subject).to eq 20
       end
     end

@@ -11,7 +11,7 @@ describe Spree::Shipment, :type => :model do
                                          touch: true }
   let(:shipping_method) { create(:shipping_method, name: "UPS") }
   let(:shipment) do
-    shipment = Spree::Shipment.new(cost: 1, state: 'pending', stock_location: create(:stock_location))
+    shipment = Spree::Shipment.new(cost: 1, state: 'pending')
     allow(shipment).to receive_messages order: order
     allow(shipment).to receive_messages shipping_method: shipping_method
     shipment.save
@@ -20,23 +20,6 @@ describe Spree::Shipment, :type => :model do
 
   let(:variant) { mock_model(Spree::Variant) }
   let(:line_item) { mock_model(Spree::LineItem, variant: variant) }
-
-  def create_shipment(order, stock_location)
-    order.shipments.create({ stock_location_id: stock_location.id }).inventory_units.create(
-      order_id: order.id,
-      variant_id: order.line_items.first.variant_id,
-      line_item_id: order.line_items.first.id
-    )
-
-  end
-
-  describe "precision of pre_tax_amount" do
-    let!(:line_item) { create :line_item, pre_tax_amount: 4.2051 }
-
-    it "keeps four digits of precision even when reloading" do
-      expect(line_item.reload.pre_tax_amount).to eq(4.2051)
-    end
-  end
 
   # Regression test for #4063
   context "number generation" do
@@ -117,24 +100,10 @@ describe Spree::Shipment, :type => :model do
   end
 
   context "#item_cost" do
-    it 'should equal shipment line items amount with tax' do
-      order = create(:order_with_line_item_quantity, line_items_quantity: 2)
-
-      stock_location = create(:stock_location)
-
-      create_shipment(order, stock_location)
-      create_shipment(order, stock_location)
-
-      create :tax_adjustment, adjustable: order.line_items.first, order: order
-
-      expect(order.shipments.first.item_cost).to eql(11.0)
-      expect(order.shipments.last.item_cost).to eql(11.0)
-    end
-
     it 'should equal line items final amount with tax' do
-      shipment = create(:shipment, order: create(:order_with_line_item_quantity, line_items_quantity: 2))
+      shipment = create(:shipment, order: create(:order_with_totals))
       create :tax_adjustment, adjustable: shipment.order.line_items.first, order: shipment.order
-      expect(shipment.item_cost).to eql(22.0)
+      expect(shipment.item_cost).to eql(11.0)
     end
   end
 
@@ -439,25 +408,14 @@ describe Spree::Shipment, :type => :model do
   end
 
   context "#resume" do
-    it 'transitions state to ready if the order is ready' do
+    it 'will determine new state based on order' do
       allow(shipment.order).to receive(:update!)
 
       shipment.state = 'canceled'
-      expect(shipment).to receive(:determine_state).and_return('ready')
+      expect(shipment).to receive(:determine_state).and_return(:ready)
       expect(shipment).to receive(:after_resume)
       shipment.resume!
       expect(shipment.state).to eq 'ready'
-    end
-
-    it 'transitions state to pending if the order is not ready' do
-      allow(shipment.order).to receive(:update!)
-
-      shipment.state = 'canceled'
-      expect(shipment).to receive(:determine_state).and_return('pending')
-      expect(shipment).to receive(:after_resume)
-      shipment.resume!
-      # Shipment is pending because order is already paid
-      expect(shipment.state).to eq 'pending'
     end
 
     it 'unstocks them items' do
@@ -465,6 +423,17 @@ describe Spree::Shipment, :type => :model do
       shipment.stock_location = mock_model(Spree::StockLocation)
       expect(shipment.stock_location).to receive(:unstock).with(variant, 1, shipment)
       shipment.after_resume
+    end
+
+    it 'will determine new state based on order' do
+      allow(shipment.order).to receive(:update!)
+
+      shipment.state = 'canceled'
+      expect(shipment).to receive(:determine_state).twice.and_return('ready')
+      expect(shipment).to receive(:after_resume)
+      shipment.resume!
+      # Shipment is pending because order is already paid
+      expect(shipment.state).to eq 'pending'
     end
   end
 
@@ -627,7 +596,7 @@ describe Spree::Shipment, :type => :model do
       )
     end
 
-    let(:shipment) { Spree::Shipment.create order_id: order.id, stock_location: create(:stock_location) }
+    let(:shipment) { Spree::Shipment.create order_id: order.id }
 
     let(:shipping_rate) do
       Spree::ShippingRate.create shipment_id: shipment.id, cost: 10
