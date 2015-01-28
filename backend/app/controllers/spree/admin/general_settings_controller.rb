@@ -6,7 +6,7 @@ module Spree
       before_action :set_store
 
       def edit
-        @preferences_security = []
+        @preferences_security = [:check_for_spree_alerts]
       end
 
       def update
@@ -17,8 +17,17 @@ module Spree
 
         current_store.update_attributes store_params
 
-        flash[:success] = Spree.t(:successfully_updated, resource: Spree.t(:general_settings))
+        flash[:success] = Spree.t(:successfully_updated, :resource => Spree.t(:general_settings))
         redirect_to edit_admin_general_settings_path
+      end
+
+      def dismiss_alert
+        if request.xhr? and params[:alert_id]
+          dismissed = Spree::Config[:dismissed_spree_alerts] || ''
+          Spree::Config.set :dismissed_spree_alerts => dismissed.split(',').push(params[:alert_id]).join(',')
+          filter_dismissed_alerts
+          render :nothing => true
+        end
       end
 
       def clear_cache
