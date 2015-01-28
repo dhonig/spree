@@ -398,7 +398,7 @@ module Spree
     end
 
     def deliver_order_confirmation_email
-      OrderMailer.confirm_email(id).deliver_later
+      OrderMailer.confirm_email(self.id).deliver
       update_column(:confirmation_delivered, true)
     end
 
@@ -653,7 +653,7 @@ module Spree
     end
 
     def send_cancel_email
-      OrderMailer.cancel_email(id).deliver_later
+      OrderMailer.cancel_email(self.id).deliver
     end
 
     def after_resume
