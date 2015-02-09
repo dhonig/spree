@@ -6,7 +6,6 @@
     remote:        data-remote
     paginator:     the paginator that renders the pagination tags inside
 -%>
-<<<<<<< HEAD
 <%= paginator.render do %>
   <ul class="pagination pagination-sm">
     <%= prev_page_tag %>
@@ -20,23 +19,3 @@
     <%= next_page_tag %>
   </ul>
 <% end %>
-=======
-<%= paginator.render do -%>
-  <div class="pagination-wrap">
-    <div class="pagination-info">
-      Page <%= current_page %> of <%= total_pages %> 
-    </div>
-    <ul class="pagination pagination-sm">
-      <%= prev_page_tag %>
-      <% each_page do |page| -%>
-        <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
-          <%= page_tag page %>
-        <% elsif !page.was_truncated? -%>
-          <%= gap_tag %>
-        <% end -%>
-      <% end -%>
-      <%= next_page_tag %>
-    </ul>
-  </div>
-<% end -%>
->>>>>>> Backend on Bootstrap

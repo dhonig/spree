@@ -14,13 +14,6 @@
         <% end %>
       </div>
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  <% end %>
->>>>>>> Backend on Bootstrap
-=======
->>>>>>> Cherry picked yesterdays work
 
     <div class="col-md-3" data-hook="stock_location_status">
       <strong><%= Spree.t(:status) %></strong>
@@ -85,31 +78,17 @@
     <% if f.object.country %>
       <%= f.label :state_id, Spree.t(:state) %>
       <span id="state" class="region">
-<<<<<<< HEAD
         <%= f.text_field :state_name, style: "#{f.object.country.states.empty? ? '' : 'display: none;'}", disabled: !f.object.country.states.empty?, class: 'state_name form-control' %>
         <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, { include_blank: true }, {class: 'select2', style: "#{f.object.country.states.empty? ? 'display: none;' : '' };", disabled: f.object.country.states.empty?} %>
-=======
-        <%= f.text_field :state_name, style: "display: #{f.object.country.states.empty? ? 'block' : 'none' };", disabled: !f.object.country.states.empty?, class: 'state_name' %>
-        <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, { include_blank: true }, {class: 'select2', style: "display: #{f.object.country.states.empty? ? 'none' : 'block' };", disabled: f.object.country.states.empty?} %>
->>>>>>> Cherry picked yesterdays work
       </span>
     <% end %>
   </div>
 </div>
 
 <% content_for :head do %>
-<<<<<<< HEAD
   <%= javascript_tag do %>
     $(document).ready(function(){
       $('span#country .select2').on('change', function() { update_state(''); });
     });
   <% end %>
-=======
-  <%= javascript_include_tag 'spree/backend/address_states.js' %>
-  <%= javascript_tag do -%>
-    $(document).ready(function(){
-      $('span#country .select2').on('change', function() { update_state(''); });
-    });
-  <% end -%>
->>>>>>> Cherry picked yesterdays work
 <% end %>

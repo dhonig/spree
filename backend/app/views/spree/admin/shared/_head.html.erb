@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-=======
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
->>>>>>> Backend on Bootstrap
-=======
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
->>>>>>> Bootstrap initial refactor
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <%= csrf_meta_tags %>
@@ -29,7 +20,6 @@
 
 <%= javascript_tag do %>
   <%== "var AUTH_TOKEN = #{form_authenticity_token.inspect};" %>
-  <%== "Spree.api_key = '#{try_spree_current_user.spree_api_key}';" if try_spree_current_user %>
 <% end %>
 
 <%= yield :head %>
