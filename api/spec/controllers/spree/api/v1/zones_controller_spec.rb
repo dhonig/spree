@@ -38,6 +38,35 @@ module Spree
       expect(json_response['zone_members'].size).to eq @zone.zone_members.count
     end
 
+<<<<<<< HEAD:api/spec/controllers/spree/api/v1/zones_controller_spec.rb
+=======
+    context "specifying a rabl template to use" do
+      before do
+        described_class.class_eval do
+          def custom_show
+            respond_with(zone)
+          end
+        end
+      end
+
+      it "uses the specified template" do
+        @routes = ActionDispatch::Routing::RouteSet.new.tap do |r|
+          r.draw { get 'custom_show' => 'spree/api/v1/zones#custom_show' }
+        end
+
+        request.headers['X-Spree-Template'] = 'show'
+        api_get :custom_show, :id => @zone.id
+        expect(response).to render_template('spree/api/v1/zones/show')
+      end
+
+      it "falls back to the default template if the specified template does not exist" do
+        request.headers['X-Spree-Template'] = 'invoice'
+        api_get :show, :id => @zone.id
+        expect(response).to render_template('spree/api/v1/zones/show')
+      end
+    end
+
+>>>>>>> Add v1 namespace for API.:api/spec/controllers/spree/api/v1/zones_controller_spec.rb
     context "as an admin" do
       sign_in_as_admin!
 
